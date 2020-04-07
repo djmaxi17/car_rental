@@ -17,8 +17,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import database.DbConnect;
 import main.LoginSession;
@@ -232,10 +230,4 @@ public class SettleRentGui extends JFrame{
 		
 	}
 
-	public static void main(String []args) throws Exception {
-		UIManager.setLookAndFeel(new NimbusLookAndFeel());
-		SettleRentGui newWindow = new SettleRentGui();
-		newWindow.setVisible(true);
-		
-	}
 }

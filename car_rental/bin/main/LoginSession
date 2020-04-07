@@ -1,0 +1,11 @@
+package main;
+
+public class LoginSession {
+
+	public static int userId; //Global user id
+	public static String usertype; //global user type
+	public static String userFirstName;
+	public static String username; // global username
+	public static boolean isLoggedIn = false; // check if user ls logged in
+	
+}

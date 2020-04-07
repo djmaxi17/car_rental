@@ -536,6 +536,9 @@ public class DbConnect {
 				
 				String query = "INSERT INTO rents (customerId,carPlateNum,registeredBy,dateRented,dateDue,numOfDaysDefault,"
 						+"rentCost,customerPoints) VALUES (?,?,?,?,?,?,?,?)";
+				
+				String updatePoints = "UPDATE customers SET fidelityPoints = ? WHERE customerId = ?";
+				
 				ps = con.prepareStatement(query);
 				ps.setInt(1, rent.getCustomerId());
 				ps.setString(2, rent.getCar().getCarPlateNumber());
@@ -545,9 +548,26 @@ public class DbConnect {
 				ps.setInt(6, numDays);
 				ps.setDouble(7, rent.getRentCost());
 				ps.setInt(8, rent.getCustomerPoints());
-
+				
 				ps.executeUpdate();
 				System.out.println("Records for Rent inserted");
+		
+				
+				ps = con.prepareStatement(updatePoints);
+				
+				int points = rent.getCustomerPoints();
+				
+				if (points == 100) {
+					ps.setInt(1, 0);
+					
+				}else {
+					ps.setInt(1, points);
+				}
+				
+				ps.setInt(2,rent.getCustomerId());
+				ps.executeUpdate();
+				
+				
 				
 				String carPlate = rent.getCar().getCarPlateNumber();
 				int custId = rent.getCustomerId();
