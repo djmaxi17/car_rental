@@ -1,0 +1,15 @@
+Test Accounts:
+
+Technician Account:
+
+Email: t.t@maxiautomobile.com
+Decoded Password: maxi8t
+
+Manager Account:
+
+Email: m.t@maxiautomobile.com
+Decoded Password: maxi8m
+
+Clerk Account:
+Email: c.t@maxiautomobile.com
+Decoded Password: maxi8c
