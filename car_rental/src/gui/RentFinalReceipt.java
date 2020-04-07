@@ -93,7 +93,7 @@ public class RentFinalReceipt extends JDialog {
 		
 		String textData = "<html><body><pre>\r\n          <b>MAXI AUTOMOBILE</b>\r\n" + 
 						"\r\n  * * * * * * * * * * * * * * * *  \r\n" + 
-						"\r\n         <b>CAR RENTAL RECEIPT</b>   \r\n" + 
+						"\r\n         <b>SETTLE RENT RECEIPT</b>   \r\n" + 
 						"\r\n  * * * * * * * * * * * * * * * *  \r\n" +
 						"\r\n  Customer Name: "+custName+"\r\n" +
 						"\r\n  Rented Car: "+rentCar+"\r\n  @ Rs "+carRate+"/Day\r\n" +

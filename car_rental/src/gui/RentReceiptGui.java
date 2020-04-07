@@ -101,7 +101,7 @@ public class RentReceiptGui extends JDialog {
 						"\r\n  Number of Days: "+numDays+"\r\n" +
 						"\r\n  Date Due: "+dateDue+"\r\n" +
 						"\r\n        <b>***Total = Rs"+total+"***</b>\r\n "+
-						"  Thanks for choosing Maxi Auto\r\n" +
+						"  Thanks for choosing Maxi Auto\r" +
 						"\r\n  - - - - - - - - - - - - - - - -  \r\n"+
 						"\t  Contact Details:\r\n\t" +
 						"Tel: +230 57969910\r\n\tFax: +230 70814603\r\n" +
