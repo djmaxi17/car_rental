@@ -126,7 +126,7 @@ public class ManageCarGui extends JFrame{
 		
 		//back
 		back = new JButton("Back");
-		back.setBounds(16, 619, 100,30);
+		back.setBounds(10, 600, 100,30);
 		
 		//logo
 		logo = new ImageIcon(this.getClass().getResource("companyName.png"));
@@ -136,7 +136,7 @@ public class ManageCarGui extends JFrame{
 		getContentPane().add(companyLogo);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(6, 51, 610, 556);
+		panel.setBounds(6, 51, 610, 545);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		JLabel plateLabel = new JLabel("Plate No. ");
@@ -233,7 +233,7 @@ public class ManageCarGui extends JFrame{
 		
 		//submit
 		submit = new JButton("Register");
-		submit.setBounds(469, 520, 100, 30);
+		submit.setBounds(469, 509, 100, 30);
 		panel.add(submit);
 		JRootPane rootPane = SwingUtilities.getRootPane(submit); 
 		rootPane.setDefaultButton(submit);
@@ -317,7 +317,7 @@ public class ManageCarGui extends JFrame{
 		panel.add(availability);
 		
 		carImgAddNewCar = new JLabel();
-		carImgAddNewCar.setBounds(101, 390, 288, 160);
+		carImgAddNewCar.setBounds(130, 383, 288, 160);
 		panel.add(carImgAddNewCar);
 		
 		panel_1 = new JPanel();
@@ -331,7 +331,7 @@ public class ManageCarGui extends JFrame{
 		panel_1.add(lblNewLabel_1);
 		
 		carPlate = new JTextField();
-		carPlate.setBounds(29, 63, 341, 26);
+		carPlate.setBounds(29, 63, 305, 26);
 		panel_1.add(carPlate);
 		carPlate.setColumns(10);
 		
@@ -344,7 +344,7 @@ public class ManageCarGui extends JFrame{
 		panel_1.add(deleteCar);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(628, 217, 376, 390);
+		panel_2.setBounds(628, 217, 376, 379);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -393,7 +393,7 @@ public class ManageCarGui extends JFrame{
 		lblNewLabel_7.setBounds(117, 224, 133, 16);
 		panel_2.add(lblNewLabel_7);
 		
-		updateAvailableCb = new JComboBox(available);
+		updateAvailableCb = new JComboBox<Object>(available);
 		updateAvailableCb.setBounds(195, 270, 143, 27);
 		panel_2.add(updateAvailableCb);
 		
