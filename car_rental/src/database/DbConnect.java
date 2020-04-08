@@ -683,10 +683,13 @@ public class DbConnect {
 	  					String carPlateNum = rs.getString("carPlateNum");
 	  					Date dateRented = rs.getDate("dateRented");
 	  					Date dateDue = rs.getDate("dateDue");
+	  					Date dateReturned = rs.getDate("dateReturned");
+	  					int daysTaken = rs.getInt("numOfDaysTaken");
+	  					float penalty = rs.getFloat("rentPenalty");
 	  					float total = rs.getFloat("rentCost");
 	  					int numDaysDefault = rs.getInt("numOfDaysDefault");
 	  					int rentStatus1 = rs.getInt("rentStatus");
-	  					rents.add(new RentRegistration(rentId1,customerId,carPlateNum,dateRented,dateDue,total,numDaysDefault,rentStatus1));
+	  					rents.add(new RentRegistration(rentId1,customerId,carPlateNum,dateRented,dateDue,total,numDaysDefault,rentStatus1,dateReturned,daysTaken,penalty));
 	  					
 	  				}
 	  				

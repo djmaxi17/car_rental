@@ -289,10 +289,11 @@ public class RentRegistrationGui extends JFrame {
 			public void keyReleased(KeyEvent e) {
 				
 				String searchValue = searchJt.getText().toLowerCase();
+				String removeEscapeChar = searchValue.replaceAll("[^a-z -.A-Z0-9]", "");
 				TableRowSorter<DefaultTableModel> max = new TableRowSorter<DefaultTableModel>(dm);
 				availCustomerTable.setRowSorter(max);
-				if(!searchValue.equalsIgnoreCase("")) {
-					max.setRowFilter(RowFilter.regexFilter(searchValue));
+				if(removeEscapeChar.length()!=0) {
+					max.setRowFilter(RowFilter.regexFilter(removeEscapeChar));
 					defaultcsp.setVisible(true);
 				}
 				else {
@@ -306,6 +307,7 @@ public class RentRegistrationGui extends JFrame {
 		searchJt.setBounds(144, 5, 300, 26);
 		searchCustomerPanel.add(searchJt);
 		searchJt.setColumns(10);
+		
 		
 		
 		//defines the selection model to row

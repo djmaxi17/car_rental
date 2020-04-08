@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -18,14 +20,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import car.Car;
 import database.DbConnect;
 import main.LogoutSession;
+import java.awt.Font;
 
 public class ClerkMainGui extends JFrame {
 	
@@ -39,7 +45,6 @@ public class ClerkMainGui extends JFrame {
 	private JButton settleRent;
 	private JButton next;
 	private JTextField searchText;
-	private JButton searchBtn;
 	private JButton logout;
 
 	private JTextField modelField;
@@ -70,13 +75,13 @@ public class ClerkMainGui extends JFrame {
 	private static String plateValue;
 	private JLabel imageComponent;
 	private JTextField ratingField;
-	
+	JTable availabilityTable;
 	//previously selected car in rent registration and back
 	private ArrayList<Car> car;
 	private Car selCar;
 	private String getPlate;
 	private int currentRow;
-	
+	DefaultTableModel dm;
 
 public ClerkMainGui(String revertPlate) {
 	super("Clerk Interface");
@@ -112,11 +117,26 @@ public ClerkMainGui(String revertPlate) {
 	});
 	settleRent.setBounds(10, 600, 100, 30);
 	
-	searchBtn = new JButton("Search");
-	searchBtn.setBounds(149,38, 100,30);
-	
 	searchText = new JTextField(20);
-	searchText.setBounds(10,38,140,30);
+	searchText.setBounds(70,38,140,30);
+	
+	searchText.addKeyListener(new KeyAdapter() {
+		@Override
+		public void keyReleased(KeyEvent e) {
+			
+			String searchValue = searchText.getText().toLowerCase();
+			String removeEscapeChar = searchValue.replaceAll("[^a-z -.A-Z0-9]", "");
+			TableRowSorter<DefaultTableModel> max = new TableRowSorter<DefaultTableModel>(dm);
+			availabilityTable.setRowSorter(max);
+			if(removeEscapeChar.length()!=0) {
+				max.setRowFilter(RowFilter.regexFilter(removeEscapeChar));
+			}
+			else {
+				max.setRowFilter(null);
+			}
+			
+		}
+	});
 
 	
 	cars = connect.bindTable(null, 1);
@@ -133,15 +153,17 @@ public ClerkMainGui(String revertPlate) {
     	}
     	
     	//populates cars data in an object 2D array dataFromDb
-    	 	dataFromDb[i][0] = cars.get(i).getCarPlateNumber();
-    	 	dataFromDb[i][1] = cars.get(i).getFullCarName();
+    	 	dataFromDb[i][0] = cars.get(i).getCarPlateNumber().toLowerCase();
+    	 	dataFromDb[i][1] = cars.get(i).getFullCarName().toLowerCase();
 			dataFromDb[i][2] = cars.get(i).getSeats();
-			dataFromDb[i][3] = cars.get(i).getGear();
+			dataFromDb[i][3] = cars.get(i).getGear().toLowerCase();
 			dataFromDb[i][4] = cars.get(i).getCarRate();
     }
  
     //creates table with data from dataFromDb and columnName
-	final JTable availabilityTable = new JTable(dataFromDb,columnName);
+    DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName);
+    availabilityTable = new JTable(tableModel);
+	dm = (DefaultTableModel) availabilityTable.getModel();
 	availabilityTable.setShowGrid(false);
 	availabilityTable.setRowSelectionAllowed(true);
 	availabilityTable.setDragEnabled(true);
@@ -167,7 +189,8 @@ public ClerkMainGui(String revertPlate) {
 	select.addListSelectionListener(new ListSelectionListener(){
 		public void valueChanged(ListSelectionEvent e) {
 			//fills the different fields on the right
-			int rowSelected = availabilityTable.getSelectedRow();
+			int rowSelected = availabilityTable.convertRowIndexToModel(availabilityTable.getSelectedRow());
+			if(rowSelected !=-1) {
 			plateValue = availabilityTable.getModel().getValueAt(rowSelected, 0).toString();
 			car = connect.getCar(plateValue, -1);
 			selCar = car.get(0);
@@ -195,7 +218,7 @@ public ClerkMainGui(String revertPlate) {
 			ImageIcon image = new ImageIcon(new ImageIcon(selCar.getCarImage()).getImage().getScaledInstance(401, 198, Image.SCALE_SMOOTH));  
 			imageComponent.setIcon(image);
 			getPlate = cpnField.getText();
-			
+			}
 		}
 	});
 	
@@ -228,7 +251,6 @@ public ClerkMainGui(String revertPlate) {
 	//add to the main jpanel
 	getContentPane().add(settleRent);
 	getContentPane().add(searchText);
-	getContentPane().add(searchBtn);
 	getContentPane().add(logout);
 	getContentPane().add(sp);
 	
@@ -475,5 +497,10 @@ public ClerkMainGui(String revertPlate) {
 		});
 		settingButton.setBounds(945, 39, 38, 28);
 		getContentPane().add(settingButton);
+		
+		JLabel lblNewLabel = new JLabel("Search");
+		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+		lblNewLabel.setBounds(10, 45, 67, 16);
+		getContentPane().add(lblNewLabel);
 	}
 }
