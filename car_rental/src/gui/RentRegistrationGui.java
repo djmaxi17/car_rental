@@ -2,11 +2,9 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.SystemColor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -33,11 +31,9 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -49,6 +45,8 @@ import customer.FidelityCard;
 import database.DbConnect;
 import main.LoginSession;
 import rentRegistration.RentRegistration;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class RentRegistrationGui extends JFrame {
@@ -111,24 +109,6 @@ public class RentRegistrationGui extends JFrame {
 	private FidelityCard fid;
 	
 	static RentRegistrationGui rentFrame;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(new NimbusLookAndFeel());
-
-					rentFrame = new RentRegistrationGui("342 JL 19");
-					rentFrame.setVisible(true);
-					rentFrame.getNoDaysTf().requestFocus();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -137,12 +117,33 @@ public class RentRegistrationGui extends JFrame {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public RentRegistrationGui(String getPlate) {
 		super("Rent Registration");
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					if(LoginSession.usertype.equals("clerk")) {
+						ClerkMainGui Clerkmain = new ClerkMainGui(null);
+						Clerkmain.setVisible(true);
+					}
+					else if(LoginSession.usertype.equals("manager")) {
+						ManagerGui manager = new ManagerGui();
+						manager.setVisible(true);
+					}
+					else {
+						System.out.println("Log in first");
+					}
+				}
+				catch(Exception ex) {
+					System.out.println("exception: " +ex);
+				}
+			}
+		});
 		setBackground(Color.LIGHT_GRAY);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1010, 678);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -257,9 +258,19 @@ public class RentRegistrationGui extends JFrame {
     	 	dataFromDb[i][1] = customers.get(i).getEmail();
 			dataFromDb[i][2] = String.valueOf(customers.get(i).getCustId());
 	    }
-	    
-	    
-	    DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName);
+	   
+	    DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName) {
+	        /**
+			 * 
+			 */
+			private static final long serialVersionUID = -8353222665595177323L;
+
+			@Override
+	        public boolean isCellEditable(int row, int column) {
+	           //all cells false
+	           return false;
+	        }
+	    };
 		final JTable availCustomerTable = new JTable(tableModel);
 		dm = (DefaultTableModel) availCustomerTable.getModel();
 		
@@ -311,10 +322,11 @@ public class RentRegistrationGui extends JFrame {
 			public void keyReleased(KeyEvent e) {
 				
 				String searchValue = searchJt.getText().toLowerCase();
+				String removeEscapeChar = searchValue.replaceAll("[^a-z -.A-Z0-9]", "");
 				TableRowSorter<DefaultTableModel> max = new TableRowSorter<DefaultTableModel>(dm);
 				availCustomerTable.setRowSorter(max);
-				if(!searchValue.equalsIgnoreCase("")) {
-					max.setRowFilter(RowFilter.regexFilter(searchValue));
+				if(removeEscapeChar.length()!=0) {
+					max.setRowFilter(RowFilter.regexFilter(removeEscapeChar));
 					defaultcsp.setVisible(true);
 				}
 				else {
@@ -328,6 +340,7 @@ public class RentRegistrationGui extends JFrame {
 		searchJt.setBounds(144, 5, 300, 26);
 		searchCustomerPanel.add(searchJt);
 		searchJt.setColumns(10);
+		
 		
 		
 		//defines the selection model to row
@@ -567,9 +580,7 @@ public class RentRegistrationGui extends JFrame {
 		
 		//autofill the date rented with todayDate
 		LocalDate localDate = LocalDate.now();
-		System.out.println(localDate);
         dateToday = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate);
-        System.out.println(dateToday);
         dateRentedField.setText(dateToday);
         
 		JLabel CusIdLbl = new JLabel("Customer Licence Number:");
@@ -866,7 +877,7 @@ public class RentRegistrationGui extends JFrame {
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(email);
         return m.matches();
- }
+	}
 
 //	public Boolean validateEmail(String theEmail) {
 //		String regex = "^(.+)@(.+)$";

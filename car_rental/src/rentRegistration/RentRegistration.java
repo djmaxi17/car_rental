@@ -2,11 +2,8 @@ package rentRegistration;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import org.joda.time.Days;
 
@@ -46,7 +43,7 @@ public class RentRegistration {
 	}
 	
 	
-	public RentRegistration(int rentId1, int cust, String car, Date dateRented2, Date dateDue2, float total ,int numDaysDefault, int rentStatus) {
+	public RentRegistration(int rentId1, int cust, String car, Date dateRented2, Date dateDue2, float total ,int numDaysDefault, int rentStatus, Date dateReturned2, int daysTaken, float penalty2) {
 		DbConnect connect = new DbConnect();
 		this.rentId = rentId1;
 		this.customer = connect.BindTableCustomer(cust,-1).get(0);
@@ -56,6 +53,11 @@ public class RentRegistration {
 		this.dateDue = dateDue2;
 		this.rentCost = total;
 		this.rentStatus = rentStatus;
+		if(dateReturned2!=null) {
+			this.dateReturned = dateReturned2.toString();
+		}
+		this.numOfDaysTaken = daysTaken;
+		this.penalty = penalty2;
 	}
 
 

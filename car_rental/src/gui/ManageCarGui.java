@@ -3,11 +3,12 @@ package gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,6 +21,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -28,7 +30,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import car.Car;
 import database.DbConnect;
 import main.LoginSession;
-import javax.swing.JPanel;
 
 public class ManageCarGui extends JFrame{
 	/**
@@ -105,13 +106,21 @@ public class ManageCarGui extends JFrame{
 	public ManageCarGui() {
 		//title
 		super("Manage Car");
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				ManagerGui manager = null;
+				manager = new ManagerGui();
+				manager.setVisible(true);
+			}
+		});
 		getContentPane().setLayout(null);
 		this.setSize(1010,678);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 
 		//font for text
 		Font font = new Font("Sans Serif", Font.BOLD,14);

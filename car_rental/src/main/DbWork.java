@@ -5,13 +5,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import database.DbConnect;
-
 public class DbWork {
 
 	public static void main(String[] arg) throws NoSuchAlgorithmException, InvalidKeySpecException, ParseException {
-		DbConnect connect = new DbConnect();
-		
+//		DbConnect connect = new DbConnect();
+//		
 //		
 //		ArrayList<Customer> customers = connect.BindTableCustomer(0, -1);
 //		for(Customer c :customers ) {

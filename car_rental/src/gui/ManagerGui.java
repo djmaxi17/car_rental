@@ -2,7 +2,6 @@
 package gui;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -18,8 +17,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -27,8 +28,6 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import car.Car;
 import database.DbConnect;
 import main.LogoutSession;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 public class ManagerGui extends JFrame {
 	/**
@@ -91,7 +90,7 @@ public class ManagerGui extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		//instantiate attributes
 		settleRent = new JButton("Settle Rent");
 		settleRent.addActionListener(new ActionListener() {

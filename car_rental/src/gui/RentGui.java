@@ -13,22 +13,25 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import database.DbConnect;
 import main.LoginSession;
 import rentRegistration.RentRegistration;
+import javax.swing.SwingConstants;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class SettleRentGui extends JFrame{
+public class RentGui extends JFrame{
 
 	/**
 	 * 
@@ -36,7 +39,6 @@ public class SettleRentGui extends JFrame{
 	private static final long serialVersionUID = 6228787531300890603L;
 	Container contentPane = getContentPane();
 	JTextField searchField;
-	JButton settleRentBtn;
 	JButton backBtn;
 	
 	ImageIcon logoimg;
@@ -50,9 +52,10 @@ public class SettleRentGui extends JFrame{
 	
 	static SettleRentGui rentFrame;
 	
-	public SettleRentGui() {
-		super("Settle Rent");
+	public RentGui() {
+		super("All Settled Rents");
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				try {
 					if(LoginSession.usertype.equals("clerk")) {
@@ -114,57 +117,6 @@ public class SettleRentGui extends JFrame{
 	}
 	
 	private void footerBar() {
-		// footer settle rent btn
-		
-		// next btn
-		settleRentBtn = new JButton("Settle Rent");
-		settleRentBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				int rowSelected = availabilityTable.convertRowIndexToModel(availabilityTable.getSelectedRow());
-				
-					if(rowSelected!=-1) {
-						
-						int confirm = JOptionPane.showConfirmDialog(null, "Are you sure to settle this rent?","Confirmation",JOptionPane.YES_NO_OPTION);
-						
-							if(confirm==0) {
-								
-								String rentId = availabilityTable.getModel().getValueAt(rowSelected, 0).toString();
-								RentRegistration selectedRent = connect.BindTableRent(Integer.valueOf(rentId), -1).get(0);
-						
-//								LocalDate localDate = LocalDate.now();
-//				       			String dateToday = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate);
-								
-								//set 2020-04-17 as Today Date for testing purposes
-								String dateToday = "2020-04-17";
-				        
-								try {
-				        	
-									selectedRent.setDateReturned(dateToday);
-									
-									if(connect.updateRent(selectedRent)) {
-										
-										ClerkMainGui clerk = new ClerkMainGui(null);
-										RentFinalReceipt receipt = new RentFinalReceipt(rentFrame, selectedRent);
-										receipt.setVisible(true);
-										dispose();
-										clerk.setVisible(true);
-									}
-									else {
-										JOptionPane.showMessageDialog(null, "There has been an error! Re-try", "Error", JOptionPane.ERROR_MESSAGE);
-									}
-							
-								} catch (ParseException e1) {
-									e1.printStackTrace();
-								}
-						}
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Nothing is Selected!", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		settleRentBtn.setBounds(837,600,143,30);
 		// back btn
 		backBtn = new JButton("Back");
 		backBtn.setBounds(10,600,100,30);
@@ -174,56 +126,83 @@ public class SettleRentGui extends JFrame{
 	// function to display available cars
 	private void listAvailableCars() {
 		
-		rents = connect.BindTableRent(0, 1);
+		rents = connect.BindTableRent(0, 0);
 		//create array to store names of cars available
 		//loop through array list of available cars objects
-		String columnName [] = {"Id","Customer", "Car", "Date Rented", "Date due", "Rent Cost"};
-		String [][] dataFromDb = new String[rents.size()][6];
+		String columnName [] = {"Id","Customer", "Car", "Date Rented", "Date Due","DD","Date Returned","DT","Rent Cost","Penalty"};
+		String [][] dataFromDb = new String[rents.size()][10];
 		
 		for (int i=0; i<rents.size(); i++) {
 			
-			for (int j=0; j <5; j++) {
+			for (int j=0; j <10; j++) {
 				
 				int id = rents.get(i).getRentId();
 				String customer = rents.get(i).getCustomer().getFullName().toLowerCase();
 				String car = rents.get(i).getCar().getFullCarName().toLowerCase();
 				String rentDate = rents.get(i).getDateRented().toLowerCase();
 				String rentDue = rents.get(i).getDateDue().toString().toLowerCase();
-				float total = rents.get(i).getRentCost();
+				int daysDefault = rents.get(i).getNumOfDaysDefault();
+				String rentReturned = null;
+				if(rents.get(i).getDateReturned()!=null) {
+					rentReturned = rents.get(i).getDateReturned().toLowerCase();
+				}
+				
+				int daysTaken = rents.get(i).getNumOfDaysTaken();
+				float rentCost = rents.get(i).getRentCost();
+				float penalty = rents.get(i).getPenalty();
 				
 				dataFromDb[i][0] = String.valueOf(id);
 				dataFromDb[i][1] = customer;
 				dataFromDb[i][2] = car;
 				dataFromDb[i][3] = rentDate;
 				dataFromDb[i][4] = rentDue;
-				dataFromDb[i][5] = String.valueOf(total);
+				dataFromDb[i][5] = String.valueOf(daysDefault);
+				dataFromDb[i][6] = rentReturned;
+				dataFromDb[i][7] = String.valueOf(daysTaken);
+				dataFromDb[i][8] = String.valueOf(rentCost);
+				dataFromDb[i][9] = String.valueOf(penalty);
 				
 			}
 		}
-	    DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName) {
-	        /**
-			 * 
-			 */
-			private static final long serialVersionUID = -8353222665595177323L;
+		DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName) {
+		        /**
+				 * 
+				 */
+				private static final long serialVersionUID = -8353222665595177323L;
 
-			@Override
-	        public boolean isCellEditable(int row, int column) {
-	           //all cells false
-	           return false;
-	        }
-	    };
-	    availabilityTable = new JTable(tableModel);
-		dm = (DefaultTableModel) availabilityTable.getModel();
+				@Override
+		        public boolean isCellEditable(int row, int column) {
+		           //all cells false
+		           return false;
+				}
+		};
+		availabilityTable = new JTable(tableModel);
+//		availabilityTable = new JTable(dataFromDb,columnName);
+		dm= (DefaultTableModel) availabilityTable.getModel();
 		availabilityTable.setShowGrid(false);
 		availabilityTable.setRowSelectionAllowed(true);
 		availabilityTable.setDragEnabled(true);
 		
 		//some adjustments to the table and adding it to and jscrollpane which is then added to another jpanel sp
 		availabilityTable.getColumnModel().getColumn(0).setResizable(false);
+		availabilityTable.getColumnModel().getColumn(0).setMaxWidth(50);
+		
 		availabilityTable.getColumnModel().getColumn(1).setResizable(false);
 		availabilityTable.getColumnModel().getColumn(2).setResizable(false);
+		
 		availabilityTable.getColumnModel().getColumn(3).setResizable(false);
+		
+		
 		availabilityTable.getColumnModel().getColumn(4).setResizable(false);
+		availabilityTable.getColumnModel().getColumn(5).setResizable(false);
+		availabilityTable.getColumnModel().getColumn(5).setMaxWidth(50);
+		
+		availabilityTable.getColumnModel().getColumn(6).setResizable(false);
+		availabilityTable.getColumnModel().getColumn(7).setResizable(false);
+		availabilityTable.getColumnModel().getColumn(7).setMaxWidth(50);
+		
+		availabilityTable.getColumnModel().getColumn(8).setResizable(false);
+		availabilityTable.getColumnModel().getColumn(9).setResizable(false);
 		availabilityTable.getTableHeader().setReorderingAllowed(false);
 		
 		ListSelectionModel select = availabilityTable.getSelectionModel();
@@ -238,7 +217,6 @@ public class SettleRentGui extends JFrame{
 		contentPane.setLayout(null);
 		contentPane.add(dispLogo);
 		contentPane.add(searchField);
-		contentPane.add(settleRentBtn);
 		contentPane.add(backBtn);
 		contentPane.add(sp);
 		
@@ -247,17 +225,11 @@ public class SettleRentGui extends JFrame{
 		lblNewLabel.setBounds(10, 54, 90, 16);
 		getContentPane().add(lblNewLabel);
 		
-		JButton historyBtn = new JButton("Settled Rents History");
-		historyBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RentGui rentgui = null;
-					rentgui = new RentGui();
-				rentgui.setVisible(true);
-				dispose();
-			}
-		});
-		historyBtn.setBounds(394, 601, 170, 28);
-		getContentPane().add(historyBtn);
+		JLabel titleLabel = new JLabel("Settled Rents Details");
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+		titleLabel.setBounds(404, 50, 201, 16);
+		getContentPane().add(titleLabel);
 		HandlerClass handler = new HandlerClass();
 		backBtn.addActionListener(handler);
 		
@@ -268,19 +240,9 @@ public class SettleRentGui extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			if(e.getActionCommand() == "Back");
 			try {
-				if(LoginSession.usertype.equals("clerk")) {
-					ClerkMainGui Clerkmain = new ClerkMainGui(null);
-					Clerkmain.setVisible(true);
-					dispose();
-				}
-				else if(LoginSession.usertype.equals("manager")) {
-					ManagerGui manager = new ManagerGui();
-					manager.setVisible(true);
-					dispose();
-				}
-				else {
-					System.out.println("Log in first");
-				}
+				SettleRentGui settle = new SettleRentGui();
+				settle.setVisible(true);
+				dispose();
 			}
 			catch(Exception ex) {
 				System.out.println("exception: " +ex);
@@ -288,5 +250,25 @@ public class SettleRentGui extends JFrame{
 
 		}
 		
+	}
+	
+	public static void main(String[] args) throws ParseException {
+		try {
+			UIManager.setLookAndFeel( new NimbusLookAndFeel() );
+//=			UIManager.setLookAndFeel( new SyntheticaDarkLookAndFeel() );
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//instantiate login gui only if connection has been established with database
+//		if (connect.DbConnect()) {
+//			
+		RentGui login = new RentGui();
+		login.setVisible(true);
+		
+//		}else if (!connect.DbConnect()) {
+//			
+//			JOptionPane.showMessageDialog(null, "Failed to connect to database !", "ERROR", JOptionPane.ERROR_MESSAGE);
+//		}
 	}
 }

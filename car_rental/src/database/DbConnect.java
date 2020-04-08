@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import car.Car;
 import customer.Customer;
@@ -176,6 +177,47 @@ public class DbConnect {
 			
 		}catch(SQLException ex) {
 			System.out.println("SQL Error: "+ex);
+			return false;
+		}
+	}
+	
+	public boolean changePassword(String email,String cp,String np) {
+		
+		try {
+			
+			
+			String query = "SELECT employeePassword FROM employees WHERE employeeEmail=?;";
+			
+			ps = con.prepareStatement(query);
+			ps.setString(1,email);
+			rs = ps.executeQuery();
+			
+			if(!rs.next()) {
+				JOptionPane.showMessageDialog(null, "Invalid Email!","ERROR",JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			else {
+				String password = rs.getString("employeePassword");
+				
+				boolean response = Hash.validatePassword(cp, password);
+				if(!response) {
+					JOptionPane.showMessageDialog(null, "Invalid Current Password!","ERROR",JOptionPane.ERROR_MESSAGE);
+					return false;
+				}
+				else {
+					String newHash = Hash.generateStorngPasswordHash(np);
+					String queryUpdate = "UPDATE employees SET employeePassword =? WHERE employeeEmail=?;";
+					ps = con.prepareStatement(queryUpdate);
+					ps.setString(1,newHash);
+					ps.setString(2, email);
+					ps.executeUpdate();
+					JOptionPane.showMessageDialog(null, "Password has changed!");
+					return true;
+				}
+			}
+			
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException | SQLException e) {
+			// TODO Auto-generated catch block
 			return false;
 		}
 	}
@@ -641,10 +683,13 @@ public class DbConnect {
 	  					String carPlateNum = rs.getString("carPlateNum");
 	  					Date dateRented = rs.getDate("dateRented");
 	  					Date dateDue = rs.getDate("dateDue");
+	  					Date dateReturned = rs.getDate("dateReturned");
+	  					int daysTaken = rs.getInt("numOfDaysTaken");
+	  					float penalty = rs.getFloat("rentPenalty");
 	  					float total = rs.getFloat("rentCost");
 	  					int numDaysDefault = rs.getInt("numOfDaysDefault");
 	  					int rentStatus1 = rs.getInt("rentStatus");
-	  					rents.add(new RentRegistration(rentId1,customerId,carPlateNum,dateRented,dateDue,total,numDaysDefault,rentStatus1));
+	  					rents.add(new RentRegistration(rentId1,customerId,carPlateNum,dateRented,dateDue,total,numDaysDefault,rentStatus1,dateReturned,daysTaken,penalty));
 	  					
 	  				}
 	  				
