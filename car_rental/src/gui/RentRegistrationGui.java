@@ -45,6 +45,8 @@ import customer.FidelityCard;
 import database.DbConnect;
 import main.LoginSession;
 import rentRegistration.RentRegistration;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class RentRegistrationGui extends JFrame {
@@ -115,8 +117,29 @@ public class RentRegistrationGui extends JFrame {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public RentRegistrationGui(String getPlate) {
 		super("Rent Registration");
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					if(LoginSession.usertype.equals("clerk")) {
+						ClerkMainGui Clerkmain = new ClerkMainGui(null);
+						Clerkmain.setVisible(true);
+					}
+					else if(LoginSession.usertype.equals("manager")) {
+						ManagerGui manager = new ManagerGui();
+						manager.setVisible(true);
+					}
+					else {
+						System.out.println("Log in first");
+					}
+				}
+				catch(Exception ex) {
+					System.out.println("exception: " +ex);
+				}
+			}
+		});
 		setBackground(Color.LIGHT_GRAY);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1010, 678);
 		setLocationRelativeTo(null);
 		setResizable(false);

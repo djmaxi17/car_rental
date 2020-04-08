@@ -25,8 +25,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import database.DbConnect;
+import main.LoginSession;
 import rentRegistration.RentRegistration;
 import javax.swing.SwingConstants;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class RentGui extends JFrame{
 
@@ -51,7 +54,28 @@ public class RentGui extends JFrame{
 	
 	public RentGui() {
 		super("All Settled Rents");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					if(LoginSession.usertype.equals("clerk")) {
+						ClerkMainGui Clerkmain = new ClerkMainGui(null);
+						Clerkmain.setVisible(true);
+					}
+					else if(LoginSession.usertype.equals("manager")) {
+						ManagerGui manager = new ManagerGui();
+						manager.setVisible(true);
+					}
+					else {
+						System.out.println("Log in first");
+					}
+				}
+				catch(Exception ex) {
+					System.out.println("exception: " +ex);
+				}
+			}
+		});
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(1010, 678);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);

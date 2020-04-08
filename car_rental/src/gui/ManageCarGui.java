@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -104,11 +106,19 @@ public class ManageCarGui extends JFrame{
 	public ManageCarGui() {
 		//title
 		super("Manage Car");
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				ManagerGui manager = null;
+				manager = new ManagerGui();
+				manager.setVisible(true);
+			}
+		});
 		getContentPane().setLayout(null);
 		this.setSize(1010,678);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
 		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 
