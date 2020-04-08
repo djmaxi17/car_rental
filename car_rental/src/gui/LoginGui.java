@@ -2,7 +2,6 @@ package gui;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -84,7 +83,8 @@ public class LoginGui extends JFrame implements ActionListener {
 	private void setLayoutManager() {
 		container.setLayout(null);
 		container.setBackground(Color.BLACK);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+		
+		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		logoImg = new ImageIcon(getClass().getResource("logo.png"));
 		labelLogo = new JLabel(logoImg);
 		container.add(labelLogo);

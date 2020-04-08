@@ -2,12 +2,12 @@ package technicianGui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -18,6 +18,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingUtilities;
 
 import database.DbConnect;
+import gui.LoginGui;
 
 public class DeleteClerkInterface extends JDialog {
 
@@ -32,7 +33,7 @@ public class DeleteClerkInterface extends JDialog {
 	public DeleteClerkInterface(TechnicianInterfaces techFrame) {
 		super(techFrame, "Remove a Clerk",true);
 		getContentPane().setBackground(Color.BLACK);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 400, 269);
 		setResizable(false);

@@ -3,7 +3,6 @@ package gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -20,6 +19,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -28,7 +28,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import car.Car;
 import database.DbConnect;
 import main.LoginSession;
-import javax.swing.JPanel;
 
 public class ManageCarGui extends JFrame{
 	/**
@@ -111,7 +110,7 @@ public class ManageCarGui extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 
 		//font for text
 		Font font = new Font("Sans Serif", Font.BOLD,14);

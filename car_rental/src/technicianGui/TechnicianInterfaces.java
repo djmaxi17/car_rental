@@ -3,7 +3,6 @@ package technicianGui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -56,7 +56,7 @@ public class TechnicianInterfaces extends JFrame {
 		managers = connect.getManagers();
 		clerks = connect.getClerks();
 				
-		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		setType(Type.POPUP);
 		setResizable(false);
 		setTitle("Technician Interface");

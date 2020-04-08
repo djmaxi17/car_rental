@@ -2,10 +2,10 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -41,7 +41,7 @@ public class SettingGui extends JDialog {
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);

@@ -2,7 +2,6 @@
 package gui;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -94,7 +93,7 @@ public ClerkMainGui(String revertPlate) {
 	this.setLocationRelativeTo(null);
 	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	this.getContentPane().setBackground(Color.LIGHT_GRAY);
-	this.setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+	setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 	
 	//logo
 	ImageIcon logoimg = new ImageIcon(this.getClass().getResource("companyName.png"));

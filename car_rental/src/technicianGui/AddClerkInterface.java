@@ -2,7 +2,6 @@ package technicianGui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
@@ -10,6 +9,7 @@ import java.security.spec.InvalidKeySpecException;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -23,13 +23,14 @@ import javax.swing.border.EmptyBorder;
 
 import database.DbConnect;
 import employee.Clerk;
+import gui.LoginGui;
 
 public class AddClerkInterface extends JDialog  {
 	private JPanel contentPane;
 	
 	public AddClerkInterface(TechnicianInterfaces techFrame) {
 		super(techFrame, "Add a new Clerk",true); 
-		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setResizable(false);
 		setBounds(100, 100, 335, 223);

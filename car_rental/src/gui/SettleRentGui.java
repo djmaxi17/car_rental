@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -60,7 +59,7 @@ public class SettleRentGui extends JFrame{
 	private void headerBar() {
 		
 		// header image
-		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		logoimg = new ImageIcon(getClass().getResource("companyName.png"));
 		dispLogo = new JLabel(logoimg);
 		dispLogo.setBounds(404,16,200,30);
@@ -78,42 +77,46 @@ public class SettleRentGui extends JFrame{
 		settleRentBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				int confirm = JOptionPane.showConfirmDialog(null, "Are you sure to settle this rent?","Confirmation",JOptionPane.YES_NO_OPTION);
+				int rowSelected = availabilityTable.getSelectedRow();
 				
-					if(confirm==0) {
-					
-					int rowSelected = availabilityTable.getSelectedRow();
-						if(rowSelected!=0) {
-						String rentId = availabilityTable.getModel().getValueAt(rowSelected, 0).toString();
-						RentRegistration selectedRent = connect.BindTableRent(Integer.valueOf(rentId), -1).get(0);
-						System.out.println(selectedRent);
+					if(rowSelected!=-1) {
 						
-//						LocalDate localDate = LocalDate.now();
-//				        String dateToday = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate);
+						int confirm = JOptionPane.showConfirmDialog(null, "Are you sure to settle this rent?","Confirmation",JOptionPane.YES_NO_OPTION);
 						
-						String dateToday = "2020-04-17";
-				        
-				        try {
-				        	
-							selectedRent.setDateReturned(dateToday);
-							System.out.println(selectedRent);
-							if(connect.updateRent(selectedRent)) {
-								System.out.println("Nice!");
+							if(confirm==0) {
 								
-								ClerkMainGui clerk = new ClerkMainGui(null);
-								RentFinalReceipt receipt = new RentFinalReceipt(rentFrame, selectedRent);
-								receipt.setVisible(true);
-								dispose();
-								clerk.setVisible(true);
-							}
-							else {
-								JOptionPane.showMessageDialog(null, "There has been an error! Re-try", "Error", JOptionPane.ERROR_MESSAGE);
-							}
+								String rentId = availabilityTable.getModel().getValueAt(rowSelected, 0).toString();
+								RentRegistration selectedRent = connect.BindTableRent(Integer.valueOf(rentId), -1).get(0);
+						
+//								LocalDate localDate = LocalDate.now();
+//				       			String dateToday = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate);
+								
+								//set 2020-04-17 as Today Date for testing purposes
+								String dateToday = "2020-04-17";
+				        
+								try {
+				        	
+									selectedRent.setDateReturned(dateToday);
+									
+									if(connect.updateRent(selectedRent)) {
+										
+										ClerkMainGui clerk = new ClerkMainGui(null);
+										RentFinalReceipt receipt = new RentFinalReceipt(rentFrame, selectedRent);
+										receipt.setVisible(true);
+										dispose();
+										clerk.setVisible(true);
+									}
+									else {
+										JOptionPane.showMessageDialog(null, "There has been an error! Re-try", "Error", JOptionPane.ERROR_MESSAGE);
+									}
 							
-						} catch (ParseException e1) {
-							e1.printStackTrace();
+								} catch (ParseException e1) {
+									e1.printStackTrace();
+								}
 						}
-					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Nothing is Selected!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -157,6 +160,7 @@ public class SettleRentGui extends JFrame{
 		availabilityTable.setShowGrid(false);
 		availabilityTable.setRowSelectionAllowed(true);
 		availabilityTable.setDragEnabled(true);
+		
 		//some adjustments to the table and adding it to and jscrollpane which is then added to another jpanel sp
 		availabilityTable.getColumnModel().getColumn(0).setResizable(false);
 		availabilityTable.getColumnModel().getColumn(1).setResizable(false);
@@ -167,19 +171,6 @@ public class SettleRentGui extends JFrame{
 		
 		ListSelectionModel select = availabilityTable.getSelectionModel();
 		select.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-//		select.addListSelectionListener(new ListSelectionListener(){
-//			public void valueChanged(ListSelectionEvent e) {
-//				String data = null;
-//				int [] row = availabilityTable.getSelectedRows();
-//				int [] column = availabilityTable.getSelectedColumns();
-//				for(int i=0; i<row.length;i++) {
-//					for(int j=0; j<column.length; j++) {
-//						data = (String) availabilityTable.getValueAt(row[i], column[j]);
-//					}
-//				}
-//				System.out.println("Table element selected is: "+data);
-//			}
-//		});
 		sp = new JScrollPane(availabilityTable);
 		sp.setBounds(6,84, 977, 514);
 		sp.setVisible(true);

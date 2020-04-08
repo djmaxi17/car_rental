@@ -2,11 +2,9 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.SystemColor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -33,11 +31,9 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -111,24 +107,6 @@ public class RentRegistrationGui extends JFrame {
 	private FidelityCard fid;
 	
 	static RentRegistrationGui rentFrame;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(new NimbusLookAndFeel());
-
-					rentFrame = new RentRegistrationGui("342 JL 19");
-					rentFrame.setVisible(true);
-					rentFrame.getNoDaysTf().requestFocus();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -142,7 +120,7 @@ public class RentRegistrationGui extends JFrame {
 		setBounds(100, 100, 1010, 678);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
+		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -567,9 +545,7 @@ public class RentRegistrationGui extends JFrame {
 		
 		//autofill the date rented with todayDate
 		LocalDate localDate = LocalDate.now();
-		System.out.println(localDate);
         dateToday = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate);
-        System.out.println(dateToday);
         dateRentedField.setText(dateToday);
         
 		JLabel CusIdLbl = new JLabel("Customer Licence Number:");
