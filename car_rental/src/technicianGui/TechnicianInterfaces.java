@@ -6,6 +6,8 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
@@ -17,16 +19,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import database.DbConnect;
 import employee.Clerk;
 import employee.Manager;
 import employee.Technician;
 import gui.LoginGui;
+import gui.SettingGui;
 import main.LoginSession;
 import main.LogoutSession;
 
@@ -39,20 +39,16 @@ public class TechnicianInterfaces extends JFrame {
 	protected ArrayList<Manager> managers;
 	protected ArrayList<Clerk> clerks;
 	static TechnicianInterfaces technicianFrame = new TechnicianInterfaces();
-	
-	//Launch the application.
-	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel( new NimbusLookAndFeel() );
-		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		technicianFrame = new TechnicianInterfaces();
-		technicianFrame.setVisible(true);
-	}
-					
+						
 	public TechnicianInterfaces() {
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				LoginGui login = null;
+				login = new LoginGui();
+				login.setVisible(true);
+			}
+		});
+		
 		//CONNECT TO DATABASE 
 		DbConnect connect = new DbConnect();
 		//BUILD ARRAYLIST WITH DB DATA
@@ -187,6 +183,15 @@ public class TechnicianInterfaces extends JFrame {
 		LogOutButton.setBackground(new Color(0, 153, 255));
 		LogOutButton.setForeground(new Color(0, 0, 0));
 		LogOutButton.setFont(new Font("SansSerif", Font.BOLD, 12));
+		
+		JButton settingButton = new JButton("New button");
+		settingButton.setBackground(Color.DARK_GRAY);
+		settingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SettingGui gui = new SettingGui();
+				gui.setVisible(true);
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -218,12 +223,16 @@ public class TechnicianInterfaces extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(146)
 					.addComponent(TitleLabel)
-					.addContainerGap(111, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+					.addComponent(settingButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(TitleLabel, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(TitleLabel, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+						.addComponent(settingButton))
 					.addGap(18)
 					.addComponent(operationsLabel)
 					.addGap(18)
@@ -240,7 +249,7 @@ public class TechnicianInterfaces extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(18)
 							.addComponent(clerkLabel)
-							.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
 							.addComponent(LogOutButton, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.UNRELATED)

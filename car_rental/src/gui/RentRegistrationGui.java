@@ -866,7 +866,7 @@ public class RentRegistrationGui extends JFrame {
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(email);
         return m.matches();
- }
+	}
 
 //	public Boolean validateEmail(String theEmail) {
 //		String regex = "^(.+)@(.+)$";

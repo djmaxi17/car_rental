@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -18,12 +20,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import car.Car;
 import database.DbConnect;
@@ -82,11 +81,18 @@ public class ClerkMainGui extends JFrame {
 
 public ClerkMainGui(String revertPlate) {
 	super("Clerk Interface");
+	addWindowListener(new WindowAdapter() {
+		public void windowClosing(WindowEvent e) {
+			LoginGui login = null;
+			login = new LoginGui();
+			login.setVisible(true);
+		}
+	});
 	this.getContentPane().setLayout(null);
 	this.setSize(1010,678);
 	this.setResizable(false);
 	this.setLocationRelativeTo(null);
-	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	this.getContentPane().setBackground(Color.LIGHT_GRAY);
 	this.setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon.png"));
 	
@@ -461,15 +467,14 @@ public ClerkMainGui(String revertPlate) {
 		getContentPane().add(next);
 
 		//setting button for the employee to change their password
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(945, 39, 38, 28);
-		getContentPane().add(btnNewButton);
-	}
-
-	public static void main(String []args) throws UnsupportedLookAndFeelException {
-		UIManager.setLookAndFeel(new NimbusLookAndFeel());
-		ClerkMainGui man = new ClerkMainGui(null);
-		man.setVisible(true);
-		
+		JButton settingButton = new JButton("New button");
+		settingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SettingGui gui = new SettingGui();
+				gui.setVisible(true);
+			}
+		});
+		settingButton.setBounds(945, 39, 38, 28);
+		getContentPane().add(settingButton);
 	}
 }
