@@ -1,6 +1,8 @@
   
 package gui;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,9 +12,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,7 +26,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.Painter;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -34,11 +37,8 @@ import javax.swing.table.TableRowSorter;
 import car.Car;
 import database.DbConnect;
 import main.LogoutSession;
-import java.awt.Font;
-import java.awt.GradientPaint;
-
-import javax.swing.border.EmptyBorder;
-import java.awt.SystemColor;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class ClerkMainGui extends JFrame {
 	
@@ -86,7 +86,7 @@ public class ClerkMainGui extends JFrame {
 	private Color textC = new Color(214,217,220);
 	private Color textCB = new Color(248,250,252);
 	private Color buttonCol = new Color(79,99,116);
-	private Color c = new Color(0,0,0,180);
+//	private Color c = new Color(0,0,0,180);
 	//previously selected car in rent registration and back
 	private ArrayList<Car> car;
 	private Car selCar;
@@ -108,18 +108,19 @@ public ClerkMainGui(String revertPlate) {
 	this.setResizable(false);
 	this.setLocationRelativeTo(null);
 	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	this.getContentPane().setBackground(c);
-	this.getContentPane().setBackground(Color.LIGHT_GRAY);
+//	this.getContentPane().setBackground(c);
+	this.getContentPane().setBackground(Color.DARK_GRAY);
 	setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 	
 	//logo
 	ImageIcon logoimg = new ImageIcon(this.getClass().getResource("companyName.png"));
 	JLabel logoLbl = new JLabel(logoimg);
-	logoLbl.setBounds(404,16,200,30);
+	logoLbl.setBounds(387,18,225,30);
 	this.getContentPane().add(logoLbl);
 	
 	//Instantiate attributes
 	settleRent = new JButton("Settle Rent");
+	settleRent.setFont(new Font("SansSerif", Font.BOLD, 12));
 	settleRent.setBackground(buttonCol);
 	settleRent.setForeground(textCB);
 	settleRent.setBorder(null);
@@ -138,7 +139,6 @@ public ClerkMainGui(String revertPlate) {
 //	searchText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.RED));
 	searchText.setForeground(Color.WHITE);
 	searchText.setBounds(70,38,232,30);
-	searchText.setBounds(70,38,140,30);
 	
 	searchText.addKeyListener(new KeyAdapter() {
 		@Override
@@ -194,6 +194,13 @@ public ClerkMainGui(String revertPlate) {
         }
     };
     availabilityTable = new JTable(tableModel);
+//    availabilityTable.setFocusable(false);
+    availabilityTable.addFocusListener(new FocusAdapter() {
+    	@Override
+    	public void focusGained(FocusEvent e) {
+    		
+    	}
+    });
     availabilityTable.setRowHeight(25);
     availabilityTable.setForeground(textC);
     availabilityTable.setBorder(null);
@@ -203,13 +210,8 @@ public ClerkMainGui(String revertPlate) {
     Color col = new Color(61,67,72);
     availabilityTable.setSelectionBackground(col);
 	dm = (DefaultTableModel) availabilityTable.getModel();
-
-    DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName);
-    availabilityTable = new JTable(tableModel);
-	dm = (DefaultTableModel) availabilityTable.getModel();
-	availabilityTable.setShowGrid(false);
-
 	availabilityTable.setRowSelectionAllowed(true);
+	
 	availabilityTable.setDragEnabled(true);
 	
 	
@@ -268,15 +270,18 @@ public ClerkMainGui(String revertPlate) {
 	
 	//some adjustments to the table and adding it to and jscrollpane which is then added to another jpanel sp
 	availabilityTable.getColumnModel().getColumn(0).setResizable(false);
-	availabilityTable.getColumnModel().getColumn(0).setWidth(120);
+	availabilityTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+	
 	availabilityTable.getColumnModel().getColumn(1).setResizable(false);
-	//availabilityTable.getColumnModel().getColumn(1).setWidth(250);
+	availabilityTable.getColumnModel().getColumn(1).setPreferredWidth(200);
 	availabilityTable.getColumnModel().getColumn(2).setResizable(false);
 	availabilityTable.getColumnModel().getColumn(2).setMaxWidth(60);
 	availabilityTable.getColumnModel().getColumn(3).setResizable(false);
-	availabilityTable.getColumnModel().getColumn(3).setMaxWidth(120);
+	availabilityTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+
 	availabilityTable.getColumnModel().getColumn(4).setResizable(false);
-	availabilityTable.getColumnModel().getColumn(4).setWidth(200);
+	availabilityTable.getColumnModel().getColumn(4).setPreferredWidth(100);
+	
 	availabilityTable.getTableHeader().setReorderingAllowed(false);
 	JScrollPane sp = new JScrollPane(availabilityTable);
 	sp.setBorder(null);
@@ -288,6 +293,7 @@ public ClerkMainGui(String revertPlate) {
 	
 	//defines the logout button and what to do what it is clicked
 	logout = new JButton("Logout");
+	logout.setFont(new Font("SansSerif", Font.BOLD, 12));
 	logout.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			int value=JOptionPane.showConfirmDialog(getParent(), "Are you sure to Log Out?", "Confirmation", JOptionPane.YES_NO_OPTION);
@@ -327,7 +333,8 @@ public ClerkMainGui(String revertPlate) {
 	getContentPane().add(make);
 	
 	modelField = new JTextField();
-	modelField.setBackground(Color.LIGHT_GRAY);
+	modelField.setForeground(new Color(51, 51, 51));
+	modelField.setBackground(new Color(153, 153, 153));
 	modelField.setHorizontalAlignment(SwingConstants.CENTER);
 	modelField.setEditable(false);
 	modelField.setBounds(635, 303, 112, 28);
@@ -335,7 +342,8 @@ public ClerkMainGui(String revertPlate) {
 	modelField.setColumns(10);
 	
 	makeField = new JTextField();
-	makeField.setBackground(Color.LIGHT_GRAY);
+	makeField.setForeground(new Color(51, 51, 51));
+	makeField.setBackground(new Color(153, 153, 153));
 	makeField.setHorizontalAlignment(SwingConstants.CENTER);
 	makeField.setEditable(false);
 	makeField.setBounds(635, 337, 112, 28);
@@ -343,7 +351,8 @@ public ClerkMainGui(String revertPlate) {
 	makeField.setColumns(10);
 	
 	cpnField = new JTextField();
-	cpnField.setBackground(Color.LIGHT_GRAY);
+	cpnField.setForeground(new Color(51, 51, 51));
+	cpnField.setBackground(new Color(153, 153, 153));
 	cpnField.setHorizontalAlignment(SwingConstants.CENTER);
 	cpnField.setEditable(false);
 	cpnField.setBounds(635, 371, 112, 28);
@@ -361,11 +370,12 @@ public ClerkMainGui(String revertPlate) {
 	Detailpane.setBackground(colorDp);
 	Detailpane.setForeground(Color.LIGHT_GRAY);
 	Detailpane.setBorder(null);
-	Detailpane.setBounds(581, 297, 401, 290);
+	Detailpane.setBounds(581, 294, 401, 293);
 	getContentPane().add(Detailpane);
 	
 	typeField = new JTextField();
-	typeField.setBackground(Color.LIGHT_GRAY);
+	typeField.setForeground(new Color(51, 51, 51));
+	typeField.setBackground(new Color(153, 153, 153));
 	typeField.setHorizontalAlignment(SwingConstants.CENTER);
 	typeField.setEditable(false);
 	typeField.setBounds(55, 131, 112, 28);
@@ -403,7 +413,8 @@ public ClerkMainGui(String revertPlate) {
 	typeField.setText(selCar.getCarType());
 	
 	fuelField = new JTextField();
-	fuelField.setBackground(Color.LIGHT_GRAY);
+	fuelField.setForeground(new Color(51, 51, 51));
+	fuelField.setBackground(new Color(153, 153, 153));
 	fuelField.setHorizontalAlignment(SwingConstants.CENTER);
 	fuelField.setBounds(55, 256, 112, 28);
 	Detailpane.add(fuelField);
@@ -424,7 +435,8 @@ public ClerkMainGui(String revertPlate) {
 	Detailpane.add(gear);
 	
 	gearField = new JTextField();
-	gearField.setBackground(Color.LIGHT_GRAY);
+	gearField.setForeground(new Color(51, 51, 51));
+	gearField.setBackground(new Color(153, 153, 153));
 	gearField.setHorizontalAlignment(SwingConstants.CENTER);
 	gearField.setBounds(55, 216, 112, 28);
 	Detailpane.add(gearField);
@@ -433,7 +445,8 @@ public ClerkMainGui(String revertPlate) {
 	gearField.setText(selCar.getGear());
 	
 	yearField = new JTextField();
-	yearField.setBackground(Color.LIGHT_GRAY);
+	yearField.setForeground(new Color(51, 51, 51));
+	yearField.setBackground(new Color(153, 153, 153));
 	yearField.setHorizontalAlignment(SwingConstants.CENTER);
 	yearField.setBounds(55, 171, 50, 28);
 	Detailpane.add(yearField);
@@ -448,7 +461,8 @@ public ClerkMainGui(String revertPlate) {
 	Detailpane.add(available);
 	
 	availableField = new JTextField();
-	availableField.setBackground(Color.LIGHT_GRAY);
+	availableField.setForeground(new Color(51, 51, 51));
+	availableField.setBackground(new Color(153, 153, 153));
 	availableField.setHorizontalAlignment(SwingConstants.CENTER);
 	availableField.setBounds(309, 256, 41, 28);
 	Detailpane.add(availableField);
@@ -468,7 +482,8 @@ public ClerkMainGui(String revertPlate) {
 	Detailpane.add(rate);
 	
 	penaltyField = new JTextField();
-	penaltyField.setBackground(Color.LIGHT_GRAY);
+	penaltyField.setForeground(new Color(51, 51, 51));
+	penaltyField.setBackground(new Color(153, 153, 153));
 	penaltyField.setHorizontalAlignment(SwingConstants.CENTER);
 	penaltyField.setBounds(309, 171, 86, 28);
 	Detailpane.add(penaltyField);
@@ -477,7 +492,8 @@ public ClerkMainGui(String revertPlate) {
 	penaltyField.setText("Rs "+String.valueOf(selCar.getPenaltyPrice()));
 	
 	rateField = new JTextField();
-	rateField.setBackground(Color.LIGHT_GRAY);
+	rateField.setForeground(new Color(51, 51, 51));
+	rateField.setBackground(new Color(153, 153, 153));
 	rateField.setHorizontalAlignment(SwingConstants.CENTER);
 	rateField.setBounds(309, 131, 86, 28);
 	Detailpane.add(rateField);
@@ -485,7 +501,8 @@ public ClerkMainGui(String revertPlate) {
 	rateField.setColumns(10);
 	rateField.setText("Rs "+String.valueOf(selCar.getCarRate()));
 	engineField = new JTextField();
-	engineField.setBackground(Color.LIGHT_GRAY);
+	engineField.setForeground(new Color(51, 51, 51));
+	engineField.setBackground(new Color(153, 153, 153));
 	engineField.setBounds(319, 6, 76, 28);
 	Detailpane.add(engineField);
 	engineField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -493,7 +510,8 @@ public ClerkMainGui(String revertPlate) {
 	engineField.setColumns(10);
 	engineField.setText(String.valueOf(selCar.getEngineSize()) +"L");
 	trunkField = new JTextField();
-	trunkField.setBackground(Color.LIGHT_GRAY);
+	trunkField.setForeground(new Color(51, 51, 51));
+	trunkField.setBackground(new Color(153, 153, 153));
 	trunkField.setBounds(319, 46, 76, 28);
 	Detailpane.add(trunkField);
 	trunkField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -508,7 +526,8 @@ public ClerkMainGui(String revertPlate) {
 	Detailpane.add(noSeatJL);
 	
 	noSeatJT = new JTextField();
-	noSeatJT.setBackground(Color.LIGHT_GRAY);
+	noSeatJT.setForeground(new Color(51, 51, 51));
+	noSeatJT.setBackground(new Color(153, 153, 153));
 	noSeatJT.setBounds(319, 78, 28, 28);
 	Detailpane.add(noSeatJT);
 	noSeatJT.setHorizontalAlignment(SwingConstants.CENTER);
@@ -535,7 +554,8 @@ public ClerkMainGui(String revertPlate) {
 	Detailpane.add(ratingLabel);
 	
 	ratingField = new JTextField();
-	ratingField.setBackground(Color.LIGHT_GRAY);
+	ratingField.setForeground(new Color(51, 51, 51));
+	ratingField.setBackground(new Color(153, 153, 153));
 	ratingField.setHorizontalAlignment(SwingConstants.CENTER);
 	ratingField.setBounds(309, 216, 28, 28);
 	ratingField.setEditable(false);
@@ -560,6 +580,7 @@ public ClerkMainGui(String revertPlate) {
 	
 		//defines the next button and send the selected car plate number to the rentRegistrationGui
 		next = new JButton("Next");
+		next.setFont(new Font("SansSerif", Font.BOLD, 12));
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RentRegistrationGui regCus = new RentRegistrationGui(getPlate);
@@ -575,6 +596,7 @@ public ClerkMainGui(String revertPlate) {
 
 		//setting button for the employee to change their password
 		JButton settingButton = new JButton("New button");
+		settingButton.setFont(new Font("SansSerif", Font.BOLD, 12));
 		settingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SettingGui gui = new SettingGui();
@@ -587,34 +609,42 @@ public ClerkMainGui(String revertPlate) {
 		settingButton.setBounds(945, 39, 38, 28);
 		getContentPane().add(settingButton);
 		
-		JLabel lblNewLabel = new JLabel("Search");
-		lblNewLabel.setForeground(textCB);
-		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
-		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
-		lblNewLabel.setBounds(10, 45, 67, 16);
-		getContentPane().add(lblNewLabel);
+		JLabel searchLabel = new JLabel("Search");
+		searchLabel.setForeground(textCB);
+		searchLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
+		searchLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+		searchLabel.setBounds(10, 45, 67, 16);
+		getContentPane().add(searchLabel);
 	}
+
+	
 	public static void main(String[]args) throws UnsupportedLookAndFeelException {
 		UIManager.setLookAndFeel( new NimbusLookAndFeel());
-//		Painter p;
-//		p = new Painter
-//		UIManager.put("Button[Default+Focused].backgroundPainter", null);
-//		UIManager.put("Button[Default+MouseOver].backgroundPainter", null);
-//		UIManager.put("Button[Default+Focused+Pressed].backgroundPainter", null);
-//		UIManager.put("Button[Default+Focused+MouseOver].backgroundPainter", null);
-//		UIManager.put("Button[Focused].backgroundPainter", null);
-//		UIManager.put("Button[MouseOver].backgroundPainter", null);
-//		UIManager.put("Button[Focused+Pressed].backgroundPainter", null);
-//		UIManager.put("Button[Focused+MouseOver].backgroundPainter", null);
 		ClerkMainGui mainGui = new ClerkMainGui(null);
 		mainGui.setVisible(true);
-		settingButton.setBounds(945, 39, 38, 28);
-		getContentPane().add(settingButton);
-		
-		JLabel lblNewLabel = new JLabel("Search");
-		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
-		lblNewLabel.setBounds(10, 45, 67, 16);
-		getContentPane().add(lblNewLabel);
+		BackgroundPainter bgp = mainGui.new BackgroundPainter(null);
+        UIManager.getLookAndFeelDefaults().put("Table.focusCellHighlightBorder", bgp);
+       // UIManager.getLookAndFeelDefaults().put("Button.contentMargins", null);
+        
+        
+	}
+	public class BackgroundPainter implements Painter<JComponent> {
+
+		private Color color = null;
+
+		BackgroundPainter(Color c) {
+		    color = c;
+		}
+
+		@Override
+		public void paint(Graphics2D g, JComponent object, int width, int height) {
+		    if (color != null) {
+		        g.setColor(color);
+		        g.fillRect(0, 0, width - 1, height - 1);
+		    }
+		}
+
+
 	}
 }
 

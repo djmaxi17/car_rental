@@ -176,7 +176,6 @@ public class RentGui extends JFrame{
 		           return false;
 				}
 		};
-		 DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName);
 		availabilityTable = new JTable(tableModel);
 //		availabilityTable = new JTable(dataFromDb,columnName);
 		dm= (DefaultTableModel) availabilityTable.getModel();
