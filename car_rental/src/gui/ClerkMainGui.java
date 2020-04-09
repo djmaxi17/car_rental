@@ -24,8 +24,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.Painter;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -111,6 +109,7 @@ public ClerkMainGui(String revertPlate) {
 	this.setLocationRelativeTo(null);
 	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	this.getContentPane().setBackground(c);
+	this.getContentPane().setBackground(Color.LIGHT_GRAY);
 	setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 	
 	//logo
@@ -139,6 +138,7 @@ public ClerkMainGui(String revertPlate) {
 //	searchText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.RED));
 	searchText.setForeground(Color.WHITE);
 	searchText.setBounds(70,38,232,30);
+	searchText.setBounds(70,38,140,30);
 	
 	searchText.addKeyListener(new KeyAdapter() {
 		@Override
@@ -203,6 +203,12 @@ public ClerkMainGui(String revertPlate) {
     Color col = new Color(61,67,72);
     availabilityTable.setSelectionBackground(col);
 	dm = (DefaultTableModel) availabilityTable.getModel();
+
+    DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName);
+    availabilityTable = new JTable(tableModel);
+	dm = (DefaultTableModel) availabilityTable.getModel();
+	availabilityTable.setShowGrid(false);
+
 	availabilityTable.setRowSelectionAllowed(true);
 	availabilityTable.setDragEnabled(true);
 	
@@ -575,6 +581,7 @@ public ClerkMainGui(String revertPlate) {
 				gui.setVisible(true);
 			}
 		});
+
 		settingButton.setBackground(buttonCol);
 		settingButton.setForeground(textCB);
 		settingButton.setBounds(945, 39, 38, 28);
@@ -601,7 +608,13 @@ public ClerkMainGui(String revertPlate) {
 //		UIManager.put("Button[Focused+MouseOver].backgroundPainter", null);
 		ClerkMainGui mainGui = new ClerkMainGui(null);
 		mainGui.setVisible(true);
+		settingButton.setBounds(945, 39, 38, 28);
+		getContentPane().add(settingButton);
 		
+		JLabel lblNewLabel = new JLabel("Search");
+		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+		lblNewLabel.setBounds(10, 45, 67, 16);
+		getContentPane().add(lblNewLabel);
 	}
 }
 

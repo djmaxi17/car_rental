@@ -132,6 +132,14 @@ public class SettleRentGui extends JFrame{
 								String rentId = availabilityTable.getModel().getValueAt(rowSelected, 0).toString();
 								RentRegistration selectedRent = connect.BindTableRent(Integer.valueOf(rentId), -1).get(0);
 						
+						
+						int confirm = JOptionPane.showConfirmDialog(null, "Are you sure to settle this rent?","Confirmation",JOptionPane.YES_NO_OPTION);
+						
+							if(confirm==0) {
+								
+								String rentId = availabilityTable.getModel().getValueAt(rowSelected, 0).toString();
+								RentRegistration selectedRent = connect.BindTableRent(Integer.valueOf(rentId), -1).get(0);
+						
 //								LocalDate localDate = LocalDate.now();
 //				       			String dateToday = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate);
 								
@@ -212,6 +220,7 @@ public class SettleRentGui extends JFrame{
 	           return false;
 	        }
 	    };
+	    DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName);
 	    availabilityTable = new JTable(tableModel);
 		dm = (DefaultTableModel) availabilityTable.getModel();
 		availabilityTable.setShowGrid(false);
