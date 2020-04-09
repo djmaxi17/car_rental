@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -24,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -81,6 +83,10 @@ public class ManageCarGui extends JFrame{
 	private int carAvailability;
 	private int updateCarAvailable = 1;
 	private String updatePlateNo;
+	Color colorSp = new Color(87,90,92);
+//	private Color textC = new Color(214,217,220);
+	private Color textCB = new Color(248,250,252);
+	private Color buttonCol = new Color(79,99,116);
 	
 	//array for gear types
 	private static String[] gears = {"Manual", "Automatic", "Both"};
@@ -100,7 +106,7 @@ public class ManageCarGui extends JFrame{
 	private JTextField carPlateUpdate;
 	private JTextField updateMake;
 	private JTextField updateModel;
-
+	private Color sideCol = new Color(107,106,103);
 	
 	//defining constructor
 	public ManageCarGui() {
@@ -119,7 +125,7 @@ public class ManageCarGui extends JFrame{
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.getContentPane().setBackground(Color.LIGHT_GRAY);
+		this.getContentPane().setBackground(Color.DARK_GRAY);
 		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 
 		//font for text
@@ -135,124 +141,134 @@ public class ManageCarGui extends JFrame{
 		
 		//back
 		back = new JButton("Back");
+		back.setFont(new Font("SansSerif", Font.BOLD, 12));
+		back.setBackground(buttonCol);
+		back.setForeground(textCB);
 		back.setBounds(10, 600, 100,30);
 		
 		//logo
 		logo = new ImageIcon(this.getClass().getResource("companyName.png"));
 		JLabel companyLogo = new JLabel(logo);
-		companyLogo.setBounds(404,16,200,30);
+		companyLogo.setBounds(387,18,225,30);
 		getContentPane().add(back);
 		getContentPane().add(companyLogo);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(6, 51, 610, 545);
+		panel.setBorder(null);
+		panel.setBounds(10, 58, 594, 530);
+		panel.setBackground(colorSp);
 		getContentPane().add(panel);
 		panel.setLayout(null);
+		
 		JLabel plateLabel = new JLabel("Plate No. ");
-		plateLabel.setBounds(6, 60, 69, 17);
+		plateLabel.setBounds(21, 60, 69, 17);
 		panel.add(plateLabel);
 		plateLabel.setFont(font);
-		plateLabel.setForeground(Color.BLACK);
+		plateLabel.setForeground(textCB);
 		
 		//instantiate attributes
 		//plateNo
 		plateNo = new JTextField(14);
-		plateNo.setBounds(101, 54, 150, 30);
+		plateNo.setBounds(116, 54, 150, 30);
 		panel.add(plateNo);
 		
 		JLabel lblNewLabel = new JLabel("Add A New Car");
-		lblNewLabel.setFont(new Font("Serif", Font.BOLD, 16));
-		lblNewLabel.setBounds(212, 12, 116, 30);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setForeground(textCB);
+		lblNewLabel.setFont(new Font("Serif", Font.BOLD, 20));
+		lblNewLabel.setBounds(191, 12, 212, 30);
 		panel.add(lblNewLabel);
 		JLabel makeLabel = new JLabel("Make ");
-		makeLabel.setBounds(6, 100, 51, 30);
+		makeLabel.setBounds(21, 100, 51, 30);
 		panel.add(makeLabel);
 		makeLabel.setFont(font);
-		makeLabel.setForeground(Color.BLACK);
+		makeLabel.setForeground(textCB);
 		
 		
 		//make
 		make = new JTextField(14);
-		make.setBounds(101, 101, 150, 30);
+		make.setBounds(116, 101, 150, 30);
 		panel.add(make);
 		JLabel modelLabel = new JLabel("Model ");
-		modelLabel.setBounds(6, 143, 51, 30);
+		modelLabel.setBounds(21, 143, 51, 30);
 		panel.add(modelLabel);
 		modelLabel.setFont(font);
-		modelLabel.setForeground(Color.BLACK);
+		modelLabel.setForeground(textCB);
 		
 		
 		//model
 		model = new JTextField(14);
-		model.setBounds(101, 143, 150, 30);
+		model.setBounds(116, 143, 150, 30);
 		panel.add(model);
 		JLabel typeLabel = new JLabel("Type ");
-		typeLabel.setBounds(6, 185, 51, 30);
+		typeLabel.setBounds(21, 185, 51, 30);
 		panel.add(typeLabel);
 		typeLabel.setFont(font);
-		typeLabel.setForeground(Color.BLACK);
+		typeLabel.setForeground(textCB);
 		
 		//type
 		type = new JComboBox<Object>(types);
-		type.setBounds(101, 185, 150, 30);
+		type.setBounds(116, 185, 150, 30);
 		panel.add(type);
 		JLabel transmissionLabel = new JLabel("Gear ");
-		transmissionLabel.setBounds(6, 227, 51, 30);
+		transmissionLabel.setBounds(21, 227, 51, 30);
 		panel.add(transmissionLabel);
 		transmissionLabel.setFont(font);
-		transmissionLabel.setForeground(Color.BLACK);
+		transmissionLabel.setForeground(textCB);
 		
 		//transmission
 		transmission = new JComboBox<Object>(gears);
-		transmission.setBounds(101, 227, 150, 30);
+		transmission.setBounds(116, 227, 150, 30);
 		panel.add(transmission);
 		JLabel fuelLabel = new JLabel("Fuel ");
-		fuelLabel.setBounds(6, 269, 100, 30);
+		fuelLabel.setBounds(21, 268, 100, 30);
 		panel.add(fuelLabel);
 		fuelLabel.setFont(font);
-		fuelLabel.setForeground(Color.BLACK);
+		fuelLabel.setForeground(textCB);
 		
 		//fuel
 		fuel = new JComboBox<Object>(fuels);
-		fuel.setBounds(101, 271, 150, 30);
+		fuel.setBounds(116, 270, 150, 30);
 		panel.add(fuel);
 		JLabel yearLabel = new JLabel("Year ");
-		yearLabel.setBounds(6, 312, 100, 30);
+		yearLabel.setBounds(21, 311, 100, 30);
 		panel.add(yearLabel);
 		yearLabel.setFont(font);
-		yearLabel.setForeground(Color.BLACK);
+		yearLabel.setForeground(textCB);
 		
 
 		//year
 		year = new JTextField(14);
-		year.setBounds(101, 311, 150, 30);
+		year.setBounds(116, 310, 150, 30);
 		panel.add(year);
 		
 		//image
 //		image = new JTextField(14);
 //		image.setBounds(120,380,150,30);
 		JLabel imageLabel = new JLabel("Image ");
-		imageLabel.setBounds(6, 348, 100, 30);
+		imageLabel.setBounds(21, 351, 100, 30);
 		panel.add(imageLabel);
 		imageLabel.setFont(font);
-		imageLabel.setForeground(Color.BLACK);
+		imageLabel.setForeground(textCB);
 		browse = new JButton("Browse");
-		browse.setBounds(101, 350, 100, 30);
+		browse.setBounds(116, 353, 100, 30);
 		panel.add(browse);
 		
 		//submit
 		submit = new JButton("Register");
-		submit.setBounds(469, 509, 100, 30);
+		submit.setForeground(new Color(51, 51, 51));
+		submit.setFont(new Font("SansSerif", Font.BOLD, 12));
+		submit.setBounds(469, 494, 100, 30);
 		panel.add(submit);
 		JRootPane rootPane = SwingUtilities.getRootPane(submit); 
 		rootPane.setDefaultButton(submit);
 		
 		//image location text
 		imageLocation = new JLabel("");
-		imageLocation.setBounds(212, 353, 357, 30);
+		imageLocation.setBounds(219, 353, 350, 30);
 		panel.add(imageLocation);
-		imageLocation.setFont(new Font("Sans Serif",Font.BOLD,14));
-		imageLocation.setForeground(Color.BLACK);
+		imageLocation.setFont(new Font("Dialog", Font.PLAIN, 14));
+		imageLocation.setForeground(new Color(255, 255, 255));
 		
 		
 		//seats
@@ -263,12 +279,12 @@ public class ManageCarGui extends JFrame{
 		seatLabel.setBounds(318, 53, 100, 30);
 		panel.add(seatLabel);
 		seatLabel.setFont(font);
-		seatLabel.setForeground(Color.BLACK);
+		seatLabel.setForeground(textCB);
 		JLabel priceLabel = new JLabel("Price ");
 		priceLabel.setBounds(318, 100, 100, 30);
 		panel.add(priceLabel);
 		priceLabel.setFont(font);
-		priceLabel.setForeground(Color.BLACK);
+		priceLabel.setForeground(textCB);
 		
 		//price
 		price = new JTextField(14);
@@ -278,7 +294,7 @@ public class ManageCarGui extends JFrame{
 		penaltyLabel.setBounds(318, 143, 100, 30);
 		panel.add(penaltyLabel);
 		penaltyLabel.setFont(font);
-		penaltyLabel.setForeground(Color.BLACK);
+		penaltyLabel.setForeground(textCB);
 		
 		//penalty
 		penalty = new JTextField(14);
@@ -288,7 +304,7 @@ public class ManageCarGui extends JFrame{
 		trunkLabel.setBounds(318, 185, 100, 30);
 		panel.add(trunkLabel);
 		trunkLabel.setFont(font);
-		trunkLabel.setForeground(Color.BLACK);
+		trunkLabel.setForeground(textCB);
 		
 		//trunk
 		trunk = new JTextField(14);
@@ -298,7 +314,7 @@ public class ManageCarGui extends JFrame{
 		engineLabel.setBounds(318, 227, 100, 30);
 		panel.add(engineLabel);
 		engineLabel.setFont(font);
-		engineLabel.setForeground(Color.BLACK);
+		engineLabel.setForeground(textCB);
 		
 		//engine
 		engine = new JTextField(14);
@@ -308,7 +324,7 @@ public class ManageCarGui extends JFrame{
 		ratingLabel.setBounds(318, 269, 100, 30);
 		panel.add(ratingLabel);
 		ratingLabel.setFont(font);
-		ratingLabel.setForeground(Color.BLACK);
+		ratingLabel.setForeground(textCB);
 		
 		//rating
 		rating = new JComboBox<Object>(ratings);
@@ -318,7 +334,7 @@ public class ManageCarGui extends JFrame{
 		availableLabel.setBounds(318, 312, 100, 30);
 		panel.add(availableLabel);
 		availableLabel.setFont(font);
-		availableLabel.setForeground(Color.BLACK);
+		availableLabel.setForeground(textCB);
 		
 		//availability
 		availability = new JComboBox<Object>(available);
@@ -326,92 +342,118 @@ public class ManageCarGui extends JFrame{
 		panel.add(availability);
 		
 		carImgAddNewCar = new JLabel();
-		carImgAddNewCar.setBounds(130, 383, 288, 160);
+		carImgAddNewCar.setBounds(132, 383, 271, 141);
 		panel.add(carImgAddNewCar);
 		
 		panel_1 = new JPanel();
-		panel_1.setBounds(628, 50, 376, 153);
+		panel_1.setBounds(607, 58, 376, 153);
+		panel_1.setBackground(sideCol);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		lblNewLabel_1 = new JLabel("Delete Car");
-		lblNewLabel_1.setFont(new Font("Serif", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(145, 11, 117, 16);
-		panel_1.add(lblNewLabel_1);
-		
 		carPlate = new JTextField();
-		carPlate.setBounds(29, 63, 305, 26);
+		carPlate.setBounds(29, 72, 305, 26);
 		panel_1.add(carPlate);
 		carPlate.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Insert Car Plate Number:");
-		lblNewLabel_2.setBounds(29, 39, 177, 16);
+		lblNewLabel_2.setForeground(new Color(255, 255, 255));
+		lblNewLabel_2.setBounds(29, 47, 177, 16);
 		panel_1.add(lblNewLabel_2);
 		
 		JButton deleteCar = new JButton("Delete Car Record");
-		deleteCar.setBounds(126, 101, 156, 29);
+		deleteCar.setBackground(buttonCol);
+		deleteCar.setForeground(textCB);
+		deleteCar.setFont(new Font("SansSerif", Font.BOLD, 12));
+		deleteCar.setBounds(109, 110, 156, 29);
 		panel_1.add(deleteCar);
 		
+		lblNewLabel_1 = new JLabel("Delete Car");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(126, 19, 139, 16);
+		panel_1.add(lblNewLabel_1);
+		lblNewLabel_1.setForeground(textCB);
+		lblNewLabel_1.setFont(new Font("Serif", Font.BOLD, 20));
+		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(628, 217, 376, 379);
+		panel_2.setBackground(new Color(128, 128, 128));
+		panel_2.setBounds(607, 214, 376, 374);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
 		JLabel lblNewLabel_3 = new JLabel("Update Car Status");
-		lblNewLabel_3.setFont(new Font("Serif", Font.BOLD, 16));
-		lblNewLabel_3.setBounds(129, 6, 143, 16);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setForeground(textCB);
+		lblNewLabel_3.setBounds(98, 17, 192, 26);
+		lblNewLabel_3.setFont(new Font("Serif", Font.BOLD, 20));
 		panel_2.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Insert Car Plate Number:");
-		lblNewLabel_4.setBounds(33, 34, 183, 16);
+		lblNewLabel_4.setForeground(new Color(255, 255, 255));
+		lblNewLabel_4.setBounds(33, 71, 176, 16);
 		panel_2.add(lblNewLabel_4);
 		
 		carPlateUpdate = new JTextField();
-		carPlateUpdate.setBounds(33, 54, 176, 26);
+		carPlateUpdate.setBounds(29, 93, 180, 26);
 		panel_2.add(carPlateUpdate);
 		carPlateUpdate.setColumns(10);
 		
 		JButton searchPlateUpdate = new JButton("Search");
-		searchPlateUpdate.setBounds(221, 54, 117, 29);
+		searchPlateUpdate.setForeground(textCB);
+		searchPlateUpdate.setBackground(buttonCol);
+		searchPlateUpdate.setFont(new Font("SansSerif", Font.BOLD, 12));
+		searchPlateUpdate.setBounds(221, 92, 117, 29);
 		panel_2.add(searchPlateUpdate);
 		
 		JLabel lblNewLabel_5 = new JLabel("Make: ");
-		lblNewLabel_5.setBounds(33, 117, 56, 16);
+		lblNewLabel_5.setForeground(textCB);
+		lblNewLabel_5.setFont(new Font("SansSerif", Font.BOLD, 12));
+		lblNewLabel_5.setBounds(33, 149, 56, 16);
 		panel_2.add(lblNewLabel_5);
 		
 		updateMake = new JTextField();
-		updateMake.setBackground(Color.LIGHT_GRAY);
+		updateMake.setForeground(Color.WHITE);
+		updateMake.setBounds(82, 145, 256, 26);
+		updateMake.setBackground(SystemColor.windowBorder);
 		updateMake.setEditable(false);
-		updateMake.setBounds(82, 113, 256, 26);
 		panel_2.add(updateMake);
 		updateMake.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("Model:");
-		lblNewLabel_6.setBounds(33, 153, 61, 16);
+		lblNewLabel_6.setForeground(textCB);
+		lblNewLabel_6.setFont(new Font("SansSerif", Font.BOLD, 12));
+		lblNewLabel_6.setBounds(33, 181, 61, 16);
 		panel_2.add(lblNewLabel_6);
 		
 		updateModel = new JTextField();
-		updateModel.setBackground(Color.LIGHT_GRAY);
+		updateModel.setForeground(Color.WHITE);
+		updateModel.setBounds(82, 177, 256, 26);
+		updateModel.setBackground(SystemColor.windowBorder);
 		updateModel.setEditable(false);
-		updateModel.setBounds(82, 149, 256, 26);
 		panel_2.add(updateModel);
 		updateModel.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("Update The Car");
-		lblNewLabel_7.setFont(new Font("Serif", Font.BOLD, 16));
-		lblNewLabel_7.setBounds(117, 224, 133, 16);
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_7.setForeground(textCB);
+		lblNewLabel_7.setBounds(108, 239, 176, 26);
+		lblNewLabel_7.setFont(new Font("Serif", Font.BOLD, 20));
 		panel_2.add(lblNewLabel_7);
 		
 		updateAvailableCb = new JComboBox<Object>(available);
-		updateAvailableCb.setBounds(195, 270, 143, 27);
+		updateAvailableCb.setBounds(195, 289, 143, 27);
 		panel_2.add(updateAvailableCb);
 		
 		JLabel lblNewLabel_8 = new JLabel("Is The Car Available?");
-		lblNewLabel_8.setBounds(33, 274, 151, 16);
+		lblNewLabel_8.setForeground(new Color(255, 255, 255));
+		lblNewLabel_8.setBounds(33, 294, 151, 16);
 		panel_2.add(lblNewLabel_8);
 		
 		JButton updateSave = new JButton("Save");
-		updateSave.setBounds(33, 342, 305, 29);
+		updateSave.setFont(new Font("SansSerif", Font.BOLD, 12));
+		updateSave.setForeground(textCB);
+		updateSave.setBackground(buttonCol);
+		updateSave.setBounds(33, 336, 305, 29);
 		panel_2.add(updateSave);
 		
 		// handler class for buttons

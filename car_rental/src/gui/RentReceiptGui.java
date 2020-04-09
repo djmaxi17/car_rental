@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import rentRegistration.RentRegistration;
@@ -30,7 +29,7 @@ public class RentReceiptGui extends JDialog {
 //	public static void main(String[] args) {
 //		try {
 //			UIManager.setLookAndFeel(new NimbusLookAndFeel());
-//			RentReceiptGui dialog = new RentReceiptGui(null);
+//			RentReceiptGui dialog = new RentReceiptGui(null,null);
 //			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 //			dialog.setVisible(true);
 //		} catch (Exception e) {
@@ -43,23 +42,28 @@ public class RentReceiptGui extends JDialog {
 	 */
 	public RentReceiptGui(RentRegistrationGui previousFrame, RentRegistration rentReg) {
 		super(previousFrame,"Rent Receipt",true);
-		setBackground(Color.LIGHT_GRAY);
-		setBounds(100, 100, 331, 672);
+		setBackground(Color.DARK_GRAY);
+		setBounds(100, 100, 322, 672);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		JPanel contentPane = new JPanel();
-		contentPane.setBackground(Color.LIGHT_GRAY);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(null);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setBorder(null);
+		panel.setBackground(Color.DARK_GRAY);
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
+		Color textCB = new Color(248,250,252);
+		Color buttonCol = new Color(79,99,116);
 		JButton printBtn = new JButton("Print Receipt");
+		printBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
+		printBtn.setBackground(buttonCol);
+		printBtn.setForeground(textCB);
 		printBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -75,7 +79,7 @@ public class RentReceiptGui extends JDialog {
 				
 			}
 		});
-		printBtn.setBounds(100, 596, 119, 28);
+		printBtn.setBounds(96, 598, 119, 28);
 		panel.add(printBtn);
 		
 		receiptPane = new JTextPane();
@@ -100,7 +104,7 @@ public class RentReceiptGui extends JDialog {
 						"\r\n  Date Rented: "+dateRented+"\r\n" +
 						"\r\n  Number of Days: "+numDays+"\r\n" +
 						"\r\n  Date Due: "+dateDue+"\r\n" +
-						"\r\n        <b>***Total = Rs"+total+"***</b>\r\n "+
+						"\r\n     <b>***Total = Rs"+total+"***</b>\r\n "+
 						"  Thanks for choosing Maxi Auto\r" +
 						"\r\n  - - - - - - - - - - - - - - - -  \r\n"+
 						"\t  Contact Details:\r\n\t" +
@@ -110,7 +114,7 @@ public class RentReceiptGui extends JDialog {
 		receiptPane.setText(textData);
 		receiptPane.setFont(new Font("Consolas", Font.PLAIN, 14));
 		receiptPane.setBorder(new LineBorder(Color.GRAY));
-		receiptPane.setBounds(0, 6, 307, 590);
+		receiptPane.setBounds(0, 0, 318, 590);
 		panel.add(receiptPane);
 	}
 }

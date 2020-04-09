@@ -460,7 +460,7 @@ public class RentRegistrationGui extends JFrame {
 				}
 			}
 		});
-		registerRentBtn.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		registerRentBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		registerRentBtn.setBackground(buttonCol);
 		registerRentBtn.setForeground(textCB);
 		panel.add(registerRentBtn);
@@ -568,7 +568,7 @@ public class RentRegistrationGui extends JFrame {
 		JButton registerCustomerBtn = new JButton("Register Customer");
 		registerCustomerBtn.setBackground(buttonCol);
 		registerCustomerBtn.setForeground(textCB);
-		registerCustomerBtn.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		registerCustomerBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		registerCustomerBtn.setBounds(314, 192, 160, 29);
 		addCustomerJp.add(registerCustomerBtn);
 		
@@ -602,7 +602,7 @@ public class RentRegistrationGui extends JFrame {
 		rentInfoLbl.setBounds(234, 6, 94, 16);
 		rentPanel.add(rentInfoLbl);
 		rentInfoLbl.setForeground(textC);
-		rentInfoLbl.setFont(new Font("Serif", Font.PLAIN, 20));
+		rentInfoLbl.setFont(new Font("Serif", Font.BOLD, 20));
 		
 		JLabel dateRentedlbl = new JLabel("Date Rented:");
 		dateRentedlbl.setBounds(6, 41, 94, 16);
@@ -664,7 +664,7 @@ public class RentRegistrationGui extends JFrame {
 		
 		CDITf = new JTextField();
 		CDITf.setForeground(new Color(255, 255, 255));
-		CDITf.setBackground(SystemColor.controlShadow);
+		CDITf.setBackground(SystemColor.windowBorder);
 		CDITf.setEditable(false);
 		CDITf.setHorizontalAlignment(SwingConstants.CENTER);
 		CDITf.setBounds(199, 183, 271, 26);
@@ -718,7 +718,7 @@ public class RentRegistrationGui extends JFrame {
 		
 		fidelityTf = new JTextField();
 		fidelityTf.setForeground(new Color(255, 255, 255));
-		fidelityTf.setBackground(SystemColor.controlShadow);
+		fidelityTf.setBackground(SystemColor.windowBorder);
 		fidelityTf.setHorizontalAlignment(SwingConstants.CENTER);
 		fidelityTf.setEditable(false);
 		fidelityTf.setBounds(340, 134, 130, 26);
@@ -746,6 +746,7 @@ public class RentRegistrationGui extends JFrame {
 
 		//defines what to do when the back btn is clicked
 		JButton backBtn = new JButton("Back");
+		backBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		backBtn.setBackground(buttonCol);
 		backBtn.setForeground(textCB);
 		backBtn.setBounds(10, 600, 100, 30);

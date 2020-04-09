@@ -51,8 +51,6 @@ public class LoginGui extends JFrame implements ActionListener {
 		login.setVisible(true);
 		BackgroundPainter bgp = login.new BackgroundPainter(null);
         UIManager.getLookAndFeelDefaults().put("Table.focusCellHighlightBorder", bgp);
-       // UIManager.getLookAndFeelDefaults().put("Button.contentMargins", null);
-        
         
 	}
 	public class BackgroundPainter implements Painter<JComponent> {

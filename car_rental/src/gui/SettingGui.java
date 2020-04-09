@@ -18,6 +18,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import database.DbConnect;
+import java.awt.Color;
 
 public class SettingGui extends JDialog {
 
@@ -43,39 +44,44 @@ public class SettingGui extends JDialog {
 		setResizable(false);
 		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		getContentPane().setLayout(new BorderLayout(0, 0));
+		contentPanel.setBackground(Color.DARK_GRAY);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 		
-		
-		
-		
 		JLabel titleLabel = new JLabel("Change Your Password");
+		titleLabel.setForeground(new Color(204, 204, 204));
 		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		titleLabel.setBounds(123, 20, 213, 22);
 		contentPanel.add(titleLabel);
 		
 		JLabel subTitleLabel = new JLabel("You are required to do so every month");
+		subTitleLabel.setForeground(new Color(255, 255, 255));
 		subTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		subTitleLabel.setBounds(128, 41, 244, 13);
 		contentPanel.add(subTitleLabel);
 		
 		JLabel emailLabel = new JLabel("Email:");
+		emailLabel.setForeground(new Color(204, 204, 204));
 		emailLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		emailLabel.setBounds(74, 90, 45, 13);
 		contentPanel.add(emailLabel);
 		
 		JLabel cpLabel = new JLabel("Current Password:");
+		cpLabel.setForeground(new Color(204, 204, 204));
 		cpLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cpLabel.setBounds(74, 126, 126, 13);
 		contentPanel.add(cpLabel);
 		
 		JLabel npLabel = new JLabel("New Password:");
+		npLabel.setForeground(new Color(204, 204, 204));
 		npLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		npLabel.setBounds(74, 163, 112, 13);
 		contentPanel.add(npLabel);
 		
 		btnNewButton = new JButton("Change Password");
+		btnNewButton.setForeground(new Color(51, 51, 51));
+		btnNewButton.setFont(new Font("SansSerif", Font.BOLD, 12));
 		btnNewButton.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {

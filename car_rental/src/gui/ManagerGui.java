@@ -620,7 +620,7 @@ public ManagerGui(String revertPlate) {
 		});
 		manageCarBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		manageCarBtn.setBackground(buttonCol);
-		manageCarBtn.setForeground(textC);
+		manageCarBtn.setForeground(textCB);
 		manageCarBtn.setBounds(451, 602, 127, 27);
 		getContentPane().add(manageCarBtn);
 	}

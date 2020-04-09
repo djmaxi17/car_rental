@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -43,15 +44,17 @@ public class SettleRentGui extends JFrame{
 	JLabel dispLogo;
 	JScrollPane sp;
 	DefaultTableModel dm;
-
+	Color colorSp = new Color(87,90,92); 
 	private static DbConnect connect = new DbConnect();
 	private static ArrayList<RentRegistration> rents;
 	private JTable availabilityTable;
-	
+	private Color textCB = new Color(248,250,252);
+	private Color buttonCol = new Color(79,99,116);
 	static SettleRentGui rentFrame;
 	
 	public SettleRentGui() {
 		super("Settle Rent");
+		getContentPane().setBackground(Color.DARK_GRAY);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				try {
@@ -89,11 +92,16 @@ public class SettleRentGui extends JFrame{
 		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		logoimg = new ImageIcon(getClass().getResource("companyName.png"));
 		dispLogo = new JLabel(logoimg);
-		dispLogo.setBounds(404,16,200,30);
+		dispLogo.setBounds(387,18,225,30);
 
 		// search field
-		searchField = new JTextField();
-		searchField.setBounds(79,50,200,30);
+		
+		searchField = new JTextField(20);
+		searchField.setBackground(Color.DARK_GRAY);
+		searchField.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		searchField.setForeground(Color.WHITE);
+		searchField.setBackground(Color.DARK_GRAY);
+		searchField.setBounds(70,38,232,30);
 		searchField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -118,6 +126,9 @@ public class SettleRentGui extends JFrame{
 		
 		// next btn
 		settleRentBtn = new JButton("Settle Rent");
+		settleRentBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
+		settleRentBtn.setBackground(buttonCol);
+		settleRentBtn.setForeground(textCB);
 		settleRentBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -164,9 +175,12 @@ public class SettleRentGui extends JFrame{
 				}
 			}
 		});
-		settleRentBtn.setBounds(837,600,143,30);
+		settleRentBtn.setBounds(841,600,143,30);
 		// back btn
 		backBtn = new JButton("Back");
+		backBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
+		backBtn.setBackground(buttonCol);
+		backBtn.setForeground(textCB);
 		backBtn.setBounds(10,600,100,30);
 		
 	}
@@ -213,6 +227,11 @@ public class SettleRentGui extends JFrame{
 	        }
 	    };
 	    availabilityTable = new JTable(tableModel);
+	    availabilityTable.setForeground(new Color(214,217,220));
+	    Color col = new Color(61,67,72);
+	    availabilityTable.setSelectionBackground(col);
+	    availabilityTable.setBorder(null);
+	    availabilityTable.setBackground(colorSp);
 		dm = (DefaultTableModel) availabilityTable.getModel();
 		availabilityTable.setShowGrid(false);
 		availabilityTable.setRowSelectionAllowed(true);
@@ -225,11 +244,13 @@ public class SettleRentGui extends JFrame{
 		availabilityTable.getColumnModel().getColumn(3).setResizable(false);
 		availabilityTable.getColumnModel().getColumn(4).setResizable(false);
 		availabilityTable.getTableHeader().setReorderingAllowed(false);
-		
+		availabilityTable.setRowHeight(25);
 		ListSelectionModel select = availabilityTable.getSelectionModel();
 		select.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		sp = new JScrollPane(availabilityTable);
-		sp.setBounds(6,84, 977, 514);
+		sp.setBorder(null);
+		sp.getViewport().setBackground(colorSp);
+		sp.setBounds(10,80, 974, 507);
 		sp.setVisible(true);
 
 	}
@@ -242,12 +263,16 @@ public class SettleRentGui extends JFrame{
 		contentPane.add(backBtn);
 		contentPane.add(sp);
 		
-		JLabel lblNewLabel = new JLabel("Search");
-		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 19));
-		lblNewLabel.setBounds(10, 54, 90, 16);
-		getContentPane().add(lblNewLabel);
+		JLabel searchLabel = new JLabel("Search");
+		searchLabel.setForeground(textCB);
+		searchLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+		searchLabel.setBounds(10, 45, 67, 16);
+		getContentPane().add(searchLabel);
 		
 		JButton historyBtn = new JButton("Settled Rents History");
+		historyBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
+		historyBtn.setBackground(buttonCol);
+		historyBtn.setForeground(textCB);
 		historyBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RentGui rentgui = null;
