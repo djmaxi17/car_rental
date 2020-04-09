@@ -110,7 +110,7 @@ public class ManageCarGui extends JFrame{
 			@Override
 			public void windowClosing(WindowEvent e) {
 				ManagerGui manager = null;
-				manager = new ManagerGui();
+				manager = new ManagerGui(null);
 				manager.setVisible(true);
 			}
 		});
@@ -663,7 +663,7 @@ public class ManageCarGui extends JFrame{
 											rating.setSelectedIndex(0);
 											
 											dispose();
-											ManagerGui manGui = new ManagerGui();
+											ManagerGui manGui = new ManagerGui(null);
 											manGui.setVisible(true);
 											
 										}else {
@@ -749,7 +749,7 @@ public class ManageCarGui extends JFrame{
 					if (event.getActionCommand() == "Back") {
 						//dispose current gui
 						dispose();
-						ManagerGui gui = new ManagerGui();
+						ManagerGui gui = new ManagerGui(null);
 						gui.setVisible(true);
 					
 					}
@@ -782,7 +782,7 @@ public class ManageCarGui extends JFrame{
 										JOptionPane.showMessageDialog(null,String.format("%s has been deleted", carPlateNum));
 										
 										dispose();
-										ManagerGui gui = new ManagerGui();
+										ManagerGui gui = new ManagerGui(null);
 										gui.setVisible(true);
 										
 									}else {

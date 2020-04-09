@@ -63,7 +63,7 @@ public class RentGui extends JFrame{
 						Clerkmain.setVisible(true);
 					}
 					else if(LoginSession.usertype.equals("manager")) {
-						ManagerGui manager = new ManagerGui();
+						ManagerGui manager = new ManagerGui(null);
 						manager.setVisible(true);
 					}
 					else {

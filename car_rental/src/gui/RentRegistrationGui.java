@@ -47,6 +47,7 @@ import main.LoginSession;
 import rentRegistration.RentRegistration;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.UIManager;
 
 
 public class RentRegistrationGui extends JFrame {
@@ -108,7 +109,17 @@ public class RentRegistrationGui extends JFrame {
 	private Customer selectedCustomer;
 	private FidelityCard fid;
 	
+	private Color textC = new Color(214,217,220);
+	private Color textCB = new Color(248,250,252);
+	private Color buttonCol = new Color(79,99,116);
+	private Color colortest = new Color(87,90,92);
+	private Color col = new Color(61,67,72);
+	private Color colorSp = new Color(87,90,92);
+	private Color sideCol = new Color(107,106,103);
+	
+	
 	static RentRegistrationGui rentFrame;
+	private JTable availCustomerTable;
 
 	/**
 	 * Create the frame.
@@ -126,7 +137,7 @@ public class RentRegistrationGui extends JFrame {
 						Clerkmain.setVisible(true);
 					}
 					else if(LoginSession.usertype.equals("manager")) {
-						ManagerGui manager = new ManagerGui();
+						ManagerGui manager = new ManagerGui(null);
 						manager.setVisible(true);
 					}
 					else {
@@ -145,15 +156,14 @@ public class RentRegistrationGui extends JFrame {
 		setResizable(false);
 		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.LIGHT_GRAY);
+		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setBackground(Color.DARK_GRAY);
 		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
 		
 		customerGender = "Male";
 		//process testing
@@ -165,86 +175,105 @@ public class RentRegistrationGui extends JFrame {
 		this.currentPlate = getPlate;
 		//logo
 		logoimg = new ImageIcon(this.getClass().getResource("companyName.png"));
+		panel.setLayout(null);
 		logoLbl = new JLabel(logoimg);
-		logoLbl.setBounds(404,16,200,30);
+		logoLbl.setBounds(387, 18, 225, 30);
 		panel.add(logoLbl);
 
 		
 		JPanel carInfoPanel = new JPanel();
-		carInfoPanel.setBackground(Color.LIGHT_GRAY);
-		carInfoPanel.setBounds(6, 292, 450, 307);
+		carInfoPanel.setBounds(6, 292, 460, 296);
+		carInfoPanel.setBackground(sideCol);
 		panel.add(carInfoPanel);
 		carInfoPanel.setLayout(null);
 		
 		JLabel carPlateNumJl = new JLabel("CPN:");
+		carPlateNumJl.setForeground(textCB);
+		carPlateNumJl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		carPlateNumJl.setBounds(9, 264, 61, 16);
 		carInfoPanel.add(carPlateNumJl);
 		
 		cpnTf = new JTextField();
-		cpnTf.setBackground(SystemColor.control);
+		cpnTf.setForeground(new Color(51, 51, 51));
+		cpnTf.setBackground(new Color(153, 153, 153));
 		cpnTf.setEditable(false);
 		cpnTf.setBounds(77, 259, 130, 26);
 		carInfoPanel.add(cpnTf);
 		cpnTf.setColumns(10);
 		
 		JLabel modelLbl = new JLabel("Model:");
+		modelLbl.setForeground(textCB);
+		modelLbl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		modelLbl.setBounds(9, 226, 61, 16);
 		carInfoPanel.add(modelLbl);
 		
 		modelJt = new JTextField();
-		modelJt.setBackground(SystemColor.control);
+		modelJt.setForeground(new Color(51, 51, 51));
+		modelJt.setBackground(new Color(153, 153, 153));
 		modelJt.setEditable(false);
 		modelJt.setBounds(77, 221, 130, 26);
 		carInfoPanel.add(modelJt);
 		modelJt.setColumns(10);
 		
 		JLabel makeLbl = new JLabel("Make:");
+		makeLbl.setForeground(textCB);
+		makeLbl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		makeLbl.setBounds(9, 188, 39, 16);
 		carInfoPanel.add(makeLbl);
 		
 		makeTf = new JTextField();
-		makeTf.setBackground(SystemColor.control);
+		makeTf.setForeground(new Color(51, 51, 51));
+		makeTf.setBackground(new Color(153, 153, 153));
 		makeTf.setEditable(false);
 		makeTf.setBounds(77, 183, 130, 26);
 		carInfoPanel.add(makeTf);
 		makeTf.setColumns(10);
 		
 		JLabel typeLbl = new JLabel("Type:");
+		typeLbl.setForeground(textCB);
+		typeLbl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		typeLbl.setBounds(219, 188, 61, 16);
 		carInfoPanel.add(typeLbl);
 		
 		JLabel gearLbl = new JLabel("Gear:");
+		gearLbl.setForeground(textCB);
+		gearLbl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		gearLbl.setBounds(219, 226, 61, 16);
 		carInfoPanel.add(gearLbl);
 		
 		JLabel pricePerDayLbl = new JLabel("Price/Day:");
+		pricePerDayLbl.setForeground(textCB);
+		pricePerDayLbl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		pricePerDayLbl.setBounds(219, 264, 81, 16);
 		carInfoPanel.add(pricePerDayLbl);
 		
 		typeTf = new JTextField();
-		typeTf.setBackground(SystemColor.control);
+		typeTf.setForeground(new Color(51, 51, 51));
+		typeTf.setBackground(new Color(153, 153, 153));
 		typeTf.setEditable(false);
 		typeTf.setBounds(292, 183, 130, 26);
 		carInfoPanel.add(typeTf);
 		typeTf.setColumns(10);
 		
 		gearTf = new JTextField();
-		gearTf.setBackground(SystemColor.control);
+		gearTf.setForeground(new Color(51, 51, 51));
+		gearTf.setBackground(new Color(153, 153, 153));
 		gearTf.setEditable(false);
 		gearTf.setBounds(292, 221, 130, 26);
 		carInfoPanel.add(gearTf);
 		gearTf.setColumns(10);
 		
 		ppdTf = new JTextField();
-		ppdTf.setBackground(SystemColor.control);
+		ppdTf.setForeground(new Color(51, 51, 51));
+		ppdTf.setBackground(new Color(153, 153, 153));
 		ppdTf.setEditable(false);
 		ppdTf.setBounds(292, 259, 130, 26);
 		carInfoPanel.add(ppdTf);
 		ppdTf.setColumns(10);
 		
 		JPanel searchCustomerPanel = new JPanel();
-		searchCustomerPanel.setBackground(Color.LIGHT_GRAY);
-		searchCustomerPanel.setBounds(6, 40, 450, 240);
+		searchCustomerPanel.setBounds(6, 50, 460, 240);
+		searchCustomerPanel.setBackground(colorSp);
 		panel.add(searchCustomerPanel);
 		searchCustomerPanel.setLayout(null);
 		
@@ -271,7 +300,13 @@ public class RentRegistrationGui extends JFrame {
 	           return false;
 	        }
 	    };
-		final JTable availCustomerTable = new JTable(tableModel);
+		availCustomerTable = new JTable(tableModel);
+		availCustomerTable.setBorder(null);
+		availCustomerTable.setBackground(UIManager.getColor("CheckBox.disabledText"));
+		availCustomerTable.setBackground(colortest);
+		availCustomerTable.setSelectionBackground(col);
+		availCustomerTable.setForeground(textCB);
+		availCustomerTable.setRowHeight(25);
 		dm = (DefaultTableModel) availCustomerTable.getModel();
 		
 		availCustomerTable.setShowGrid(false);
@@ -284,7 +319,9 @@ public class RentRegistrationGui extends JFrame {
 
 		availCustomerTable.getTableHeader().setReorderingAllowed(false);
 		JScrollPane defaultcsp = new JScrollPane(availCustomerTable);
-		defaultcsp.setBounds(6, 43, 438, 191);
+		defaultcsp.setBorder(null);
+		defaultcsp.getViewport().setBackground(colorSp);
+		defaultcsp.setBounds(6, 43, 448, 191);
 		searchCustomerPanel.add(defaultcsp);
 		
 		//hides the availCustomerTable 
@@ -298,6 +335,9 @@ public class RentRegistrationGui extends JFrame {
 	    blankModel.addColumn("ID");
 	
 	    final JTable blankTable = new JTable(blankModel);
+	    blankTable.setBorder(null);
+	    
+	    blankTable.setBackground(UIManager.getColor("CheckBox.disabledText"));
 		
 	    blankTable.setShowGrid(false);
 	    blankTable.setRowSelectionAllowed(true);
@@ -309,14 +349,18 @@ public class RentRegistrationGui extends JFrame {
 
 	    blankTable.getTableHeader().setReorderingAllowed(false);
 		JScrollPane blankcsp = new JScrollPane(blankTable);
-		blankcsp.setBounds(6, 43, 438, 191);
+		blankcsp.setBorder(null);
+		blankcsp.setBounds(6, 43, 448, 191);
 		searchCustomerPanel.add(blankcsp);
 		blankcsp.setVisible(true);
+		blankcsp.getViewport().setBackground(colorSp);
 		// creates and displays blank table on boot up - end
 		
 	    
 		//implementing search filtering
 		searchJt = new JTextField();
+		searchJt.setForeground(Color.WHITE);
+		searchJt.setBackground(Color.DARK_GRAY);
 		searchJt.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -337,7 +381,7 @@ public class RentRegistrationGui extends JFrame {
 			}
 		});
 		
-		searchJt.setBounds(144, 5, 300, 26);
+		searchJt.setBounds(151, 5, 303, 26);
 		searchCustomerPanel.add(searchJt);
 		searchJt.setColumns(10);
 		
@@ -369,11 +413,13 @@ public class RentRegistrationGui extends JFrame {
 		
 		//defines other J components
 		JLabel searchlbl = new JLabel("Search Customer:");
-		searchlbl.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		searchlbl.setBounds(11, 10, 132, 16);
+		searchlbl.setFont(new Font("SansSerif", Font.BOLD, 15));
+		searchlbl.setForeground(textCB);
+		searchlbl.setBounds(11, 10, 157, 16);
 		searchCustomerPanel.add(searchlbl);
 		
 		JButton registerRentBtn = new JButton("Register Rent");
+		registerRentBtn.setBounds(841, 600, 141, 29);
 		registerRentBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				//validations
@@ -415,36 +461,45 @@ public class RentRegistrationGui extends JFrame {
 			}
 		});
 		registerRentBtn.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		registerRentBtn.setForeground(Color.BLACK);
-		registerRentBtn.setBounds(841, 600, 141, 29);
+		registerRentBtn.setBackground(buttonCol);
+		registerRentBtn.setForeground(textCB);
 		panel.add(registerRentBtn);
 		
 		
 		//contains J components mainly for adding New Customer
 		JPanel addCustomerJp = new JPanel();
-		addCustomerJp.setBackground(Color.LIGHT_GRAY);
-		addCustomerJp.setBounds(468, 40, 514, 240);
+		addCustomerJp.setBounds(468, 50, 514, 240);
+		addCustomerJp.setBackground(sideCol);
 		panel.add(addCustomerJp);
 		addCustomerJp.setLayout(null);
 		
 		JLabel newClientHeader = new JLabel("Add A New Customer");
-		newClientHeader.setFont(new Font("Serif", Font.PLAIN, 20));
+		newClientHeader.setFont(new Font("Serif", Font.BOLD, 20));
+		newClientHeader.setForeground(textC);
 		newClientHeader.setBounds(171, 6, 204, 20);
 		addCustomerJp.add(newClientHeader);
 		
 		JLabel cusFirstNameJl = new JLabel("First Name:");
+		cusFirstNameJl.setForeground(textCB);
+		cusFirstNameJl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		cusFirstNameJl.setBounds(6, 45, 78, 16);
 		addCustomerJp.add(cusFirstNameJl);
 		
 		JLabel emailJl = new JLabel("Email:");
+		emailJl.setForeground(textCB);
+		emailJl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		emailJl.setBounds(6, 197, 61, 16);
 		addCustomerJp.add(emailJl);
 		
 		JLabel addressJl = new JLabel("Address:");
+		addressJl.setForeground(textCB);
+		addressJl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		addressJl.setBounds(6, 121, 61, 16);
 		addCustomerJp.add(addressJl);
 		
 		JLabel phoneJl = new JLabel("Phone:");
+		phoneJl.setForeground(textCB);
+		phoneJl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		phoneJl.setBounds(6, 157, 61, 16);
 		addCustomerJp.add(phoneJl);
 		
@@ -469,6 +524,8 @@ public class RentRegistrationGui extends JFrame {
 		phoneJt.setColumns(10);
 		
 		JLabel lastNameJl = new JLabel("Last Name:");
+		lastNameJl.setForeground(textCB);
+		lastNameJl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		lastNameJl.setBounds(254, 45, 78, 16);
 		addCustomerJp.add(lastNameJl);
 		
@@ -478,6 +535,8 @@ public class RentRegistrationGui extends JFrame {
 		lastNameJT.setColumns(10);
 		
 		JLabel dobJl = new JLabel("DOB:");
+		dobJl.setForeground(textCB);
+		dobJl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		dobJl.setBounds(254, 83, 61, 16);
 		addCustomerJp.add(dobJl);
 		
@@ -486,6 +545,8 @@ public class RentRegistrationGui extends JFrame {
 		addCustomerJp.add(dateOfBirth);
 		
 		JLabel genderJl = new JLabel("Gender:");
+		genderJl.setForeground(textCB);
+		genderJl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		genderJl.setBounds(254, 157, 61, 16);
 		addCustomerJp.add(genderJl);
 		
@@ -494,6 +555,8 @@ public class RentRegistrationGui extends JFrame {
 		addCustomerJp.add(genderCb);
 		
 		JLabel licenceJl = new JLabel("Licence No");
+		licenceJl.setForeground(textCB);
+		licenceJl.setFont(new Font("SansSerif", Font.BOLD, 12));
 		licenceJl.setBounds(6, 83, 89, 16);
 		addCustomerJp.add(licenceJl);
 		
@@ -503,14 +566,16 @@ public class RentRegistrationGui extends JFrame {
 		liscenceNoTf.setColumns(10);
 		
 		JButton registerCustomerBtn = new JButton("Register Customer");
+		registerCustomerBtn.setBackground(buttonCol);
+		registerCustomerBtn.setForeground(textCB);
 		registerCustomerBtn.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		registerCustomerBtn.setForeground(Color.BLACK);
 		registerCustomerBtn.setBounds(314, 192, 160, 29);
 		addCustomerJp.add(registerCustomerBtn);
 		
 		
 		// Components for selected car info on the left bottom side
 		JLabel imageComp = new JLabel();
+		imageComp.setForeground(textCB);
 		imageComp.setBounds(64, 1, 323, 170);
 		carInfoPanel.add(imageComp);
 		
@@ -527,30 +592,37 @@ public class RentRegistrationGui extends JFrame {
 		
 		//components and functionalities for the rent info panel
 		JPanel rentPanel = new JPanel();
+		rentPanel.setBounds(468, 292, 514, 296);
 		rentPanel.setBorder(null);
-		rentPanel.setBounds(468, 292, 514, 307);
+		rentPanel.setBackground(colorSp);
 		panel.add(rentPanel);
 		rentPanel.setLayout(null);
 		
 		JLabel rentInfoLbl = new JLabel("Rent Info");
 		rentInfoLbl.setBounds(234, 6, 94, 16);
 		rentPanel.add(rentInfoLbl);
-		rentInfoLbl.setForeground(SystemColor.activeCaptionText);
+		rentInfoLbl.setForeground(textC);
 		rentInfoLbl.setFont(new Font("Serif", Font.PLAIN, 20));
 		
 		JLabel dateRentedlbl = new JLabel("Date Rented:");
 		dateRentedlbl.setBounds(6, 41, 94, 16);
+		dateRentedlbl.setFont(new Font("SansSerif", Font.BOLD, 13));
+		dateRentedlbl.setForeground(textCB);
 		rentPanel.add(dateRentedlbl);
 		
 		penaltyTf = new JTextField();
-		penaltyTf.setBackground(Color.LIGHT_GRAY);
+		penaltyTf.setForeground(new Color(51, 51, 51));
+		penaltyTf.setBackground(new Color(153, 153, 153));
 		penaltyTf.setHorizontalAlignment(SwingConstants.CENTER);
 		penaltyTf.setEditable(false);
 		penaltyTf.setBounds(94, 134, 130, 26);
 		rentPanel.add(penaltyTf);
 		penaltyTf.setColumns(10);
 		penaltyTf.setText(String.valueOf(selectedCar.getPenaltyPrice()));
+		
 		JLabel noDaysLbl = new JLabel("No Days:");
+		noDaysLbl.setFont(new Font("SansSerif", Font.BOLD, 13));
+		noDaysLbl.setForeground(textCB);
 		noDaysLbl.setBounds(250, 41, 61, 16);
 		rentPanel.add(noDaysLbl);
 		
@@ -571,7 +643,8 @@ public class RentRegistrationGui extends JFrame {
 		
 		
 		JTextField dateRentedField = new JTextField();
-		dateRentedField.setBackground(Color.LIGHT_GRAY);
+		dateRentedField.setForeground(new Color(51, 51, 51));
+		dateRentedField.setBackground(new Color(153, 153, 153));
 		dateRentedField.setEditable(false);
 		dateRentedField.setHorizontalAlignment(SwingConstants.CENTER);
 		dateRentedField.setBounds(94, 36, 130, 26);
@@ -584,11 +657,13 @@ public class RentRegistrationGui extends JFrame {
         dateRentedField.setText(dateToday);
         
 		JLabel CusIdLbl = new JLabel("Customer Licence Number:");
-		CusIdLbl.setBounds(6, 188, 181, 16);
+		CusIdLbl.setFont(new Font("SansSerif", Font.BOLD, 13));
+		CusIdLbl.setForeground(textCB);
+		CusIdLbl.setBounds(6, 188, 192, 16);
 		rentPanel.add(CusIdLbl);
 		
 		CDITf = new JTextField();
-		CDITf.setForeground(Color.BLACK);
+		CDITf.setForeground(new Color(255, 255, 255));
 		CDITf.setBackground(SystemColor.controlShadow);
 		CDITf.setEditable(false);
 		CDITf.setHorizontalAlignment(SwingConstants.CENTER);
@@ -597,13 +672,16 @@ public class RentRegistrationGui extends JFrame {
 		CDITf.setColumns(10);
 		
 		JLabel carPlate = new JLabel("Car Plate:");
-		carPlate.setBounds(6, 88, 61, 16);
+		carPlate.setFont(new Font("SansSerif", Font.BOLD, 13));
+		carPlate.setForeground(textCB);
+		carPlate.setBounds(6, 88, 78, 16);
 		rentPanel.add(carPlate);
 		
 		
 		CPTf = new JTextField();
-		CPTf.setBackground(Color.LIGHT_GRAY);
 		CPTf.setHorizontalAlignment(SwingConstants.CENTER);
+		CPTf.setForeground(new Color(51, 51, 51));
+		CPTf.setBackground(new Color(153, 153, 153));
 		CPTf.setEditable(false);
 		CPTf.setBounds(94, 83, 130, 26);
 		rentPanel.add(CPTf);
@@ -611,11 +689,14 @@ public class RentRegistrationGui extends JFrame {
 		CPTf.setText(selectedCar.getCarPlateNumber());
 		
 		JLabel rentPd = new JLabel("Cost/Day:");
+		rentPd.setFont(new Font("SansSerif", Font.BOLD, 13));
+		rentPd.setForeground(textCB);
 		rentPd.setBounds(250, 88, 78, 16);
 		rentPanel.add(rentPd);
 		
 		costPdTf = new JTextField();
-		costPdTf.setBackground(Color.LIGHT_GRAY);
+		costPdTf.setForeground(new Color(51, 51, 51));
+		costPdTf.setBackground(new Color(153, 153, 153));
 		costPdTf.setHorizontalAlignment(SwingConstants.CENTER);
 		costPdTf.setEditable(false);
 		costPdTf.setBounds(340, 83, 130, 26);
@@ -624,15 +705,19 @@ public class RentRegistrationGui extends JFrame {
 		costPdTf.setText(String.valueOf(selectedCar.getCarRate()));
 		
 		JLabel penaltyCostlbl = new JLabel("Penalty/Day");
+		penaltyCostlbl.setFont(new Font("SansSerif", Font.BOLD, 13));
+		penaltyCostlbl.setForeground(textCB);
 		penaltyCostlbl.setBounds(6, 139, 84, 16);
 		rentPanel.add(penaltyCostlbl);
 		
 		JLabel customerPointsLbl = new JLabel("Fidelity Pts:");
+		customerPointsLbl.setFont(new Font("SansSerif", Font.BOLD, 13));
+		customerPointsLbl.setForeground(textCB);
 		customerPointsLbl.setBounds(250, 139, 104, 16);
 		rentPanel.add(customerPointsLbl);
 		
 		fidelityTf = new JTextField();
-		fidelityTf.setForeground(Color.BLACK);
+		fidelityTf.setForeground(new Color(255, 255, 255));
 		fidelityTf.setBackground(SystemColor.controlShadow);
 		fidelityTf.setHorizontalAlignment(SwingConstants.CENTER);
 		fidelityTf.setEditable(false);
@@ -641,8 +726,9 @@ public class RentRegistrationGui extends JFrame {
 		fidelityTf.setColumns(10);
 		
 		JLabel totalLbl = new JLabel("TOTAL:");
+		totalLbl.setForeground(Color.WHITE);
 		totalLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		totalLbl.setFont(new Font("Serif", Font.PLAIN, 18));
+		totalLbl.setFont(new Font("Serif", Font.BOLD, 18));
 		totalLbl.setBounds(234, 221, 78, 16);
 		rentPanel.add(totalLbl);
 		
@@ -650,25 +736,35 @@ public class RentRegistrationGui extends JFrame {
 		subTotallbl.setForeground(Color.RED);
 		subTotallbl.setFont(new Font("Serif", Font.BOLD, 30));
 		subTotallbl.setHorizontalAlignment(SwingConstants.CENTER);
-		subTotallbl.setBounds(137, 248, 252, 53);
+		subTotallbl.setBounds(139, 237, 252, 53);
 		rentPanel.add(subTotallbl);
 		
 		discountLabel = new JLabel("");
 		discountLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		discountLabel.setBounds(38, 290, 432, 16);
+		discountLabel.setBounds(38, 278, 432, 16);
 		rentPanel.add(discountLabel);
 
 		//defines what to do when the back btn is clicked
 		JButton backBtn = new JButton("Back");
+		backBtn.setBackground(buttonCol);
+		backBtn.setForeground(textCB);
+		backBtn.setBounds(10, 600, 100, 30);
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//sends the selected plate number to the clerkMainGui
-				ClerkMainGui cmain = new ClerkMainGui(currentPlate);
-				cmain.setVisible(true);
-				dispose();
+				if(LoginSession.usertype.equals("clerk")) {
+					//sends the selected plate number to the clerkMainGui
+					ClerkMainGui cmain = new ClerkMainGui(currentPlate);
+					cmain.setVisible(true);
+					dispose();
+				}
+				else if(LoginSession.usertype.equals("manager")) {
+				//sends the selected plate number to the manager gui
+					ManagerGui manG = new ManagerGui(currentPlate);
+					manG.setVisible(true);
+					dispose();
+				}
 			}
 		});
-		backBtn.setBounds(10, 600, 100, 30);
 		panel.add(backBtn);
 		
 		

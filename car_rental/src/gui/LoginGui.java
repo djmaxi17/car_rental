@@ -2,20 +2,22 @@ package gui;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
+import javax.swing.Painter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -41,27 +43,36 @@ public class LoginGui extends JFrame implements ActionListener {
 	ImageIcon logoImg;
 	JLabel labelLogo;
 	
-	
-	public static void main(String[] args) throws ParseException {
-		try {
-			UIManager.setLookAndFeel( new NimbusLookAndFeel() );
-//=			UIManager.setLookAndFeel( new SyntheticaDarkLookAndFeel() );
-		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//instantiate login gui only if connection has been established with database
-//		if (connect.DbConnect()) {
-//			
+
+	public static void main(String[]args) throws UnsupportedLookAndFeelException {
+		UIManager.setLookAndFeel( new NimbusLookAndFeel());
 		LoginGui login = new LoginGui();
 		login.setVisible(true);
-		
-//		}else if (!connect.DbConnect()) {
-//			
-//			JOptionPane.showMessageDialog(null, "Failed to connect to database !", "ERROR", JOptionPane.ERROR_MESSAGE);
-//		}
+		login.setVisible(true);
+		BackgroundPainter bgp = login.new BackgroundPainter(null);
+        UIManager.getLookAndFeelDefaults().put("Table.focusCellHighlightBorder", bgp);
+       // UIManager.getLookAndFeelDefaults().put("Button.contentMargins", null);
+        
+        
 	}
-	
+	public class BackgroundPainter implements Painter<JComponent> {
+
+		private Color color = null;
+
+		BackgroundPainter(Color c) {
+		    color = c;
+		}
+
+		@Override
+		public void paint(Graphics2D g, JComponent object, int width, int height) {
+		    if (color != null) {
+		        g.setColor(color);
+		        g.fillRect(0, 0, width - 1, height - 1);
+		    }
+		}
+
+
+	}
 	//constructor of the login page
 	public LoginGui() {
 		super("Log In");
@@ -174,7 +185,7 @@ public class LoginGui extends JFrame implements ActionListener {
 				}
 				else if(LoginSession.usertype.equals("manager")) {
 					// manager interface
-					ManagerGui managerGui = new ManagerGui();
+					ManagerGui managerGui = new ManagerGui(null);
 					managerGui.setVisible(true);
 					this.dispose();
 				}

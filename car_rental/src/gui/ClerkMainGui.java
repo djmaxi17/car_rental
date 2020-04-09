@@ -2,10 +2,11 @@
 package gui;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,22 +23,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.Painter;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import car.Car;
 import database.DbConnect;
 import main.LogoutSession;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class ClerkMainGui extends JFrame {
 	
@@ -615,36 +609,6 @@ public ClerkMainGui(String revertPlate) {
 		searchLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
 		searchLabel.setBounds(10, 45, 67, 16);
 		getContentPane().add(searchLabel);
-	}
-
-	
-	public static void main(String[]args) throws UnsupportedLookAndFeelException {
-		UIManager.setLookAndFeel( new NimbusLookAndFeel());
-		ClerkMainGui mainGui = new ClerkMainGui(null);
-		mainGui.setVisible(true);
-		BackgroundPainter bgp = mainGui.new BackgroundPainter(null);
-        UIManager.getLookAndFeelDefaults().put("Table.focusCellHighlightBorder", bgp);
-       // UIManager.getLookAndFeelDefaults().put("Button.contentMargins", null);
-        
-        
-	}
-	public class BackgroundPainter implements Painter<JComponent> {
-
-		private Color color = null;
-
-		BackgroundPainter(Color c) {
-		    color = c;
-		}
-
-		@Override
-		public void paint(Graphics2D g, JComponent object, int width, int height) {
-		    if (color != null) {
-		        g.setColor(color);
-		        g.fillRect(0, 0, width - 1, height - 1);
-		    }
-		}
-
-
 	}
 }
 
