@@ -164,6 +164,18 @@ public class RentGui extends JFrame{
 				
 			}
 		}
+		DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName) {
+		        /**
+				 * 
+				 */
+				private static final long serialVersionUID = -8353222665595177323L;
+
+				@Override
+		        public boolean isCellEditable(int row, int column) {
+		           //all cells false
+		           return false;
+				}
+		};
 		 DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName);
 		availabilityTable = new JTable(tableModel);
 //		availabilityTable = new JTable(dataFromDb,columnName);

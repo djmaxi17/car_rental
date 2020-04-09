@@ -258,9 +258,19 @@ public class RentRegistrationGui extends JFrame {
     	 	dataFromDb[i][1] = customers.get(i).getEmail();
 			dataFromDb[i][2] = String.valueOf(customers.get(i).getCustId());
 	    }
-	    
-	    
-	    DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName);
+	   
+	    DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName) {
+	        /**
+			 * 
+			 */
+			private static final long serialVersionUID = -8353222665595177323L;
+
+			@Override
+	        public boolean isCellEditable(int row, int column) {
+	           //all cells false
+	           return false;
+	        }
+	    };
 		final JTable availCustomerTable = new JTable(tableModel);
 		dm = (DefaultTableModel) availCustomerTable.getModel();
 		
