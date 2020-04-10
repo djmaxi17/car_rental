@@ -339,17 +339,23 @@ public class DbConnect {
 	
 	//method to delete Car
 		public boolean deleteCar(String carPlateNum) {
-			
+					
 			try {
-				
+						
+				String disablefkCheck = "SET FOREIGN_KEY_CHECKS=0;";
+				st.executeUpdate(disablefkCheck);
+						
 				String query = "DELETE FROM cars WHERE cars.carPlateNum = ?";
 				ps = con.prepareStatement(query);
 				ps.setString(1, carPlateNum);
 				ps.executeUpdate();
+						
+				String enablefkCheck = "SET FOREIGN_KEY_CHECKS=1;";
+				st.executeUpdate(enablefkCheck);
 				return true;
-				
+						
 			}catch (SQLException e) {
-				
+						
 				return false;
 			}
 		}

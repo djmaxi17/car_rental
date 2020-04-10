@@ -74,9 +74,11 @@ public class LoginGui extends JFrame implements ActionListener {
 	public static void main(String[]args) throws UnsupportedLookAndFeelException {
 		try {
 			IntelliJTheme.install( LoginGui.class.getResourceAsStream(
-				    "DarkFlatTheme.theme.json" ) );
+					"gruvbox_theme.theme.json" ) );
 			UIManager.put( "Component.focusWidth", 0 );
-
+			UIManager.put( "Button.arc", 10);
+			UIManager.put("TextField.border", 0);
+			UIManager.put("Component.arrowType", "chevron");
 //		    UIManager.setLookAndFeel( new FlatDarkLaf() );
 		    LoginGui login = new LoginGui();
 		

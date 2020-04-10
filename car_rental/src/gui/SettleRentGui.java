@@ -97,7 +97,7 @@ public class SettleRentGui extends JFrame{
 		// search field
 		
 		searchField = new JTextField(20);
-		searchField.setBackground(Color.DARK_GRAY);
+		searchField.setBackground(new Color(35,35,36));
 		searchField.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		searchField.setForeground(Color.WHITE);
 		searchField.setBackground(Color.DARK_GRAY);

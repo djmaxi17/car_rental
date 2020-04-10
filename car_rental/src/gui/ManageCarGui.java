@@ -87,7 +87,7 @@ public class ManageCarGui extends JFrame{
 //	private Color textC = new Color(214,217,220);
 	private Color textCB = new Color(248,250,252);
 	private Color buttonCol = new Color(79,99,116);
-	
+	private Color colortxt = new Color(251,241,199);
 	//array for gear types
 	private static String[] gears = {"Manual", "Automatic", "Both"};
 	//array for fuel types
@@ -172,12 +172,12 @@ public class ManageCarGui extends JFrame{
 		plateNo.setBounds(116, 54, 150, 30);
 		panel.add(plateNo);
 		
-		JLabel lblNewLabel = new JLabel("Add A New Car");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(textCB);
-		lblNewLabel.setFont(new Font("Serif", Font.BOLD, 20));
-		lblNewLabel.setBounds(191, 12, 212, 30);
-		panel.add(lblNewLabel);
+		JLabel addCarLbl = new JLabel("Add A New Car");
+		addCarLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		addCarLbl.setForeground(colortxt);
+		addCarLbl.setFont(new Font("Serif", Font.BOLD, 20));
+		addCarLbl.setBounds(191, 12, 212, 30);
+		panel.add(addCarLbl);
 		JLabel makeLabel = new JLabel("Make ");
 		makeLabel.setBounds(21, 100, 51, 30);
 		panel.add(makeLabel);
@@ -257,6 +257,7 @@ public class ManageCarGui extends JFrame{
 		//submit
 		submit = new JButton("Register");
 		submit.setForeground(new Color(51, 51, 51));
+		submit.setBackground(buttonCol);
 		submit.setFont(new Font("SansSerif", Font.BOLD, 12));
 		submit.setBounds(469, 494, 100, 30);
 		panel.add(submit);
@@ -370,9 +371,9 @@ public class ManageCarGui extends JFrame{
 		
 		lblNewLabel_1 = new JLabel("Delete Car");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(126, 19, 139, 16);
+		lblNewLabel_1.setBounds(126, 19, 139, 20);
 		panel_1.add(lblNewLabel_1);
-		lblNewLabel_1.setForeground(textCB);
+		lblNewLabel_1.setForeground(colortxt);
 		lblNewLabel_1.setFont(new Font("Serif", Font.BOLD, 20));
 		
 		JPanel panel_2 = new JPanel();
@@ -383,7 +384,7 @@ public class ManageCarGui extends JFrame{
 		
 		JLabel lblNewLabel_3 = new JLabel("Update Car Status");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setForeground(textCB);
+		lblNewLabel_3.setForeground(colortxt);
 		lblNewLabel_3.setBounds(98, 17, 192, 26);
 		lblNewLabel_3.setFont(new Font("Serif", Font.BOLD, 20));
 		panel_2.add(lblNewLabel_3);
@@ -435,7 +436,7 @@ public class ManageCarGui extends JFrame{
 		
 		JLabel lblNewLabel_7 = new JLabel("Update The Car");
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7.setForeground(textCB);
+		lblNewLabel_7.setForeground(colortxt);
 		lblNewLabel_7.setBounds(108, 239, 176, 26);
 		lblNewLabel_7.setFont(new Font("Serif", Font.BOLD, 20));
 		panel_2.add(lblNewLabel_7);

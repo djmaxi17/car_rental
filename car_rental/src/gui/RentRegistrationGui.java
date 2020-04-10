@@ -109,14 +109,13 @@ public class RentRegistrationGui extends JFrame {
 	private Customer selectedCustomer;
 	private FidelityCard fid;
 	
-	private Color textC = new Color(214,217,220);
 	private Color textCB = new Color(248,250,252);
 	private Color buttonCol = new Color(79,99,116);
 	private Color colortest = new Color(87,90,92);
 	private Color col = new Color(61,67,72);
 	private Color colorSp = new Color(87,90,92);
 	private Color sideCol = new Color(107,106,103);
-	
+	private Color colortxt = new Color(251,241,199);
 	
 	static RentRegistrationGui rentFrame;
 	private JTable availCustomerTable;
@@ -462,7 +461,6 @@ public class RentRegistrationGui extends JFrame {
 		});
 		registerRentBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		registerRentBtn.setBackground(buttonCol);
-		registerRentBtn.setForeground(textCB);
 		panel.add(registerRentBtn);
 		
 		
@@ -475,7 +473,7 @@ public class RentRegistrationGui extends JFrame {
 		
 		JLabel newClientHeader = new JLabel("Add A New Customer");
 		newClientHeader.setFont(new Font("Serif", Font.BOLD, 20));
-		newClientHeader.setForeground(textC);
+		newClientHeader.setForeground(colortxt);
 		newClientHeader.setBounds(171, 6, 204, 20);
 		addCustomerJp.add(newClientHeader);
 		
@@ -567,7 +565,6 @@ public class RentRegistrationGui extends JFrame {
 		
 		JButton registerCustomerBtn = new JButton("Register Customer");
 		registerCustomerBtn.setBackground(buttonCol);
-		registerCustomerBtn.setForeground(textCB);
 		registerCustomerBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		registerCustomerBtn.setBounds(314, 192, 160, 29);
 		addCustomerJp.add(registerCustomerBtn);
@@ -599,9 +596,9 @@ public class RentRegistrationGui extends JFrame {
 		rentPanel.setLayout(null);
 		
 		JLabel rentInfoLbl = new JLabel("Rent Info");
-		rentInfoLbl.setBounds(234, 6, 94, 16);
+		rentInfoLbl.setBounds(234, 6, 94, 20);
 		rentPanel.add(rentInfoLbl);
-		rentInfoLbl.setForeground(textC);
+		rentInfoLbl.setForeground(colortxt);
 		rentInfoLbl.setFont(new Font("Serif", Font.BOLD, 20));
 		
 		JLabel dateRentedlbl = new JLabel("Date Rented:");
@@ -628,8 +625,6 @@ public class RentRegistrationGui extends JFrame {
 		
 		noDaysTf = new JTextField();
 		getNoDaysTf().setFont(new Font("SansSerif", Font.PLAIN, 14));
-		getNoDaysTf().setForeground(Color.BLACK);
-		getNoDaysTf().setBackground(Color.WHITE);
 		getNoDaysTf().addKeyListener(new KeyAdapter() {
 			
 			public void keyReleased(KeyEvent e) {
@@ -748,7 +743,6 @@ public class RentRegistrationGui extends JFrame {
 		JButton backBtn = new JButton("Back");
 		backBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		backBtn.setBackground(buttonCol);
-		backBtn.setForeground(textCB);
 		backBtn.setBounds(10, 600, 100, 30);
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

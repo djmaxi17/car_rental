@@ -41,9 +41,6 @@ public class ClerkMainGui extends JFrame {
 	//Connect to Database
 	DbConnect connect = new DbConnect();
 	private ArrayList<Car> cars = connect.getCar(null, 1);  
-	
-	//attributes for ManagerGui
-	private JButton settleRent;
 	private JButton next;
 	private JTextField searchText;
 	private JButton logout;
@@ -78,7 +75,6 @@ public class ClerkMainGui extends JFrame {
 	private JTextField ratingField;
 	JTable availabilityTable;
 	private Color textC = new Color(214,217,220);
-	private Color textCB = new Color(248,250,252);
 	private Color buttonCol = new Color(79,99,116);
 //	private Color c = new Color(0,0,0,180);
 	//previously selected car in rent registration and back
@@ -112,23 +108,8 @@ public ClerkMainGui(String revertPlate) {
 	logoLbl.setBounds(387,18,225,30);
 	this.getContentPane().add(logoLbl);
 	
-	//Instantiate attributes
-	settleRent = new JButton("Settle Rent");
-	settleRent.setFont(new Font("SansSerif", Font.BOLD, 12));
-	settleRent.setBackground(buttonCol);
-	settleRent.setForeground(textCB);
-	settleRent.setBorder(null);
-	settleRent.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			SettleRentGui settleRent = new SettleRentGui();
-			settleRent.setVisible(true);
-			dispose();
-		}
-	});
-	settleRent.setBounds(10, 600, 100, 30);
-	
 	searchText = new JTextField(20);
-	searchText.setBackground(Color.DARK_GRAY);
+	searchText.setBackground(new Color(35,35,36));
 	searchText.setFont(new Font("SansSerif", Font.PLAIN, 15));
 //	searchText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.RED));
 	searchText.setForeground(Color.WHITE);
@@ -299,11 +280,8 @@ public ClerkMainGui(String revertPlate) {
 		}
 	});
 	logout.setBackground(buttonCol);
-	logout.setForeground(textCB);
+	//logout.setForeground(textCB);
 	logout.setBounds(843,38,100,30);
-	
-	//add to the main jpanel
-	getContentPane().add(settleRent);
 	getContentPane().add(searchText);
 	getContentPane().add(logout);
 	getContentPane().add(sp);
@@ -585,7 +563,7 @@ public ClerkMainGui(String revertPlate) {
 		});
 		next.setBounds(883,600,100,30);
 		next.setBackground(buttonCol);
-		next.setForeground(textCB);
+		//next.setForeground(textCB);
 		getContentPane().add(next);
 
 		//setting button for the employee to change their password
@@ -599,16 +577,28 @@ public ClerkMainGui(String revertPlate) {
 		});
 
 		settingButton.setBackground(buttonCol);
-		settingButton.setForeground(textCB);
+		//settingButton.setForeground(textCB);
 		settingButton.setBounds(945, 39, 38, 28);
 		getContentPane().add(settingButton);
 		
 		JLabel searchLabel = new JLabel("Search");
-		searchLabel.setForeground(textCB);
+		//searchLabel.setForeground(textCB);
 		searchLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
 		searchLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
 		searchLabel.setBounds(10, 45, 67, 16);
 		getContentPane().add(searchLabel);
+		
+		JButton settleRent = new JButton("Settle Rent");
+		settleRent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SettleRentGui settle = new SettleRentGui();
+				settle.setVisible(true);
+				dispose();
+			}
+		});
+		settleRent.setBackground(buttonCol);
+		settleRent.setBounds(6, 600, 117, 30);
+		getContentPane().add(settleRent);
 	}
 }
 
