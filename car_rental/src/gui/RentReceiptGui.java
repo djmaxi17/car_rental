@@ -18,28 +18,11 @@ import rentRegistration.RentRegistration;
 
 public class RentReceiptGui extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5350813534933108725L;
-	/**
-	 * Launch the application.
-	 */
-	JTextPane receiptPane;
-//	public static void main(String[] args) {
-//		try {
-//			UIManager.setLookAndFeel(new NimbusLookAndFeel());
-//			RentReceiptGui dialog = new RentReceiptGui(null,null);
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 
-	/**
-	 * Create the dialog.
-	 */
+	JTextPane receiptPane;
+
+
 	private Color colortxt = new Color(251,241,199);
 	public RentReceiptGui(RentRegistrationGui previousFrame, RentRegistration rentReg) {
 		super(previousFrame,"Rent Receipt",true);

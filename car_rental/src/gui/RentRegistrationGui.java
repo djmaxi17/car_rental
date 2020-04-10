@@ -11,6 +11,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -31,6 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -45,9 +48,6 @@ import customer.FidelityCard;
 import database.DbConnect;
 import main.LoginSession;
 import rentRegistration.RentRegistration;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.UIManager;
 
 
 public class RentRegistrationGui extends JFrame {
@@ -445,11 +445,20 @@ public class RentRegistrationGui extends JFrame {
 							try {
 				
 								rentReg = connect.insertRent(selectedCar, customer, dateToday, numDaysInt, LoginSession.userId);
-								ClerkMainGui clerk = new ClerkMainGui(null);
+
 								RentReceiptGui receipt = new RentReceiptGui(rentFrame, rentReg);
 								receipt.setVisible(true);
+								if(LoginSession.usertype.equals("clerk")) {
+									ClerkMainGui clerk = new ClerkMainGui(null);
+									clerk.setVisible(true);
+								}
+								else if(LoginSession.usertype.equals("manager")) {
+									ManagerGui manager = new ManagerGui(null);
+									manager.setVisible(true);
+								}
+								
+
 								dispose();
-								clerk.setVisible(true);
 							} catch (ParseException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();

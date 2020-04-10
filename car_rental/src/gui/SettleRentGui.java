@@ -152,12 +152,19 @@ public class SettleRentGui extends JFrame{
 									selectedRent.setDateReturned(dateToday);
 									
 									if(connect.updateRent(selectedRent)) {
-										
-										ClerkMainGui clerk = new ClerkMainGui(null);
 										RentFinalReceipt receipt = new RentFinalReceipt(rentFrame, selectedRent);
 										receipt.setVisible(true);
+										
+										if(LoginSession.usertype.equals("clerk")) {
+											ClerkMainGui clerk = new ClerkMainGui(null);
+											clerk.setVisible(true);
+										}
+										else if(LoginSession.usertype.equals("manager")) {
+											ManagerGui manager = new ManagerGui(null);
+											manager.setVisible(true);
+										}
 										dispose();
-										clerk.setVisible(true);
+										
 									}
 									else {
 										JOptionPane.showMessageDialog(null, "There has been an error! Re-try", "Error", JOptionPane.ERROR_MESSAGE);

@@ -28,14 +28,14 @@ import rentRegistration.RentRegistration;
 
 public class DbConnect {
 	//online database 
-//	private static final String username = "I6TiCsakrM";
-//	private static final String password = "qXmZLkzjQ8";
-//	private static final String connection = "jdbc:mysql://remotemysql.com:3306/I6TiCsakrM?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	//private static final String username = "I6TiCsakrM";
+	//private static final String password = "qXmZLkzjQ8";
+	//private static final String connection = "jdbc:mysql://remotemysql.com:3306/I6TiCsakrM?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	
 	private static final String username = "carrentaladmin";
 	private static final String password = "Bonjour12345";
 	private static final String connection = "jdbc:mysql://localhost/car_rental?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	
+
 	
 	private static Connection con;
 	private Statement st;
@@ -616,7 +616,7 @@ public class DbConnect {
 				String carPlate = rent.getCar().getCarPlateNumber();
 				int custId = rent.getCustomerId();
 				
-				String querycar = "UPDATE Cars SET carAvailability = '0' WHERE Cars.carPlateNum = '"+carPlate+"'";
+				String querycar = "UPDATE cars SET carAvailability = '0' WHERE cars.carPlateNum = '"+carPlate+"'";
 				String querycustomer = "UPDATE customers SET isRented = '1' WHERE customers.customerId = '"+custId+"';";
 				
 				st.executeUpdate(querycar);
@@ -760,7 +760,7 @@ public class DbConnect {
 		    	
 		    	try {
 		    		
-		    		String query = "UPDATE Cars SET carAvailability = ? WHERE Cars.carPlateNum = ?";
+		    		String query = "UPDATE cars SET carAvailability = ? WHERE cars.carPlateNum = ?";
 		    		
 		    		ps = con.prepareStatement(query);
 		    		ps.setInt(1, status);
