@@ -44,6 +44,7 @@ public class LoginGui extends JFrame implements ActionListener {
 	ImageIcon logoImg;
 	JLabel labelLogo;
 	
+	DbConnect connect = new DbConnect();
 //
 //	public static void main(String[]args) throws UnsupportedLookAndFeelException {
 //		UIManager.setLookAndFeel( new NimbusLookAndFeel());
@@ -187,7 +188,7 @@ public class LoginGui extends JFrame implements ActionListener {
 		}
 		else {
 		try {			
-			if(DbConnect.isLogin(userText, passwordText, this)) {
+			if(connect.isLogin(userText, passwordText, this)) {
 				// display interfaces according to the type of employee
 				if(LoginSession.usertype.equals("technician")) {
 					//technician interface
@@ -208,15 +209,16 @@ public class LoginGui extends JFrame implements ActionListener {
 					this.dispose();
 				}
 				else {
-					System.out.println("This account does not exist");
+					JOptionPane.showMessageDialog(this, "Account not registered!","Error",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			else {
-				JOptionPane.showMessageDialog(this, "Invalid user OR Password");
+				JOptionPane.showMessageDialog(this, "Invalid user OR Password","Error",JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		catch(Exception ex) {
 			System.out.println("ERROR Check: "+ex);
+			JOptionPane.showMessageDialog(this, "No Database Connection","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	}

@@ -589,6 +589,7 @@ public ClerkMainGui(String revertPlate) {
 		getContentPane().add(searchLabel);
 		
 		JButton settleRent = new JButton("Settle Rent");
+		settleRent.setFont(new Font("SansSerif", Font.BOLD, 12));
 		settleRent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SettleRentGui settle = new SettleRentGui();

@@ -45,16 +45,12 @@ public class DbConnect {
 	public DbConnect() {
 		try {
 			//Class.forName("com.mysql.cj.jdbc.Driver");
-			
 			con = DriverManager.getConnection(connection,username,password);
 			st = con.createStatement();
-//			return true;
 			
 		}catch(Exception ex) 
 		{
 			
-			System.out.println("Database failed to connect: " +ex);
-//			return false;
 		}
 	}
 	
@@ -265,7 +261,7 @@ public class DbConnect {
 	}
 	
 	// login
-	public static boolean isLogin (String userEmail, String password, JFrame frame) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public boolean isLogin (String userEmail, String password, JFrame frame) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		boolean result = false;
 		try {
 			DbConnect cons = new DbConnect();
@@ -832,6 +828,16 @@ public class DbConnect {
 		    }
 	//ALL THE ABOVE SQL QUERIES HAVE BEEN TESTED WITH PREPARED STATEMENTS
 	//PLEASE DON'T MODIFY THESE ABOVE CODES. THANKS - DAVISEN
+
+			public static void close() {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
 
 
 }

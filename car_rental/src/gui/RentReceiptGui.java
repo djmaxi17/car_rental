@@ -40,6 +40,7 @@ public class RentReceiptGui extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
+	private Color colortxt = new Color(251,241,199);
 	public RentReceiptGui(RentRegistrationGui previousFrame, RentRegistration rentReg) {
 		super(previousFrame,"Rent Receipt",true);
 		setBackground(Color.DARK_GRAY);
@@ -58,12 +59,12 @@ public class RentReceiptGui extends JDialog {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		Color textCB = new Color(248,250,252);
+	
 		Color buttonCol = new Color(79,99,116);
 		JButton printBtn = new JButton("Print Receipt");
 		printBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		printBtn.setBackground(buttonCol);
-		printBtn.setForeground(textCB);
+		printBtn.setForeground(colortxt);
 		printBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
