@@ -96,10 +96,9 @@ public class RentGui extends JFrame{
 
 		// search field
 		searchField = new JTextField(20);
-		searchField.setBackground(Color.DARK_GRAY);
+		searchField.setBackground(new Color(35,35,36));
 		searchField.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		searchField.setForeground(Color.WHITE);
-		searchField.setBackground(Color.DARK_GRAY);
 		searchField.setBounds(70,38,232,30);
 		searchField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -125,7 +124,6 @@ public class RentGui extends JFrame{
 		backBtn = new JButton("Back");
 		backBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		backBtn.setBackground(buttonCol);
-		backBtn.setForeground(textCB);
 		backBtn.setBounds(10,600,100,30);
 		
 	}
@@ -235,7 +233,6 @@ public class RentGui extends JFrame{
 		contentPane.add(sp);
 		
 		JLabel searchLabel = new JLabel("Search");
-		searchLabel.setForeground(textCB);
 		searchLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
 		searchLabel.setBounds(10, 45, 67, 16);
 		getContentPane().add(searchLabel);

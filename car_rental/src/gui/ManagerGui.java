@@ -133,7 +133,6 @@ public ManagerGui(String revertPlate) {
 		}
 	});
 
-	
 	cars = connect.bindTable(null, 1);
 	//create array list to store names of cars available
 	//loop through array list of available cars objects
@@ -613,7 +612,9 @@ public ManagerGui(String revertPlate) {
 		settleRent.setBackground(buttonCol);
 		settleRent.setBounds(6, 600, 117, 30);
 		getContentPane().add(settleRent);
+		
 	}
+
 }
 
 

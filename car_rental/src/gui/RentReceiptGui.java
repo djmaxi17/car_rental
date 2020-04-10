@@ -69,8 +69,9 @@ public class RentReceiptGui extends JDialog {
 
 			    
 				try {
-					
-					receiptPane.print();
+					JTextPane txtP = receiptPane;
+					txtP.setForeground(Color.BLACK);
+					txtP.print();
 				} catch (PrinterException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

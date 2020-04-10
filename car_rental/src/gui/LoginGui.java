@@ -79,7 +79,7 @@ public class LoginGui extends JFrame implements ActionListener {
 			UIManager.put( "Button.arc", 10);
 			UIManager.put("TextField.border", 0);
 			UIManager.put("Component.arrowType", "chevron");
-//		    UIManager.setLookAndFeel( new FlatDarkLaf() );
+			
 		    LoginGui login = new LoginGui();
 		
 //		    BackgroundPainter bgp = login.new BackgroundPainter(null);

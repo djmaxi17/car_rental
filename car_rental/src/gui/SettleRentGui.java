@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -26,11 +28,10 @@ import javax.swing.table.TableRowSorter;
 import database.DbConnect;
 import main.LoginSession;
 import rentRegistration.RentRegistration;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class SettleRentGui extends JFrame{
 
+	private Color colortxt = new Color(251,241,199);
 	/**
 	 * 
 	 */
@@ -48,7 +49,6 @@ public class SettleRentGui extends JFrame{
 	private static DbConnect connect = new DbConnect();
 	private static ArrayList<RentRegistration> rents;
 	private JTable availabilityTable;
-	private Color textCB = new Color(248,250,252);
 	private Color buttonCol = new Color(79,99,116);
 	static SettleRentGui rentFrame;
 	
@@ -100,7 +100,6 @@ public class SettleRentGui extends JFrame{
 		searchField.setBackground(new Color(35,35,36));
 		searchField.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		searchField.setForeground(Color.WHITE);
-		searchField.setBackground(Color.DARK_GRAY);
 		searchField.setBounds(70,38,232,30);
 		searchField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -128,7 +127,6 @@ public class SettleRentGui extends JFrame{
 		settleRentBtn = new JButton("Settle Rent");
 		settleRentBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		settleRentBtn.setBackground(buttonCol);
-		settleRentBtn.setForeground(textCB);
 		settleRentBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -180,7 +178,6 @@ public class SettleRentGui extends JFrame{
 		backBtn = new JButton("Back");
 		backBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		backBtn.setBackground(buttonCol);
-		backBtn.setForeground(textCB);
 		backBtn.setBounds(10,600,100,30);
 		
 	}
@@ -264,7 +261,7 @@ public class SettleRentGui extends JFrame{
 		contentPane.add(sp);
 		
 		JLabel searchLabel = new JLabel("Search");
-		searchLabel.setForeground(textCB);
+		searchLabel.setForeground(colortxt);
 		searchLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
 		searchLabel.setBounds(10, 45, 67, 16);
 		getContentPane().add(searchLabel);
@@ -272,7 +269,6 @@ public class SettleRentGui extends JFrame{
 		JButton historyBtn = new JButton("Settled Rents History");
 		historyBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
 		historyBtn.setBackground(buttonCol);
-		historyBtn.setForeground(textCB);
 		historyBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RentGui rentgui = null;
