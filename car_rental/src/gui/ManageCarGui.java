@@ -513,12 +513,14 @@ public class ManageCarGui extends JFrame{
 					if (event.getActionCommand() == "Browse") {
 						
 						JFileChooser fileChooser = new JFileChooser();
+						
 						fileChooser.setDialogTitle("Select Image");
 						fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 						FileNameExtensionFilter filter = new FileNameExtensionFilter("*.IMAGE", "jpg", "gif", "png");
 						fileChooser.addChoosableFileFilter(filter);
+						fileChooser.setFileFilter(filter);
 						
-						int result = fileChooser.showSaveDialog(null);
+						int result = fileChooser.showOpenDialog(getManager());
 						
 						if (result == JFileChooser.APPROVE_OPTION) {
 							
@@ -883,4 +885,8 @@ public class ManageCarGui extends JFrame{
 				}
 				
 			}
+			
+		public ManageCarGui getManager(){
+			return this;
+		}
 }

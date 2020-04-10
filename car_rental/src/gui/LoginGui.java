@@ -21,7 +21,8 @@ import javax.swing.Painter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+
+import com.formdev.flatlaf.IntelliJTheme;
 
 import database.DbConnect;
 import main.LoginSession;
@@ -43,16 +44,15 @@ public class LoginGui extends JFrame implements ActionListener {
 	ImageIcon logoImg;
 	JLabel labelLogo;
 	
-
-	public static void main(String[]args) throws UnsupportedLookAndFeelException {
-		UIManager.setLookAndFeel( new NimbusLookAndFeel());
-		LoginGui login = new LoginGui();
-		login.setVisible(true);
-		login.setVisible(true);
-		BackgroundPainter bgp = login.new BackgroundPainter(null);
-        UIManager.getLookAndFeelDefaults().put("Table.focusCellHighlightBorder", bgp);
-        
-	}
+//
+//	public static void main(String[]args) throws UnsupportedLookAndFeelException {
+//		UIManager.setLookAndFeel( new NimbusLookAndFeel());
+//		LoginGui login = new LoginGui();
+////		login.setVisible(true);
+//		BackgroundPainter bgp = login.new BackgroundPainter(null);
+//        UIManager.getLookAndFeelDefaults().put("Table.focusCellHighlightBorder", bgp);
+//        
+//	}
 	public class BackgroundPainter implements Painter<JComponent> {
 
 		private Color color = null;
@@ -71,6 +71,24 @@ public class LoginGui extends JFrame implements ActionListener {
 
 
 	}
+	public static void main(String[]args) throws UnsupportedLookAndFeelException {
+		try {
+			IntelliJTheme.install( LoginGui.class.getResourceAsStream(
+				    "DarkFlatTheme.theme.json" ) );
+			UIManager.put( "Component.focusWidth", 0 );
+
+//		    UIManager.setLookAndFeel( new FlatDarkLaf() );
+		    LoginGui login = new LoginGui();
+		
+//		    BackgroundPainter bgp = login.new BackgroundPainter(null);
+//	        UIManager.getLookAndFeelDefaults().put("Table.focusCellHighlightBorder", bgp);
+			login.setVisible(true);
+		} catch( Exception ex ) {
+		    System.err.println( "Failed to initialize LaF" );
+		}
+		
+	}
+	
 	//constructor of the login page
 	public LoginGui() {
 		super("Log In");
