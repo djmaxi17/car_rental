@@ -19,11 +19,11 @@ public class Car {
 	private byte[] carImage;
 	private float carPenaltyPrice;
 	private int carRating;
-	
+
 	public Car(String carPlateNumber, String carMake, String carModel, String carType, int carYear, float engineSize,
-			int carSeatNo, String carTransmission, String carFuelType, byte[] carImage, float carTrunkSize, float carRate, float penaltyPrice, int carRating) {
+		int carSeatNo, String carTransmission, String carFuelType, byte[] carImage, float carTrunkSize, float carRate, float penaltyPrice, int carRating) {
 		count++;
-		this.carId=count;
+		this.carId = count;
 		this.carPlateNumber = carPlateNumber;
 		this.carMake = carMake;
 		this.carModel = carModel;
@@ -41,54 +41,47 @@ public class Car {
 		this.carRating = carRating;
 	}
 
-	
 	public boolean isCarAvailability() {
 		return carAvailability;
 	}
-
 
 	public void setCarAvailability(boolean carAvailability) {
 		this.carAvailability = carAvailability;
 	}
 
-
 	public float getCarRate() {
-		
+
 		return this.carRate;
 	}
-	
+
 	public String getFullCarName() {
-		return this.carMake+ " " +this.carModel;
+		return this.carMake + " " + this.carModel;
 	}
-	
+
 	public float getEngineSize() {
-		
+
 		return this.engineSize;
 	}
-	
+
 	public int getSeats() {
-		
+
 		return this.carSeatNo;
 	}
-	
+
 	public String getGear() {
-		
+
 		return this.carTransmission;
 	}
-	
-	
 
 	public String toString() {
-		return "Car [carId=" + carId + ", carPlateNumber=" + carPlateNumber + ", carName=" + getFullCarName() + ", carType=" + carType + ", carYear=" + carYear + ", engineSize=" + engineSize
-				+ ", carSeatNo=" + carSeatNo + ",\n carTransmission=" + carTransmission + ", carFuelType=" + carFuelType
-				+ ", carTrunkSize=" + carTrunkSize + ", carRate=" + carRate + ", carAvailability=" + carAvailability + "]\n";
+		return "Car [carId=" + carId + ", carPlateNumber=" + carPlateNumber + ", carName=" + getFullCarName() + ", carType=" + carType + ", carYear=" + carYear + ", engineSize=" + engineSize +
+			", carSeatNo=" + carSeatNo + ",\n carTransmission=" + carTransmission + ", carFuelType=" + carFuelType +
+			", carTrunkSize=" + carTrunkSize + ", carRate=" + carRate + ", carAvailability=" + carAvailability + "]\n";
 	}
-
 
 	public String getPlateNumber() {
 		return this.carPlateNumber;
 	}
-
 
 	public String getMake() {
 		// TODO Auto-generated method stub
@@ -99,7 +92,6 @@ public class Car {
 		return this.carModel;
 	}
 
-
 	public String getCarMake() {
 		return carMake;
 	}
@@ -107,7 +99,7 @@ public class Car {
 	public String getCarModel() {
 		return carModel;
 	}
-	
+
 	/**
 	 * @return the carImage
 	 */
@@ -152,6 +144,5 @@ public class Car {
 	public int getCarRating() {
 		return this.carRating;
 	}
-	
 
 }

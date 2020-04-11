@@ -8,5 +8,5 @@ public class LoginSession {
 	public static String username; // global username
 	public static String carSelected = null; //global variable for car selected
 	public static boolean isLoggedIn = false; // check if user ls logged in
-	
+
 }

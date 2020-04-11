@@ -79,8 +79,8 @@ public class RentRegistrationGui extends JFrame {
 	private String currentPlate;
 	private JDateChooser dateOfBirth;
 	
-	//process testing
-	DbConnect connect = new DbConnect();
+	//db process
+	private DbConnect connect = new DbConnect();
 	private ArrayList<Car>cars;
 	private ArrayList<Customer>customers;
 	
@@ -109,6 +109,7 @@ public class RentRegistrationGui extends JFrame {
 	private Customer selectedCustomer;
 	private FidelityCard fid;
 	
+	//colors
 	private Color textCB = new Color(248,250,252);
 	private Color buttonCol = new Color(79,99,116);
 	private Color colortest = new Color(87,90,92);
@@ -120,10 +121,7 @@ public class RentRegistrationGui extends JFrame {
 	static RentRegistrationGui rentFrame;
 	private JTable availCustomerTable;
 
-	/**
-	 * Create the frame.
-	 * @param getPlate 
-	 */
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public RentRegistrationGui(String getPlate) {
 		super("Rent Registration");
@@ -154,32 +152,35 @@ public class RentRegistrationGui extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
+		
+		//main panel
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.DARK_GRAY);
 		contentPane.add(panel, BorderLayout.CENTER);
 		
-		customerGender = "Male";
-		//process testing
-			//System.out.println("car plate num: "+s.getCarPlateNumber());
-			//makeTf.setText(s.getCarMake());
-		
-		cars = connect.getCar(getPlate, -1);
-		selectedCar = cars.get(0);
-		this.currentPlate = getPlate;
 		//logo
 		logoimg = new ImageIcon(this.getClass().getResource("companyName.png"));
 		panel.setLayout(null);
 		logoLbl = new JLabel(logoimg);
 		logoLbl.setBounds(387, 18, 225, 30);
 		panel.add(logoLbl);
-
 		
+		//default customerGender is male
+		customerGender = "Male";
+		
+		//car summary
+		cars = connect.getCar(getPlate, -1);
+		selectedCar = cars.get(0);
+		this.currentPlate = getPlate;
+		
+		//car panel
 		JPanel carInfoPanel = new JPanel();
 		carInfoPanel.setBounds(6, 292, 460, 296);
 		carInfoPanel.setBackground(sideCol);
@@ -270,6 +271,8 @@ public class RentRegistrationGui extends JFrame {
 		carInfoPanel.add(ppdTf);
 		ppdTf.setColumns(10);
 		
+		
+		//search panel
 		JPanel searchCustomerPanel = new JPanel();
 		searchCustomerPanel.setBounds(6, 50, 460, 240);
 		searchCustomerPanel.setBackground(colorSp);
@@ -288,9 +291,6 @@ public class RentRegistrationGui extends JFrame {
 	    }
 	   
 	    DefaultTableModel tableModel =  new DefaultTableModel(dataFromDb,columnName) {
-	        /**
-			 * 
-			 */
 			private static final long serialVersionUID = -8353222665595177323L;
 
 			@Override
@@ -299,9 +299,10 @@ public class RentRegistrationGui extends JFrame {
 	           return false;
 	        }
 	    };
+	    
+	    //adjustments to table
 		availCustomerTable = new JTable(tableModel);
 		availCustomerTable.setBorder(null);
-		availCustomerTable.setBackground(UIManager.getColor("CheckBox.disabledText"));
 		availCustomerTable.setBackground(colortest);
 		availCustomerTable.setSelectionBackground(col);
 		availCustomerTable.setForeground(textCB);
@@ -317,6 +318,8 @@ public class RentRegistrationGui extends JFrame {
 		availCustomerTable.getColumnModel().getColumn(2).setResizable(false);
 
 		availCustomerTable.getTableHeader().setReorderingAllowed(false);
+		
+		//another scrollpane for a blank table on boot up
 		JScrollPane defaultcsp = new JScrollPane(availCustomerTable);
 		defaultcsp.setBorder(null);
 		defaultcsp.getViewport().setBackground(colorSp);
@@ -326,7 +329,6 @@ public class RentRegistrationGui extends JFrame {
 		//hides the availCustomerTable 
 		defaultcsp.setVisible(false);
 		
-		
 		// creates and displays blank table on boot up -start
 	    DefaultTableModel blankModel = new DefaultTableModel();
 	    blankModel.addColumn("Name");
@@ -335,7 +337,7 @@ public class RentRegistrationGui extends JFrame {
 	
 	    final JTable blankTable = new JTable(blankModel);
 	    blankTable.setBorder(null);
-	    
+	  
 	    blankTable.setBackground(UIManager.getColor("CheckBox.disabledText"));
 		
 	    blankTable.setShowGrid(false);
@@ -460,7 +462,6 @@ public class RentRegistrationGui extends JFrame {
 
 								dispose();
 							} catch (ParseException e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
 						}
@@ -548,6 +549,7 @@ public class RentRegistrationGui extends JFrame {
 		addCustomerJp.add(dobJl);
 		
 		dateOfBirth = new JDateChooser();
+		dateOfBirth.setForeground(colortest);
 		dateOfBirth.setBounds(344, 78, 130, 26);
 		addCustomerJp.add(dateOfBirth);
 		
@@ -893,7 +895,7 @@ public class RentRegistrationGui extends JFrame {
 
 				//validate phone
 				if ( !(phoneJt.getText().length() == 8) ) {	
-					message += " (Phone)";
+					message += " (Phone - < 8 digits)";
 					phoneJt.setText(null);
 					
 				}else {
@@ -972,6 +974,8 @@ public class RentRegistrationGui extends JFrame {
 		}
 		
 	}
+	
+	//method to validate email
 	public boolean isValidEmailAddress(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
@@ -979,10 +983,5 @@ public class RentRegistrationGui extends JFrame {
         return m.matches();
 	}
 
-//	public Boolean validateEmail(String theEmail) {
-//		String regex = "^(.+)@(.+)$";
-//		
-//		return null;
-//	}
 
 }
