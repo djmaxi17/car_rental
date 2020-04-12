@@ -29,7 +29,7 @@ public class RentRegistration {
 	private int customerPoints;
 	private int rentStatus;
 
-	public RentRegistration(Customer customer, Car rentCar, String dateRented, int numDaysDefault) throws ParseException {
+	public RentRegistration(Customer customer, Car rentCar, String dateRented, int numDaysDefault) {
 		count++;
 		this.rentId = count;
 		this.customer = customer;
@@ -39,7 +39,11 @@ public class RentRegistration {
 		this.dateRented = dateRented;
 		this.rentStatus = 1;
 		this.numOfDaysDefault = numDaysDefault;
-		this.setDateDue(dateRented, numDaysDefault);
+		try {
+			this.setDateDue(dateRented, numDaysDefault);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		this.rentCar.setCarAvailability(false);
 		this.calculateRentCost();
 	}
@@ -82,10 +86,22 @@ public class RentRegistration {
 	calculate difference in date rented and date returned
 	calculate penalty
 	*/
-	public boolean setDateReturned(String dateReturned) throws ParseException {
+	public boolean setDateReturned(String dateReturned){
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateReturnedDate = dateformat.parse(dateReturned);
-		Date dateRented = dateformat.parse(this.dateRented);
+		Date dateReturnedDate = null;
+		try {
+			dateReturnedDate = dateformat.parse(dateReturned);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Date dateRented = null;
+		try {
+			dateRented = dateformat.parse(this.dateRented);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (dateReturnedDate.after(dateRented)) {
 			this.dateReturned = dateReturned;
 			this.rentCar.setCarAvailability(true);

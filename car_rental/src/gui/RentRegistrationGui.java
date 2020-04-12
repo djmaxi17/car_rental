@@ -549,8 +549,8 @@ public class RentRegistrationGui extends JFrame {
 		addCustomerJp.add(dobJl);
 		
 		dateOfBirth = new JDateChooser();
-		dateOfBirth.setForeground(colortest);
 		dateOfBirth.setBounds(344, 78, 130, 26);
+		System.out.println(dateOfBirth.getComponent(1));
 		addCustomerJp.add(dateOfBirth);
 		
 		JLabel genderJl = new JLabel("Gender:");

@@ -9,7 +9,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -150,29 +149,24 @@ public class SettleRentGui extends JFrame {
 						//check if dateRented is not equals to dateToday
 						if (!dateRented.equalsIgnoreCase(dateToday)) {
 
-							try {
+							if (selectedRent.setDateReturned(dateToday)) {
 
-								if (selectedRent.setDateReturned(dateToday)) {
+								if (connect.updateRent(selectedRent)) {
+									RentFinalReceipt receipt = new RentFinalReceipt(rentFrame, selectedRent);
+									receipt.setVisible(true);
 
-									if (connect.updateRent(selectedRent)) {
-										RentFinalReceipt receipt = new RentFinalReceipt(rentFrame, selectedRent);
-										receipt.setVisible(true);
-
-										if (LoginSession.usertype.equals("clerk")) {
-											ClerkMainGui clerk = new ClerkMainGui(null);
-											clerk.setVisible(true);
-										} else if (LoginSession.usertype.equals("manager")) {
-											ManagerGui manager = new ManagerGui(null);
-											manager.setVisible(true);
-										}
-										dispose();
-
-									} else {
-										JOptionPane.showMessageDialog(null, "There has been an error! Re-try", "Error", JOptionPane.ERROR_MESSAGE);
+									if (LoginSession.usertype.equals("clerk")) {
+										ClerkMainGui clerk = new ClerkMainGui(null);
+										clerk.setVisible(true);
+									} else if (LoginSession.usertype.equals("manager")) {
+										ManagerGui manager = new ManagerGui(null);
+										manager.setVisible(true);
 									}
+									dispose();
+
+								} else {
+									JOptionPane.showMessageDialog(null, "There has been an error! Re-try", "Error", JOptionPane.ERROR_MESSAGE);
 								}
-							} catch (ParseException e1) {
-								e1.printStackTrace();
 							}
 						} else {
 							JOptionPane.showMessageDialog(null, "Can't settle a rent registered today!", "Error", JOptionPane.ERROR_MESSAGE);
