@@ -18,6 +18,13 @@ public class Manager extends Employee implements Rentable {
 		super(id, firstName, lastName, email, password);
 	}
 
+	public Manager(int id, String firstName, String lastName, String email, String password, String EmpRole) {
+		super(id,firstName,lastName,email,password,EmpRole);
+	}
+	
+	
+
+	
 	public Car addCar(ArrayList<Car> cars, String carPlateNumber, String carMake, String carModel, String carType, int carYear, float engineSize,
 		int carSeatNo, String carTransmission, String carFuelType, byte[] carImage, float carTrunkSize, float carRate, float penaltyPrice, int carRating) {
 		Car mycar = new Car(carPlateNumber, carMake, carModel, carType, carYear, engineSize, carSeatNo, carTransmission, carFuelType, carImage, carTrunkSize, carRate, penaltyPrice, carRating);

@@ -16,6 +16,11 @@ public class Clerk extends Employee implements Rentable {
 	public Clerk(int id, String firstName, String lastName, String email, String password) {
 		super(id, firstName, lastName, email, password);
 	}
+	
+	
+	public Clerk(int id, String firstName, String lastName, String email, String password, String EmpRole) {
+		super(id,firstName,lastName,email,password,EmpRole);
+	}
 
 	/*Customer Related*/
 	//Clerk adds a customer -done

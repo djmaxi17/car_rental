@@ -29,7 +29,8 @@
 
   import car.Car;
   import database.DbConnect;
-  import main.LogoutSession;
+import main.LoginSession;
+import main.LogoutSession;
 
   public class ManagerGui extends JFrame {
 
@@ -597,6 +598,13 @@
 		//manageCarBtn.setForeground(textCB);
 		manageCarBtn.setBounds(451, 600, 127, 30);
 		getContentPane().add(manageCarBtn);
+		
+  		JLabel dynamicMsg = new JLabel("Welcome Back "+ LoginSession.userFirstName+ " " +LoginSession.username);
+  		dynamicMsg.setFont(new Font("SansSerif", Font.PLAIN, 12));
+  		dynamicMsg.setHorizontalAlignment(SwingConstants.RIGHT);
+  		dynamicMsg.setForeground(Color.WHITE);
+  		dynamicMsg.setBounds(616, 18, 367, 13);
+  		getContentPane().add(dynamicMsg);
   		
   	}
   }

@@ -18,6 +18,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import database.DbConnect;
+
 import java.awt.Color;
 
 public class SettingGui extends JDialog {

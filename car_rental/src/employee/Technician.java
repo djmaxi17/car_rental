@@ -18,6 +18,11 @@ public class Technician extends Employee {
 	public Technician(int id, String firstName, String lastName, String email, String password) {
 		super(id, firstName, lastName, email, password);
 	}
+	
+	public Technician(int id, String firstName, String lastName, String email, String password, String EmpRole) {
+		super(id,firstName,lastName,email,password,EmpRole);
+	}
+
 
 	public String toString() {
 		return "Technician [Id=" + getEmpId() + ", FirstName=" + getEmpFirstName() +

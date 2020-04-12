@@ -194,6 +194,7 @@ public class RentRegistrationGui extends JFrame {
 		carInfoPanel.add(carPlateNumJl);
 		
 		cpnTf = new JTextField();
+		cpnTf.setHorizontalAlignment(SwingConstants.CENTER);
 		cpnTf.setForeground(new Color(51, 51, 51));
 		cpnTf.setBackground(new Color(153, 153, 153));
 		cpnTf.setEditable(false);
@@ -208,6 +209,7 @@ public class RentRegistrationGui extends JFrame {
 		carInfoPanel.add(modelLbl);
 		
 		modelJt = new JTextField();
+		modelJt.setHorizontalAlignment(SwingConstants.CENTER);
 		modelJt.setForeground(new Color(51, 51, 51));
 		modelJt.setBackground(new Color(153, 153, 153));
 		modelJt.setEditable(false);
@@ -222,6 +224,7 @@ public class RentRegistrationGui extends JFrame {
 		carInfoPanel.add(makeLbl);
 		
 		makeTf = new JTextField();
+		makeTf.setHorizontalAlignment(SwingConstants.CENTER);
 		makeTf.setForeground(new Color(51, 51, 51));
 		makeTf.setBackground(new Color(153, 153, 153));
 		makeTf.setEditable(false);
@@ -248,6 +251,7 @@ public class RentRegistrationGui extends JFrame {
 		carInfoPanel.add(pricePerDayLbl);
 		
 		typeTf = new JTextField();
+		typeTf.setHorizontalAlignment(SwingConstants.CENTER);
 		typeTf.setForeground(new Color(51, 51, 51));
 		typeTf.setBackground(new Color(153, 153, 153));
 		typeTf.setEditable(false);
@@ -256,6 +260,7 @@ public class RentRegistrationGui extends JFrame {
 		typeTf.setColumns(10);
 		
 		gearTf = new JTextField();
+		gearTf.setHorizontalAlignment(SwingConstants.CENTER);
 		gearTf.setForeground(new Color(51, 51, 51));
 		gearTf.setBackground(new Color(153, 153, 153));
 		gearTf.setEditable(false);
@@ -264,6 +269,7 @@ public class RentRegistrationGui extends JFrame {
 		gearTf.setColumns(10);
 		
 		ppdTf = new JTextField();
+		ppdTf.setHorizontalAlignment(SwingConstants.CENTER);
 		ppdTf.setForeground(new Color(51, 51, 51));
 		ppdTf.setBackground(new Color(153, 153, 153));
 		ppdTf.setEditable(false);

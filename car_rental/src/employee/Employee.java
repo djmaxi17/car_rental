@@ -6,6 +6,7 @@ public abstract class Employee {
 	private String empLastName;
 	private String empEmail;
 	private String empPassword;
+	private String empPosition;
 
 	public Employee(String empFirstName, String empLastName) {
 		this.empFirstName = empFirstName;
@@ -24,6 +25,15 @@ public abstract class Employee {
 		this.empLastName = empLastName;
 		this.empEmail = empEmail;
 		this.empPassword = empPassword;
+	}
+	
+	public Employee(int empId,String empFirstName, String empLastName,String empEmail, String empPassword, String empPosition) {
+		this.empId = empId;
+		this.empFirstName = empFirstName;
+		this.empLastName = empLastName;
+		this.empEmail = empEmail;
+		this.empPassword = empPassword;
+		this.empPosition = empPosition;
 	}
 
 	//Generates Email
@@ -87,5 +97,7 @@ public abstract class Employee {
 			return empFirstName + " " + empLastName;
 		}
 	}
-
+	public String getPosition() {
+		return empPosition;
+	}
 }

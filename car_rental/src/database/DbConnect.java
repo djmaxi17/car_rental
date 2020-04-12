@@ -20,6 +20,7 @@ import car.Car;
 import customer.Customer;
 import customer.FidelityCard;
 import employee.Clerk;
+import employee.Employee;
 import employee.Manager;
 import employee.Technician;
 import hash.Hash;
@@ -825,6 +826,69 @@ public class DbConnect {
 		updateCarAvailability(rent.getCar().getCarPlateNumber(), 1);
 		return true;
 	}
+	
+	//method to display employee
+	public ArrayList<Employee> BindTableEmployee(int employeeId, int empIndex){
+    	ArrayList<Employee> employees = new ArrayList<Employee>();
+
+    	try{
+    		String query = "";
+    		
+    		//query all employees
+    		if((employeeId == 0) && (empIndex == -1)) {
+	    		query = "SELECT * FROM employees";
+	    		ps = con.prepareStatement(query);
+    	
+    		}else if((employeeId == 0) && (empIndex == 0)) {
+    			//query all technicians
+    			query = "SELECT * FROM employees WHERE employeeRole = ?";
+    			ps = con.prepareStatement(query);
+    			ps.setString(1, "technician");
+
+    		}else if((employeeId == 0) && (empIndex == 1)) {
+    			//query all clerk
+    			query = "SELECT * FROM employees WHERE employeeRole = ?";
+    			ps = con.prepareStatement(query);
+    			ps.setString(1, "clerk");
+    		}else if((employeeId == 0) && (empIndex == 2)) {
+    			//query all managers
+    			query = "SELECT * FROM employees WHERE employeeRole = ?";
+    			ps = con.prepareStatement(query);
+    			ps.setString(1, "manager");
+    		}else if((employeeId != 0) && (empIndex == -1)) {
+    			query = "SELECT * FROM employees WHERE employeeId = ?";
+    			ps = con.prepareStatement(query);
+    			ps.setInt(1, employeeId);
+    		}
+    		
+    		
+    		rs = ps.executeQuery();
+    		
+    		while(rs.next()) {
+    			int theEmployeeId = rs.getInt("employeeId");
+    			String empFName = rs.getString("employeeFirstName");
+    			String empLName = rs.getString("employeeLastName");
+    			String empEmail = rs.getString("employeeEmail");
+    			String empPassword = rs.getString("employeePassword");
+    			String empRole = rs.getString("employeeRole");
+    			
+    			
+    			if(empRole.equalsIgnoreCase("Clerk")) {
+    				employees.add(new Clerk(theEmployeeId,empFName,empLName,empEmail,empPassword,empRole));
+    			}
+    			else if(empRole.equalsIgnoreCase("Manager")) {
+    				employees.add(new Manager(theEmployeeId,empFName,empLName,empEmail,empPassword,empRole));
+    			}
+    			else if(empRole.equalsIgnoreCase("Technician")) {
+    				employees.add(new Technician(theEmployeeId,empFName,empLName,empEmail,empPassword,empRole));
+    			}
+    		}
+    	}
+    	catch(SQLException ex){
+    		System.out.println("sql exception "+ex);
+    	}
+    	return employees;
+    }
 
 	//method to close db connection
 	public static void close() {

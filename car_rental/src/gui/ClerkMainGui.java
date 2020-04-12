@@ -29,7 +29,8 @@
 
   import car.Car;
   import database.DbConnect;
-  import main.LogoutSession;
+import main.LoginSession;
+import main.LogoutSession;
 
   public class ClerkMainGui extends JFrame {
 
@@ -582,5 +583,12 @@
   		settleRent.setBackground(buttonCol);
   		settleRent.setBounds(6, 600, 117, 30);
   		getContentPane().add(settleRent);
+  		
+  		JLabel dynamicMsg =new JLabel("Welcome Back "+ LoginSession.userFirstName+ " " +LoginSession.username);
+  		dynamicMsg.setFont(new Font("SansSerif", Font.PLAIN, 12));
+  		dynamicMsg.setHorizontalAlignment(SwingConstants.RIGHT);
+  		dynamicMsg.setForeground(Color.WHITE);
+  		dynamicMsg.setBounds(616, 18, 367, 13);
+  		getContentPane().add(dynamicMsg);
   	}
   }

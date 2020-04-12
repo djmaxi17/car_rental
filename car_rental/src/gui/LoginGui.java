@@ -40,7 +40,6 @@ import com.formdev.flatlaf.IntelliJTheme;
 
 import database.DbConnect;
 import main.LoginSession;
-import technicianGui.TechnicianInterfaces;
 
 public class LoginGui extends JFrame implements ActionListener {
 
@@ -170,7 +169,7 @@ public class LoginGui extends JFrame implements ActionListener {
 			String userText = emailTextField.getText();
 			String passwordText = pwdField.getText();
 			if (userText.equalsIgnoreCase("admin") && passwordText.equalsIgnoreCase("admin")) {
-				TechnicianInterfaces technicianInterface = new TechnicianInterfaces();
+				TechnicianMain technicianInterface = new TechnicianMain();
 				technicianInterface.setVisible(true);
 				this.dispose();
 			} else {
@@ -179,7 +178,7 @@ public class LoginGui extends JFrame implements ActionListener {
 						// display interfaces according to the type of employee
 						if (LoginSession.usertype.equals("technician")) {
 							//technician interface
-							TechnicianInterfaces technicianInterface = new TechnicianInterfaces();
+							TechnicianMain technicianInterface = new TechnicianMain();
 							technicianInterface.setVisible(true);
 							this.dispose();
 						} else if (LoginSession.usertype.equals("clerk")) {
