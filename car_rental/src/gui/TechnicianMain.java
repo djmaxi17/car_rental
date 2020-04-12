@@ -176,8 +176,6 @@ public class TechnicianMain extends JFrame {
 		scrollPane.setBorder(null);
 		searchPanel.add(scrollPane);
 
-		JTable defaultTable = new JTable();
-		scrollDefault.setViewportView(table);
 		
 		//table start
 
@@ -430,7 +428,7 @@ public class TechnicianMain extends JFrame {
 										JOptionPane.showMessageDialog(null, "Error in adding new clerk! Try Again", "Error", JOptionPane.ERROR_MESSAGE);
 									}
 								} catch (NoSuchAlgorithmException | InvalidKeySpecException e1) {
-									// TODO Auto-generated catch block
+									
 									e1.printStackTrace();
 								}
 							} else {
@@ -471,7 +469,7 @@ public class TechnicianMain extends JFrame {
 										JOptionPane.showMessageDialog(null, "Error in adding new manager! Try Again", "Error", JOptionPane.ERROR_MESSAGE);
 									}
 								} catch (NoSuchAlgorithmException | InvalidKeySpecException e1) {
-									// TODO Auto-generated catch block
+									
 									e1.printStackTrace();
 								}
 							} else {
@@ -512,7 +510,7 @@ public class TechnicianMain extends JFrame {
 										JOptionPane.showMessageDialog(null, "Error in adding new technician! Try Again", "Error", JOptionPane.ERROR_MESSAGE);
 									}
 								} catch (NoSuchAlgorithmException | InvalidKeySpecException e1) {
-									// TODO Auto-generated catch block
+								
 									e1.printStackTrace();
 								}
 							} else {
