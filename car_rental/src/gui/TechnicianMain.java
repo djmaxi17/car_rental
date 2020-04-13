@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +8,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
@@ -33,8 +34,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.formdev.flatlaf.IntelliJTheme;
-
 import database.DbConnect;
 import employee.Clerk;
 import employee.Employee;
@@ -57,6 +56,8 @@ public class TechnicianMain extends JFrame {
 	private JTextField rEmpFname;
 	private JTextField rEmpLname;
 	private JTextField rEmpPosition;
+	private JLabel email;
+	
 	private Color colorDp = new Color(87, 90, 92);
 	private DbConnect connect = new DbConnect();
 	private ArrayList<Employee> employ = new ArrayList<Employee> ();
@@ -64,51 +65,28 @@ public class TechnicianMain extends JFrame {
 	public static int empyId;
 	public Employee employee;
 	private Color textC = Color.WHITE;
-//	private Color textCB = new Color(248, 250, 252);
-//	private Color buttonCol = new Color(79, 99, 116);
-//	private Color colortest = new Color(87, 90, 92);
-//	private Color col = new Color(61, 67, 72);
-//	private Color colorSp = new Color(87, 90, 92);
-//	private Color sideCol = new Color(107, 106, 103);
-//	private Color colortxt = new Color(251, 241, 199);
 	private JTable table;
 	private int selectedType;
 
-	protected ArrayList<Technician> technicians;
-	protected ArrayList<Manager> managers;
-	protected ArrayList<Clerk> clerks;
+	private ArrayList<Technician> technicians;
+	private ArrayList<Manager> managers;
+	private ArrayList<Clerk> clerks;
 
 	private Technician loginTechnician;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-
-					IntelliJTheme.install(LoginGui.class.getResourceAsStream(
-						"gruvbox_theme.theme.json"));
-					UIManager.put("Component.focusWidth", 0);
-					UIManager.put("Button.arc", 10);
-					UIManager.put("TextField.border", 0);
-					UIManager.put("Component.arrowType", "chevron");
-
-					TechnicianMain frame = new TechnicianMain();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	/**
 	 * Create the frame.
 	 */
 	public TechnicianMain() {
 		super("Technician Interface");
 
+  		//display login on closing
+  		addWindowListener(new WindowAdapter() {
+  			public void windowClosing(WindowEvent e) {
+  				LoginGui login = null;
+  				login = new LoginGui();
+  				login.setVisible(true);
+  			}
+  		});
 		technicians = connect.getTechnicians();
 		managers = connect.getManagers();
 		clerks = connect.getClerks();
@@ -116,7 +94,7 @@ public class TechnicianMain extends JFrame {
 		if (LoginSession.isLoggedIn) {
 			loginTechnician = getTechnician(technicians, LoginSession.userFirstName, LoginSession.username);
 		}
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(830, 474);
 		this.setLocationRelativeTo(null);
 		this.setIconImage(new ImageIcon(LoginGui.class.getResource("icon.png")).getImage());
@@ -282,6 +260,7 @@ public class TechnicianMain extends JFrame {
 					rEmpFname.setText(employee.getEmpFirstName());
 					rEmpLname.setText(employee.getEmpLastName());
 					rEmpPosition.setText(employee.getPosition());
+					email.setText(employee.getEmpEmail());
 				}
 			}
 		});
@@ -549,6 +528,7 @@ public class TechnicianMain extends JFrame {
 		removeEmpPanel.add(fnameRemoveE);
 
 		rEmpFname = new JTextField();
+		rEmpFname.setEditable(false);
 		rEmpFname.setForeground(Color.WHITE);
 		rEmpFname.setHorizontalAlignment(SwingConstants.CENTER);
 		rEmpFname.setBackground(Color.DARK_GRAY);
@@ -562,6 +542,7 @@ public class TechnicianMain extends JFrame {
 		removeEmpPanel.add(lnameRemove);
 
 		rEmpLname = new JTextField();
+		rEmpLname.setEditable(false);
 		rEmpLname.setForeground(Color.WHITE);
 		rEmpLname.setHorizontalAlignment(SwingConstants.CENTER);
 		rEmpLname.setBounds(6, 121, 193, 26);
@@ -580,6 +561,8 @@ public class TechnicianMain extends JFrame {
 						if(value==JOptionPane.YES_OPTION) {
 							String fname = rEmpFname.getText();
 							String lname = rEmpLname.getText();
+							
+							if(!fname.equals("c") && !lname.equals("t")){
 							boolean check = loginTechnician.deleteClerk(clerks, fname, lname);
 							if(check==true) {
 								JOptionPane.showMessageDialog(null, "Clerk Deleted!","Done", JOptionPane.INFORMATION_MESSAGE);
@@ -590,7 +573,10 @@ public class TechnicianMain extends JFrame {
 							else {
 								JOptionPane.showMessageDialog(null, "Couldn't delete clerk! Try-Again","Error", JOptionPane.ERROR_MESSAGE);
 							}
-							
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Cannot delete this account!","Error", JOptionPane.ERROR_MESSAGE);
+							}
 						}
 					}
 					else if(pos.equalsIgnoreCase("manager")) {
@@ -599,6 +585,7 @@ public class TechnicianMain extends JFrame {
 						if(value==JOptionPane.YES_OPTION) {
 							String fname = rEmpFname.getText();
 							String lname = rEmpLname.getText();
+							if(!fname.equals("m") && !lname.equals("t")){
 							boolean check =loginTechnician.deleteManager(managers, fname, lname);
 							if(check==true) {
 							JOptionPane.showMessageDialog(null, "Manager Deleted!","Done", JOptionPane.INFORMATION_MESSAGE);
@@ -609,6 +596,10 @@ public class TechnicianMain extends JFrame {
 							else {
 								JOptionPane.showMessageDialog(null, "Couldn't delete manager! Try-Again","Error",JOptionPane.ERROR_MESSAGE);
 							}
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Cannot delete this account!","Error", JOptionPane.ERROR_MESSAGE);
+							}
 						}
 					}
 					else if(pos.equalsIgnoreCase("technician")) {
@@ -617,6 +608,7 @@ public class TechnicianMain extends JFrame {
 						if(value==JOptionPane.YES_OPTION) {
 							String fname = rEmpFname.getText();
 							String lname = rEmpLname.getText();
+							if(!fname.equals("t") && !lname.equals("t")){
 							boolean check = loginTechnician.deleteTechnician(technicians, fname, lname);
 							
 							if(check==true) {
@@ -627,6 +619,10 @@ public class TechnicianMain extends JFrame {
 							}
 							else {
 								JOptionPane.showMessageDialog(null, "Couldn't delete technician! Try-Again","Error", JOptionPane.ERROR_MESSAGE);
+							}
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Cannot delete this account!","Error", JOptionPane.ERROR_MESSAGE);
 							}
 						}
 					}
@@ -656,6 +652,11 @@ public class TechnicianMain extends JFrame {
 		positionRemobeLbl.setForeground(textC);
 		positionRemobeLbl.setBounds(210, 48, 61, 16);
 		removeEmpPanel.add(positionRemobeLbl);
+		
+		email = new JLabel("");
+		email.setHorizontalAlignment(SwingConstants.CENTER);
+		email.setBounds(6, 165, 363, 16);
+		removeEmpPanel.add(email);
 
 	}
 

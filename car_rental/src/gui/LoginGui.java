@@ -169,9 +169,7 @@ public class LoginGui extends JFrame implements ActionListener {
 			String userText = emailTextField.getText();
 			String passwordText = pwdField.getText();
 			if (userText.equalsIgnoreCase("admin") && passwordText.equalsIgnoreCase("admin")) {
-				TechnicianMain technicianInterface = new TechnicianMain();
-				technicianInterface.setVisible(true);
-				this.dispose();
+				JOptionPane.showMessageDialog(this, "You are not a real admin!", "Error", JOptionPane.ERROR_MESSAGE);
 			} else {
 				try {
 					if (connect.isLogin(userText, passwordText, this)) {
