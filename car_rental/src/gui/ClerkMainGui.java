@@ -29,6 +29,7 @@
 
   import car.Car;
   import database.DbConnect;
+import files.LogFile;
 import main.LoginSession;
 import main.LogoutSession;
 
@@ -72,6 +73,9 @@ import main.LogoutSession;
   	JTable availabilityTable;
   	private Color textC = new Color(214, 217, 220);
   	private Color buttonCol = new Color(79, 99, 116);
+  	
+  	//log file
+  	LogFile log = new LogFile();
 
   	//previously selected car in rent registration and back
   	private ArrayList<Car> car;
@@ -261,6 +265,10 @@ import main.LogoutSession;
   			public void actionPerformed(ActionEvent e) {
   				int value = JOptionPane.showConfirmDialog(getParent(), "Are you sure to Log Out?", "Confirmation", JOptionPane.YES_NO_OPTION);
   				if (value == JOptionPane.YES_OPTION) {
+  					
+  					//record logout in log file
+  					log.recordLogOut(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype);
+  					
   					LoginGui login = new LoginGui();
   					LogoutSession.logoutH(login);
   					dispose();

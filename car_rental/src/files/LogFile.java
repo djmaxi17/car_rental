@@ -46,6 +46,29 @@ public class LogFile {
 		}
 	}
 	
+	//method to record logout log
+	public void recordLogOut(int userId, String username, String userType) {
+		
+		try {
+			//set output file
+			PrintWriter pw = new PrintWriter(new FileOutputStream(login,true));
+			//formatter
+			Formatter output = new Formatter(pw);
+			//output to file
+			output.format("%s %s with id %d Logged out at %s \r\n", userType, username, userId, logDate);
+			pw.println();
+			output.close();
+			
+		}catch (FileNotFoundException e) {
+			
+			System.out.println(login + " Not Found");
+			
+		}catch(SecurityException se) {
+			
+			System.out.println("No Permission !");
+		}
+	}
+	
 	//method to record car registration in carRegistration log file
 	public void recordCar(int userId, String username, String userType, String carPlateNo) {
 		

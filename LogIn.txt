@@ -1,7 +1,0 @@
-t with id 86 logged in as technician at 13/04/20 13:09:23 	
-m with id 91 logged in as manager at 13/04/20 13:12:16 	
-t with id 86 logged in as technician at 13/04/20 13:14:53 	
-c with id 88 logged in as clerk at 13/04/20 13:17:42 
-
-m with id 91 logged in as manager at 13/04/20 13:18:52 
-

@@ -1,2 +1,0 @@
-clerk c with id 88 has registered rent of Car 532 DC 12 to Customer Gro Dereck at 13/04/20 13:18:00 
-

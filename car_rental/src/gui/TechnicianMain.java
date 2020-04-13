@@ -303,6 +303,10 @@ public class TechnicianMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int value = JOptionPane.showConfirmDialog(getParent(), "Are you sure to Log Out?", "Confirmation", JOptionPane.YES_NO_OPTION);
 				if (value == JOptionPane.YES_OPTION) {
+					
+					//record log out in log file
+					log.recordLogOut(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype);
+					
 					LoginGui login = new LoginGui();
 					LogoutSession.logoutH(login);
 					dispose();

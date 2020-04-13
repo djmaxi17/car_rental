@@ -1,0 +1,2 @@
+manager m with id 91 has settled rent of Car 366 ZY 20 to Customer Davisen Permall at 13/04/20 17:21:02 
+

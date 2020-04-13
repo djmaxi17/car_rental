@@ -1,0 +1,6 @@
+manager m with id 91 has registered rent of Car 366 ZY 20 to Customer Davisen Permall at 13/04/20 17:11:13 
+
+manager m with id 91 has registered rent of Car MH 20 to Customer Tom Sawyer at 13/04/20 17:20:50 
+
+clerk c with id 88 has registered rent of Car F20 to Customer Sarvesh Caleechurn at 13/04/20 17:22:18 
+
