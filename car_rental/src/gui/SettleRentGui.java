@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import database.DbConnect;
+import files.LogFile;
 import main.LoginSession;
 import rentRegistration.RentRegistration;
 
@@ -33,6 +34,9 @@ public class SettleRentGui extends JFrame {
 	private Color colortxt = new Color(251, 241, 199);
 	private Color colorSp = new Color(87, 90, 92);
 	private static final long serialVersionUID = 6228787531300890603L;
+	
+	//log file
+	LogFile log = new LogFile();
 
 	Container contentPane = getContentPane();
 	JTextField searchField;
@@ -153,6 +157,9 @@ public class SettleRentGui extends JFrame {
 
 								if (connect.updateRent(selectedRent)) {
 									RentFinalReceipt receipt = new RentFinalReceipt(rentFrame, selectedRent);
+									
+									//record settle rent to settleRent log file
+									log.settleRent(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype, selectedRent.getCustomer().getFullName(), selectedRent.getCar().getCarPlateNumber());
 									receipt.setVisible(true);
 
 									if (LoginSession.usertype.equals("clerk")) {

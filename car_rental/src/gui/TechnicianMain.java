@@ -39,6 +39,7 @@ import employee.Clerk;
 import employee.Employee;
 import employee.Manager;
 import employee.Technician;
+import files.LogFile;
 import main.LoginSession;
 import main.LogoutSession;
 
@@ -57,7 +58,10 @@ public class TechnicianMain extends JFrame {
 	private JTextField rEmpLname;
 	private JTextField rEmpPosition;
 	private JLabel email;
-
+	
+	//log file
+	LogFile log = new LogFile();
+	
 	private Color colorDp = new Color(87, 90, 92);
 	private DbConnect connect = new DbConnect();
 	private ArrayList<Employee> employ = new ArrayList<Employee> ();
@@ -397,7 +401,10 @@ public class TechnicianMain extends JFrame {
 									if (newClerk != null) {
 										JOptionPane.showMessageDialog(null, "Name: " + newClerk.getFullName() + "\nEmail: " + newClerk.getEmpEmail() +
 											"\nPassword: " + newClerk.getEmpPassword(), "New Clerk Details", JOptionPane.PLAIN_MESSAGE);
-
+										
+										//record in log file
+										log.recordTechnician(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype, "Created Clerk", newClerk.getFullName());
+										
 										addEmpFname.setText("");
 										addEmpLname.setText("");
 										dispose();
@@ -439,6 +446,10 @@ public class TechnicianMain extends JFrame {
 									if (newManager != null) {
 										JOptionPane.showMessageDialog(null, "Name: " + newManager.getFullName() + "\nEmail: " + newManager.getEmpEmail() +
 											"\nPassword: " + newManager.getEmpPassword(), "New Manager Details", JOptionPane.PLAIN_MESSAGE);
+										
+										//record in log file
+										log.recordTechnician(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype, "Created Manager", newManager.getFullName());
+										
 										addEmpFname.setText("");
 										addEmpLname.setText("");
 										dispose();
@@ -476,10 +487,14 @@ public class TechnicianMain extends JFrame {
 								Technician newTechnician;
 								try {
 									newTechnician = loginTechnician.createTechnician(technicians, fname, lname, loginTechnician.getEmpId());
-
+									
 									if (newTechnician != null) {
 										JOptionPane.showMessageDialog(null, "Name: " + newTechnician.getFullName() + "\nEmail: " + newTechnician.getEmpEmail() +
 											"\nPassword: " + newTechnician.getEmpPassword(), "New Technician Details", JOptionPane.PLAIN_MESSAGE);
+										
+										//record in log file
+										log.recordTechnician(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype, "Created Technician", newTechnician.getFullName());
+										
 										addEmpFname.setText("");
 										addEmpLname.setText("");
 										dispose();
@@ -566,6 +581,10 @@ public class TechnicianMain extends JFrame {
 							boolean check = loginTechnician.deleteClerk(clerks, fname, lname);
 							if (check == true) {
 								JOptionPane.showMessageDialog(null, "Clerk Deleted!", "Done", JOptionPane.INFORMATION_MESSAGE);
+								
+								//record in log file
+								log.recordTechnician(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype, "Deleted Clerk", (fname + " " + lname));
+								
 								dispose();
 								TechnicianMain reload = new TechnicianMain();
 								reload.setVisible(true);
@@ -586,6 +605,10 @@ public class TechnicianMain extends JFrame {
 							boolean check = loginTechnician.deleteManager(managers, fname, lname);
 							if (check == true) {
 								JOptionPane.showMessageDialog(null, "Manager Deleted!", "Done", JOptionPane.INFORMATION_MESSAGE);
+								
+								//record in log file
+								log.recordTechnician(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype, "Deleted Manager", (fname + " " + lname));
+								
 								dispose();
 								TechnicianMain reload = new TechnicianMain();
 								reload.setVisible(true);
@@ -607,6 +630,10 @@ public class TechnicianMain extends JFrame {
 
 							if (check == true) {
 								JOptionPane.showMessageDialog(null, "Technician Deleted!", "Done", JOptionPane.INFORMATION_MESSAGE);
+								
+								//record in log file
+								log.recordTechnician(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype, "Deleted Technician", (fname + " " + lname));
+								
 								dispose();
 								TechnicianMain reload = new TechnicianMain();
 								reload.setVisible(true);

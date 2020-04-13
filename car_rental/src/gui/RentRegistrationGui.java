@@ -46,6 +46,7 @@ import car.Car;
 import customer.Customer;
 import customer.FidelityCard;
 import database.DbConnect;
+import files.LogFile;
 import main.LoginSession;
 import rentRegistration.RentRegistration;
 
@@ -78,6 +79,9 @@ public class RentRegistrationGui extends JFrame {
 	private ImageIcon carImg;
 	private String currentPlate;
 	private JDateChooser dateOfBirth;
+	
+	//log file
+	LogFile log = new LogFile();
 	
 	//db process
 	private DbConnect connect = new DbConnect();
@@ -453,7 +457,10 @@ public class RentRegistrationGui extends JFrame {
 							try {
 				
 								rentReg = connect.insertRent(selectedCar, customer, dateToday, numDaysInt, LoginSession.userId);
-
+								
+								//record rent registration in rentRegistration log file
+								log.recordRent(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype, customer.getFullName(), selectedCar.getCarPlateNumber());
+								
 								RentReceiptGui receipt = new RentReceiptGui(rentFrame, rentReg);
 								receipt.setVisible(true);
 								if(LoginSession.usertype.equals("clerk")) {
@@ -939,6 +946,9 @@ public class RentRegistrationGui extends JFrame {
 									selectedDob, customerPhone, customerAddress, customerLicensenum, 
 									customerGender, LoginSession.userId)) {
 								JOptionPane.showMessageDialog(null, "Customer Registered And Selected");
+								
+								//record customer registration in customerRegistration log file
+								log.recordCustomer(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype, (customerFirstName + " " + customerLastName));
 								
 								fid = new FidelityCard(connect.getCustomerId(customerLicensenum), customerFirstName, customerLastName, customerEmail, 0);
 								selectedCustomer = new Customer(connect.getCustomerId(customerLicensenum), customerFirstName, customerLastName, customerEmail, selectedDob, customerPhone, customerAddress, customerLicensenum, customerGender, LoginSession.userId, 0, fid);

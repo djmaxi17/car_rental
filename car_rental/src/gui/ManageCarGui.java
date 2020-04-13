@@ -31,6 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import car.Car;
 import database.DbConnect;
+import files.LogFile;
 import main.LoginSession;
 
 public class ManageCarGui extends JFrame {
@@ -63,6 +64,9 @@ public class ManageCarGui extends JFrame {
 	private JLabel imageLocation;
 	private JLabel carImgAddNewCar;
 	private ImageIcon browseImg;
+	
+	//log file
+	LogFile log = new LogFile();
 
 	//attributes to hold values from text boxes
 	private String carPlateNo;
@@ -672,6 +676,9 @@ public class ManageCarGui extends JFrame {
 							if (connect.insertCar(carPlateNo, carMake, carModel, carType, carYear, carGear, carFuel, fis, fileLength, carSeats, carPricePerDay, carPenalty, carTrunkSize, carEngineSize, carRating, empId, carAvailability)) {
 
 								JOptionPane.showMessageDialog(null, "Records saved in Database");
+								
+								//record to carRegistration log file
+								log.recordCar(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype, carPlateNo);
 
 								plateNo.setText(null);
 								make.setText(null);
@@ -687,7 +694,7 @@ public class ManageCarGui extends JFrame {
 								fuel.setSelectedIndex(0);
 								seat.setSelectedIndex(0);
 								rating.setSelectedIndex(0);
-
+								
 								dispose();
 								ManagerGui manGui = new ManagerGui(null);
 								manGui.setVisible(true);

@@ -38,6 +38,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.formdev.flatlaf.IntelliJTheme;
 
 import database.DbConnect;
+import files.LogFile;
 import main.LoginSession;
 
 public class LoginGui extends JFrame implements ActionListener {
@@ -58,6 +59,7 @@ public class LoginGui extends JFrame implements ActionListener {
 	private JLabel labelLogo;
 
 	DbConnect connect = new DbConnect();
+	LogFile log = new LogFile();
 
 	public static void main(String[] args) throws UnsupportedLookAndFeelException {
 		try {
@@ -177,16 +179,28 @@ public class LoginGui extends JFrame implements ActionListener {
 							//technician interface
 							TechnicianMain technicianInterface = new TechnicianMain();
 							technicianInterface.setVisible(true);
+							
+							//record in login log file
+							log.recordLogIn(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype);
+							
 							this.dispose();
 						} else if (LoginSession.usertype.equals("clerk")) {
 							//clerk interface
 							ClerkMainGui mainInterfaceClerk = new ClerkMainGui(null);
 							mainInterfaceClerk.setVisible(true);
+							
+							//record in login log file
+							log.recordLogIn(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype);
+							
 							this.dispose();
 						} else if (LoginSession.usertype.equals("manager")) {
 							// manager interface
 							ManagerGui managerGui = new ManagerGui(null);
 							managerGui.setVisible(true);
+							
+							//record in login log file
+							log.recordLogIn(LoginSession.userId, LoginSession.userFirstName, LoginSession.usertype);
+							
 							this.dispose();
 						} else {
 							JOptionPane.showMessageDialog(this, "Account not registered!", "Error", JOptionPane.ERROR_MESSAGE);
