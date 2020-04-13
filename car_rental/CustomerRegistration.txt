@@ -1,1 +1,2 @@
 clerk c with id 88 registered Customer Widaad Papauretty at 13/04/20 11:57:48 	
+manager m with id 91 registered Customer Davisen Permall at 13/04/20 12:56:57 	
