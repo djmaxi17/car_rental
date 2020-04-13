@@ -32,7 +32,7 @@ public class LogFile {
 			//formatter
 			Formatter output = new Formatter(pw);
 			//output to file
-			output.format("%s with id %d logged in as %s at %s \t", username, userId, userType, logDate);
+			output.format("%s with id %d logged in as %s at %s \r\n", username, userId, userType, logDate);
 			pw.println();
 			output.close();
 			
@@ -56,7 +56,7 @@ public class LogFile {
 			//formatter
 			Formatter output = new Formatter(pw);
 			//output to file
-			output.format("%s %s with id %d registered Car %s at %s \t", userType, username, userId, carPlateNo, logDate);
+			output.format("%s %s with id %d registered Car %s at %s \r\n", userType, username, userId, carPlateNo, logDate);
 			pw.println();
 			output.close();
 			
@@ -81,7 +81,7 @@ public class LogFile {
 			//formatter
 			Formatter output = new Formatter(pw);
 			//output to file
-			output.format("%s %s with id %d registered Customer %s at %s \t", userType, username, userId, customer, logDate);
+			output.format("%s %s with id %d registered Customer %s at %s \r\n", userType, username, userId, customer, logDate);
 			pw.println();
 			output.close();
 			
@@ -106,7 +106,7 @@ public class LogFile {
 			//formatter
 			Formatter output = new Formatter(pw);
 			//output to file
-			output.format("%s %s with id %d has registered rent of Car %s to Customer %s at %s \t", userType, username, userId, car, customer, logDate);
+			output.format("%s %s with id %d has registered rent of Car %s to Customer %s at %s \r\n", userType, username, userId, car, customer, logDate);
 			pw.println();
 			output.close();
 			
@@ -131,7 +131,7 @@ public class LogFile {
 			//formatter
 			Formatter output = new Formatter(pw);
 			//output to file
-			output.format("%s %s with id %d has settled rent of Car %s to Customer %s at %s \t", userType, username, userId, car, customer, logDate);
+			output.format("%s %s with id %d has settled rent of Car %s to Customer %s at %s \r\n", userType, username, userId, car, customer, logDate);
 			pw.println();
 			output.close();
 			
@@ -156,7 +156,7 @@ public class LogFile {
 			//formatter
 			Formatter output = new Formatter(pw);
 			//output to file
-			output.format("%s %s with id %d has %s %s at %s \t", userType, username, userId, operation, created, logDate);
+			output.format("%s %s with id %d has %s %s at %s \r\n", userType, username, userId, operation, created, logDate);
 			pw.println();
 			output.close();
 				

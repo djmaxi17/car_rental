@@ -1,1 +1,0 @@
-manager m with id 91 has settled rent of Car 788 ZY 16 to Customer Jean Levy at 13/04/20 12:13:22

@@ -1,1 +1,0 @@
-clerk c with id 88 has registered rent of Car 788 ZY 16 to Customer Jean Levy at 13/04/20 12:06:59
