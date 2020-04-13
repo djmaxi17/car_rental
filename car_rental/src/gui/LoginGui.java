@@ -1,18 +1,17 @@
 /*
 	***THIS IS A CAR RENTAL PROJECT***
-	
+
 	Team members:
 		Davisen Permall - Team Leader
 		Keshav Caleechurn
 		Yanick Levy
 		Adhit Boodhun
-	
+
 	EXTERNAL JAR FILES:
 		FLAT LAF L&F: https://www.formdev.com/flatlaf#download
 		JCalender: https://toedter.com/jcalendar/
 		Joda Time: https://www.joda.org/joda-time/
 		Mysql: https://dev.mysql.com/downloads/connector/j/
-	
 
 */
 package gui;
@@ -47,7 +46,7 @@ public class LoginGui extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 5768505056277174900L;
-	
+
 	private Container container = getContentPane();
 	private JLabel EmailLabel = new JLabel("Email:");
 	private JLabel passwordLabel = new JLabel("Password:");
@@ -59,15 +58,15 @@ public class LoginGui extends JFrame implements ActionListener {
 	private JLabel labelLogo;
 
 	DbConnect connect = new DbConnect();
-	
+
 	public static void main(String[] args) throws UnsupportedLookAndFeelException {
 		try {
 			//look and feel FlatIntelliJLaf with theme gruvbox_theme.theme
 			//https://www.formdev.com/flatlaf#download
-			
+
 			IntelliJTheme.install(LoginGui.class.getResourceAsStream(
 				"gruvbox_theme.theme.json"));
-			
+
 			//adjustments in the look and feel
 			UIManager.put("Component.focusWidth", 0);
 			UIManager.put("Button.arc", 10);
@@ -76,7 +75,7 @@ public class LoginGui extends JFrame implements ActionListener {
 
 			LoginGui login = new LoginGui();
 			login.setVisible(true);
-			
+
 		} catch (Exception ex) {
 			System.err.println("Failed to initialize LaF");
 		}

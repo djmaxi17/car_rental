@@ -57,7 +57,7 @@ public class TechnicianMain extends JFrame {
 	private JTextField rEmpLname;
 	private JTextField rEmpPosition;
 	private JLabel email;
-	
+
 	private Color colorDp = new Color(87, 90, 92);
 	private DbConnect connect = new DbConnect();
 	private ArrayList<Employee> employ = new ArrayList<Employee> ();
@@ -79,14 +79,14 @@ public class TechnicianMain extends JFrame {
 	public TechnicianMain() {
 		super("Technician Interface");
 
-  		//display login on closing
-  		addWindowListener(new WindowAdapter() {
-  			public void windowClosing(WindowEvent e) {
-  				LoginGui login = null;
-  				login = new LoginGui();
-  				login.setVisible(true);
-  			}
-  		});
+		//display login on closing
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				LoginGui login = null;
+				login = new LoginGui();
+				login.setVisible(true);
+			}
+		});
 		technicians = connect.getTechnicians();
 		managers = connect.getManagers();
 		clerks = connect.getClerks();
@@ -113,10 +113,10 @@ public class TechnicianMain extends JFrame {
 
 		JButton optionBtn = new JButton("...");
 		optionBtn.addActionListener(new ActionListener() {
-  			public void actionPerformed(ActionEvent e) {
-  				SettingGui gui = new SettingGui();
-  				gui.setVisible(true);
-  			}
+			public void actionPerformed(ActionEvent e) {
+				SettingGui gui = new SettingGui();
+				gui.setVisible(true);
+			}
 		});
 		optionBtn.setBounds(768, 19, 42, 29);
 		contentPane.add(optionBtn);
@@ -148,13 +148,11 @@ public class TechnicianMain extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
-		
 		JScrollPane scrollDefault = new JScrollPane();
 		scrollPane.setBounds(6, 63, 414, 309);
 		scrollPane.setBorder(null);
 		searchPanel.add(scrollPane);
 
-		
 		//table start
 
 		employ = connect.BindTableEmployee(0, -1);
@@ -218,32 +216,32 @@ public class TechnicianMain extends JFrame {
 		empTable.setVisible(false);
 
 		// creates and displays blank table on boot up -start
-	    DefaultTableModel blankModel = new DefaultTableModel();
-	    blankModel.addColumn("Id");
-	    blankModel.addColumn("Full Name");
-	    blankModel.addColumn("Position");
-	
-	    final JTable blankTable = new JTable(blankModel);
-	    blankTable.setBorder(null);
-	  
-	    blankTable.setBackground(UIManager.getColor("CheckBox.disabledText"));
-		
-	    blankTable.setShowGrid(false);
-	    blankTable.setRowSelectionAllowed(true);
-	    blankTable.setDragEnabled(true);
-	    
-	    blankTable.getColumnModel().getColumn(0).setResizable(false);
-	    blankTable.getColumnModel().getColumn(1).setResizable(false);
-	    blankTable.getColumnModel().getColumn(2).setResizable(false);
+		DefaultTableModel blankModel = new DefaultTableModel();
+		blankModel.addColumn("Id");
+		blankModel.addColumn("Full Name");
+		blankModel.addColumn("Position");
 
-	    blankTable.getTableHeader().setReorderingAllowed(false);
+		final JTable blankTable = new JTable(blankModel);
+		blankTable.setBorder(null);
+
+		blankTable.setBackground(UIManager.getColor("CheckBox.disabledText"));
+
+		blankTable.setShowGrid(false);
+		blankTable.setRowSelectionAllowed(true);
+		blankTable.setDragEnabled(true);
+
+		blankTable.getColumnModel().getColumn(0).setResizable(false);
+		blankTable.getColumnModel().getColumn(1).setResizable(false);
+		blankTable.getColumnModel().getColumn(2).setResizable(false);
+
+		blankTable.getTableHeader().setReorderingAllowed(false);
 		JScrollPane blankcsp = new JScrollPane(blankTable);
 		blankcsp.setBorder(null);
 		blankcsp.setBounds(6, 63, 414, 309);
 		scrollDefault.add(blankcsp);
 		blankcsp.setVisible(true);
 		// creates and displays blank table on boot up - end
-		
+
 		final ListSelectionModel select = empTable.getSelectionModel();
 
 		//defines a complete row selection
@@ -299,13 +297,13 @@ public class TechnicianMain extends JFrame {
 		JButton btnNewButton = new JButton("Logout");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-  				int value = JOptionPane.showConfirmDialog(getParent(), "Are you sure to Log Out?", "Confirmation", JOptionPane.YES_NO_OPTION);
-  				if (value == JOptionPane.YES_OPTION) {
-  					LoginGui login = new LoginGui();
-  					LogoutSession.logoutH(login);
-  					dispose();
-  				}
-  			}
+				int value = JOptionPane.showConfirmDialog(getParent(), "Are you sure to Log Out?", "Confirmation", JOptionPane.YES_NO_OPTION);
+				if (value == JOptionPane.YES_OPTION) {
+					LoginGui login = new LoginGui();
+					LogoutSession.logoutH(login);
+					dispose();
+				}
+			}
 		});
 		btnNewButton.setBounds(643, 19, 117, 29);
 		contentPane.add(btnNewButton);
@@ -347,7 +345,9 @@ public class TechnicianMain extends JFrame {
 		addEmpPanel.add(addEmpLname);
 		addEmpLname.setColumns(10);
 
-		@SuppressWarnings({ "rawtypes", "unchecked" })
+		@SuppressWarnings({
+			"rawtypes", "unchecked"
+		})
 		JComboBox addEmpCB = new JComboBox(empType);
 		addEmpCB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -407,7 +407,7 @@ public class TechnicianMain extends JFrame {
 										JOptionPane.showMessageDialog(null, "Error in adding new clerk! Try Again", "Error", JOptionPane.ERROR_MESSAGE);
 									}
 								} catch (NoSuchAlgorithmException | InvalidKeySpecException e1) {
-									
+
 									e1.printStackTrace();
 								}
 							} else {
@@ -448,7 +448,7 @@ public class TechnicianMain extends JFrame {
 										JOptionPane.showMessageDialog(null, "Error in adding new manager! Try Again", "Error", JOptionPane.ERROR_MESSAGE);
 									}
 								} catch (NoSuchAlgorithmException | InvalidKeySpecException e1) {
-									
+
 									e1.printStackTrace();
 								}
 							} else {
@@ -489,7 +489,7 @@ public class TechnicianMain extends JFrame {
 										JOptionPane.showMessageDialog(null, "Error in adding new technician! Try Again", "Error", JOptionPane.ERROR_MESSAGE);
 									}
 								} catch (NoSuchAlgorithmException | InvalidKeySpecException e1) {
-								
+
 									e1.printStackTrace();
 								}
 							} else {
@@ -551,90 +551,80 @@ public class TechnicianMain extends JFrame {
 		rEmpLname.setColumns(10);
 
 		JButton removeEmpBtn = new JButton("Remove Employee");
-			removeEmpBtn.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					String pos = rEmpPosition.getText();
-					if(pos.equalsIgnoreCase("clerk")) {
-						//clerk
-						int value=JOptionPane.showConfirmDialog(getParent(), "Are you sure to remove this clerk?", "Confirmation", JOptionPane.YES_NO_OPTION);
-						if(value==JOptionPane.YES_OPTION) {
-							String fname = rEmpFname.getText();
-							String lname = rEmpLname.getText();
-							
-							if(!fname.equals("c") && !lname.equals("t")){
+		removeEmpBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String pos = rEmpPosition.getText();
+				if (pos.equalsIgnoreCase("clerk")) {
+					//clerk
+					int value = JOptionPane.showConfirmDialog(getParent(), "Are you sure to remove this clerk?", "Confirmation", JOptionPane.YES_NO_OPTION);
+					if (value == JOptionPane.YES_OPTION) {
+						String fname = rEmpFname.getText();
+						String lname = rEmpLname.getText();
+
+						if (!fname.equals("c") && !lname.equals("t")) {
 							boolean check = loginTechnician.deleteClerk(clerks, fname, lname);
-							if(check==true) {
-								JOptionPane.showMessageDialog(null, "Clerk Deleted!","Done", JOptionPane.INFORMATION_MESSAGE);
+							if (check == true) {
+								JOptionPane.showMessageDialog(null, "Clerk Deleted!", "Done", JOptionPane.INFORMATION_MESSAGE);
 								dispose();
 								TechnicianMain reload = new TechnicianMain();
 								reload.setVisible(true);
+							} else {
+								JOptionPane.showMessageDialog(null, "Couldn't delete clerk! Try-Again", "Error", JOptionPane.ERROR_MESSAGE);
 							}
-							else {
-								JOptionPane.showMessageDialog(null, "Couldn't delete clerk! Try-Again","Error", JOptionPane.ERROR_MESSAGE);
-							}
-							}
-							else {
-								JOptionPane.showMessageDialog(null, "Cannot delete this account!","Error", JOptionPane.ERROR_MESSAGE);
-							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Cannot delete this account!", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
-					else if(pos.equalsIgnoreCase("manager")) {
-						//manager
-						int value=JOptionPane.showConfirmDialog(getParent(), "Are you sure to remove this manager?", "Confirmation", JOptionPane.YES_NO_OPTION);
-						if(value==JOptionPane.YES_OPTION) {
-							String fname = rEmpFname.getText();
-							String lname = rEmpLname.getText();
-							if(!fname.equals("m") && !lname.equals("t")){
-							boolean check =loginTechnician.deleteManager(managers, fname, lname);
-							if(check==true) {
-							JOptionPane.showMessageDialog(null, "Manager Deleted!","Done", JOptionPane.INFORMATION_MESSAGE);
-							dispose();
-							TechnicianMain reload = new TechnicianMain();
-							reload.setVisible(true);
+				} else if (pos.equalsIgnoreCase("manager")) {
+					//manager
+					int value = JOptionPane.showConfirmDialog(getParent(), "Are you sure to remove this manager?", "Confirmation", JOptionPane.YES_NO_OPTION);
+					if (value == JOptionPane.YES_OPTION) {
+						String fname = rEmpFname.getText();
+						String lname = rEmpLname.getText();
+						if (!fname.equals("m") && !lname.equals("t")) {
+							boolean check = loginTechnician.deleteManager(managers, fname, lname);
+							if (check == true) {
+								JOptionPane.showMessageDialog(null, "Manager Deleted!", "Done", JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+								TechnicianMain reload = new TechnicianMain();
+								reload.setVisible(true);
+							} else {
+								JOptionPane.showMessageDialog(null, "Couldn't delete manager! Try-Again", "Error", JOptionPane.ERROR_MESSAGE);
 							}
-							else {
-								JOptionPane.showMessageDialog(null, "Couldn't delete manager! Try-Again","Error",JOptionPane.ERROR_MESSAGE);
-							}
-							}
-							else {
-								JOptionPane.showMessageDialog(null, "Cannot delete this account!","Error", JOptionPane.ERROR_MESSAGE);
-							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Cannot delete this account!", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
-					else if(pos.equalsIgnoreCase("technician")) {
-						//technician
-						int value=JOptionPane.showConfirmDialog(getParent(), "Are you sure to remove this technician?", "Confirmation", JOptionPane.YES_NO_OPTION);
-						if(value==JOptionPane.YES_OPTION) {
-							String fname = rEmpFname.getText();
-							String lname = rEmpLname.getText();
-							if(!fname.equals("t") && !lname.equals("t")){
+				} else if (pos.equalsIgnoreCase("technician")) {
+					//technician
+					int value = JOptionPane.showConfirmDialog(getParent(), "Are you sure to remove this technician?", "Confirmation", JOptionPane.YES_NO_OPTION);
+					if (value == JOptionPane.YES_OPTION) {
+						String fname = rEmpFname.getText();
+						String lname = rEmpLname.getText();
+						if (!fname.equals("t") && !lname.equals("t")) {
 							boolean check = loginTechnician.deleteTechnician(technicians, fname, lname);
-							
-							if(check==true) {
-							JOptionPane.showMessageDialog(null, "Technician Deleted!","Done", JOptionPane.INFORMATION_MESSAGE);
-							dispose();
-							TechnicianMain reload = new TechnicianMain();
-							reload.setVisible(true);
+
+							if (check == true) {
+								JOptionPane.showMessageDialog(null, "Technician Deleted!", "Done", JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+								TechnicianMain reload = new TechnicianMain();
+								reload.setVisible(true);
+							} else {
+								JOptionPane.showMessageDialog(null, "Couldn't delete technician! Try-Again", "Error", JOptionPane.ERROR_MESSAGE);
 							}
-							else {
-								JOptionPane.showMessageDialog(null, "Couldn't delete technician! Try-Again","Error", JOptionPane.ERROR_MESSAGE);
-							}
-							}
-							else {
-								JOptionPane.showMessageDialog(null, "Cannot delete this account!","Error", JOptionPane.ERROR_MESSAGE);
-							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Cannot delete this account!", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
-					else if(pos.length()==0) {
-						JOptionPane.showMessageDialog(null, "No employee selected!","Error", JOptionPane.ERROR_MESSAGE);
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "Error - Try Again!","Error", JOptionPane.ERROR_MESSAGE);
-					}
-
+				} else if (pos.length() == 0) {
+					JOptionPane.showMessageDialog(null, "No employee selected!", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Error - Try Again!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
-			});
+
+			}
+		});
 		removeEmpBtn.setBounds(211, 121, 158, 29);
 		removeEmpPanel.add(removeEmpBtn);
 
@@ -652,7 +642,7 @@ public class TechnicianMain extends JFrame {
 		positionRemobeLbl.setForeground(textC);
 		positionRemobeLbl.setBounds(210, 48, 61, 16);
 		removeEmpPanel.add(positionRemobeLbl);
-		
+
 		email = new JLabel("");
 		email.setHorizontalAlignment(SwingConstants.CENTER);
 		email.setBounds(6, 165, 363, 16);
